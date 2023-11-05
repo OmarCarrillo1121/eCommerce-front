@@ -1,0 +1,42 @@
+.container{
+   
+    display: flex;
+    justify-content: center;
+    border-radius: 15px 15px 15px 15px;
+    background:rgba(255, 255, 255, 0.656);
+    border: solid rgb(255, 255, 255);
+
+}
+
+.container:hover{
+    background: #bdc1c271;
+
+}
+.buscarInput{
+    height: 35px;
+    width: 250px;
+    font-weight:bold;
+    border: 0;
+    border-radius: 15px 0 0 15px;
+    text-align: center;
+    background: transparent;
+    justify-content: left; 
+   
+}
+
+.buscarClick{
+    height: 30px;
+    font-weight:bold;
+    border: 0;
+    border-radius: 0 15px 15px 0;
+    cursor: pointer;
+    background:transparent;
+    margin-bottom: -20rem; 
+    justify-content: center;
+    align-items: center;
+    
+ 
+
+}
+.buscarClick:hover{
+    transform: rotateY(10deg)}
