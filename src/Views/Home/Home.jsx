@@ -1,19 +1,10 @@
-import NavBar from "../../components/NavBar/NavBar";
-
+import Style from './home.module.css'
 
 const Home = () =>{
-
-
     return(
-        <div>
-            <NavBar/>
-
-            <h1>Bienvenidos a la Coleccion de Videojuegos</h1>
-
+        <div className={Style.home}>
 
         </div>
-
-       
     )
 }
 
