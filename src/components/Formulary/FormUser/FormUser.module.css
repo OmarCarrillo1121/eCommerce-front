@@ -1,0 +1,117 @@
+:root{
+    --colorTextos: rgb(174, 46, 46);
+}
+
+.Form{
+    /* background-image: url("../../../Assents/FormUser.jpeg");  */
+    background-repeat: no-repeat; 
+    background-position: center center;
+    background-size: 100% 100%;
+    padding: 40px 0;
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    width: 22%;
+    height: 34%;
+    margin-left: auto;
+}
+
+.Form .grupo{
+    position: relative;
+    margin: 45px;
+    
+}
+.input{
+    background: none;
+    color: rgb(49, 32, 32);
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--colorTextos);
+    
+}
+
+.input:focus{
+    outline: none;
+    color: #ecdada;
+}
+
+
+.label{
+    color:var(--colorTextos);
+    font-size: 20px;
+    position: absolute;
+    top: 20px;
+    left:10px;      
+    transition: 0.5s ease-in-out all;
+    pointer-events: none;
+    border: none;
+    position: relative;
+    margin:5px;
+    
+
+}
+
+
+.input:focus~label,
+.input:valid~label
+{
+    
+    top: -70px;
+    font-size: 22px;
+    color: rgb(22, 15, 219);
+    border: none;
+
+}
+.input:focus~.barra::before{
+  
+width: 100%;
+ 
+}
+
+.barra{
+    position: relative;
+    display:block;
+    width: 100%;
+    
+}
+.p{
+    color: rgb(229, 229, 238);
+    font-size: 20px;
+
+}
+
+.barra::before{
+    content:'';
+    height: 2px;
+    width: 0%;
+    bottom: 0;
+    position:absolute;
+    background: linear-gradient(to right, blue, red );
+    transition: o.3s ease width;
+    left: 0;
+}
+
+
+.btn{
+    font-family: "roboto";
+    background: rgb(65, 65, 232);
+    background: -webkit-linear-gradient(to right, blue, red );
+    background: linear-gradient(to right, blue, red );
+    border:none;
+    display: block;
+    width: 80%;
+    margin:10px auto;
+    color:white;
+    height: 40px;
+    font-size:16px;
+    cursor: poiner;
+
+}
+
+@media screen  and (max-width :500px){
+    .Form{
+        width: 80%;
+    }
+}

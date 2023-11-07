@@ -1,12 +1,20 @@
 .Container{
-    background-image: url("../../Assents/landing.gif");
+    background-image: url("../../Assents/landing.jpg"); 
     background-size: cover;
     background-repeat: no-repeat; 
     background-position: center center;
     background-attachment: fixed;
-    height: 540px;
+    height: 100vh;
     width: 100%;
     
+}
+.Nav{
+    display: flex;
+    justify-content: center;
+     margin: 30px 10px 440px;
+    padding: 15px;
+    align-items: center;
+    gap:5rem; 
 }
 
 .btn{

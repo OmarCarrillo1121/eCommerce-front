@@ -1,5 +1,8 @@
+
 import { Link } from "react-router-dom";
-import FormUser from "../../components/Formulary/FormUser/FormUser"
+import NavBar from "../../components/NavBar/NavBar";
+
+
 import styles from "./Landing.module.css"
 
 
@@ -11,13 +14,43 @@ const Landing = () =>{
 
     return(
         <div className={styles.Container}>
-            <h1 className={styles.h1}> Bienvenidos </h1>
-            
-            {/* <Link to= {"/home"}>
-               <button  className={styles.btn} type="submit">Home</button>
+
+            <NavBar/>
+
+            <div className={styles.Nav}>
+            <Link to ="/tienda">
+                    <h2>Catalogo</h2>
+                </Link>
+
+                <Link to= "">
+                    <h2>PlayStation</h2>
+                </Link>
+                
+                <Link to= "">
+                    <h2>Xbox One</h2>
+                </Link>
+                  
+                <Link to= "">
+                    <h2>Pc</h2>
+                </Link>
+
+                <Link to = "/contactos">
+                    <h2>Contacto</h2>
+                </Link> 
+
+                <Link to = "/tarjetas">
+                    <h2>Tarjetas</h2>
+
+                </Link>
+
+            </div>
            
-           </Link> */}
-           <FormUser/>
+                
+            
+            
+                
+         
+         
 
         </div>
 

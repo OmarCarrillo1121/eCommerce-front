@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import  Search from "../Search/Search";
 import  cerrarSesion  from "../../Assents/cerrarSesion.png"
 import admin from "../../Assents/gerente.png";
+import carrito2 from "../../Assents/carrito2.avif"
 import styles from "./NavBar.module.css";
 
 
@@ -18,11 +19,15 @@ const NavBar = () =>{
 
         <Search />
 
-        <Link to= {"/home/admin"}>
+        <Link to= {"/admin"}>
 
                 <img  className={styles.btn} src={admin} />
                
-            </Link>
+        </Link>
+
+        <img className={styles.btn} src={carrito2} />
+
+        
 
 
 
