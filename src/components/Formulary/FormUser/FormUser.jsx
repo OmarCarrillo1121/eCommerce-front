@@ -5,8 +5,8 @@ import validateUser from "../../../util/validateUser/ValidateUser";
 const FormUser = ({ login }) =>{
     const [dataUser, setdataUser] = useState({
         email:"",
-         password: ""
-        });
+        password: ""
+    });
     const [ Errors, setErrors ] = useState({});
 
     const handleChange = (event) =>{
