@@ -1,0 +1,15 @@
+.form_button {
+    width: 240px;
+    height: 50px;
+    background: rgb(230,84,27);
+    background: linear-gradient(180deg, rgba(230,84,27,1) 50%, rgba(252,150,69,1) 100%);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    margin: 10px;
+}
+
+.form_button:hover {
+    background: linear-gradient(180deg, rgb(228, 71, 10) 50%, rgba(252,150,69,1) 100%);
+}
