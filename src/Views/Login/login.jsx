@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useField } from '../../util/hook/form/useField'
 import Input from '../../components/input/input'
 import logo from '../../Assets/img/icon/nav/logo.png'
+import Button from '../../components/button/button'
+import Middle from './middle/middle'
 import Services from './services/services'
 import Style from './login.module.css'
 
@@ -17,18 +19,12 @@ export default function Login () {
         <img src={logo} alt="logo" className={Style.form_logo} />
         <section className={Style.form_login}>
           <Services/>
-          <article>
-            <div className={Style.form_or_container}>
-              <div className={Style.form_or}/>
-              <h2>Or</h2>
-              <div className={Style.form_or}/>
-            </div>
+          <article className={Style.form_interface}>
+            <Middle/>
             <Input userInfo={email} name='Email Adress'/>
             <Input userInfo={password} name='Password'/>
-            <div className={Style.form_button}>
-              <button>Register</button>
-              <button>Login</button>
-            </div>
+            <Button onClick={() => console.log('register')} children={'Register'}/>
+            <Button onClick={() => console.log('register')} children={'Login'}/>
           </article>
         </section>
         <section className={Style.form_img}>
