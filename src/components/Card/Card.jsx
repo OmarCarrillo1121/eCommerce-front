@@ -11,7 +11,7 @@ function Card ({ game }){
             <Link to = {`/home/detail/${id}`}>
                 <img className= {styles.image_card} src={image} alt={name} />
             </Link>
-            <h2 h2 className={styles.price}>{price}</h2>
+            <h2  className={styles.price}>{price}</h2>
         </div>
     )
 }
