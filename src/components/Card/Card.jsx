@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
-import styles from "./Card.module.css"
+import Style from "./Card.module.css"
 
 function Card ({ game }){
-
     const {id, name, image, price } = game
-
+    const offer = Math.floor(Math.random() * 50)
     return(
-        <div className = {styles.container}>
-            <h2 className={styles.name}>{name}</h2>
-            <Link to = {`/home/detail/${id}`}>
-                <img className= {styles.image_card} src={image} alt={name} />
+        <figure>
+            <Link to={`/detail/${id}`}>
+            <div className = {Style.card}>
+              <img className= {Style.card_game} src={image} alt={name} />
+              <span className={Style.descuento}>-{offer}%</span>
+            </div>
             </Link>
-            <h2  className={styles.price}>{price}</h2>
-        </div>
+            <div className={Style.card_price}>
+                <h2 className={Style.card_name}>{name}</h2>
+                <h2>${price}</h2>
+            </div>
+        </figure>
     )
 }
 
