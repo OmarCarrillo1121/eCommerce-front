@@ -1,58 +1,9 @@
-.Container{
-    background-image: url("../../Assents/landing.jpg"); 
-    background-size: cover;
-    background-repeat: no-repeat; 
-    background-position: center center;
-    background-attachment: fixed;
-    height: 100vh;
+.landing_clip_path {
+    position: absolute;
+    background-color: #333;
+    height: 80px;
     width: 100%;
-    
-}
-.Nav{
-    display: flex;
-    justify-content: center;
-     margin: 30px 10px 440px;
-    padding: 15px;
-    align-items: center;
-    gap:5rem; 
-}
-
-.btn{
-
-    
-    position: relative;
-    top: 250px;
-    bottom: 600px;
-    height: 200px;
-    border: 3px solid #055462;
-    font-size: 50px;
-    
-    width: 300px;
-    height: 100px;
-    background: transparent;
-    border: 2px solid rgba(249, 250, 251, 0.5);
-    border-radius: 20px;
-
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    backdrop-filter: blur(15px);
-    transition: 0.5s;
-    font-family: cursive;
-    color: white;
-}
-
-.btn:hover{
-    transform: scale(1.05);  
-    box-shadow: 0 0 10px #2a2c2c9b, 0 0 40px #2a2c2c9b, 0 0 80px #2a2c2c9b;
-    cursor: pointer;
-}
-.h1{
-    font-weight: bold ;
-    font-style: italic;
-    font-variant: small-caps;
-    font-size: xx-large;
-    padding: 20px;
-    color:white;
-
+    bottom: 0;
+    -webkit-clip-path: polygon(0 18%, 100% 82%, 100% 100%, 0% 100%);
+    clip-path: polygon(0 18%, 100% 82%, 100% 100%, 0% 100%);
 }

@@ -1,70 +1,54 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
-
 import validateUser from "../../../util/validateUser/ValidateUser";
-import style from "./FormUser.module.css";
-
 
 
 const FormUser = ({ login }) =>{
-
-    const [dataUser, setDataUser] = useState({
+    const [dataUser, setdataUser] = useState({
         email:"",
-         password: ""
-        });
-    const [ errors, setErrors ] = useState({});
+        password: ""
+    });
+    const [ Errors, setErrors ] = useState({});
 
     const handleChange = (event) =>{
-
-        const { name, value } = event.target;
-
-        setDataUser({
+        setdataUser({
             ...dataUser,
-            [name]: value
-        });
+            [event.target.name]: event.target.value
+        })
 
-        const updatedData = {
+        setErrors(validateUser({
             ...dataUser,
-            [name]: value
-        };
-        setErrors(validateUser(updatedData));
-    };
+            [event.target.name]: event.target.value
+
+        }))
+    }
 
     const handleSubmit = ( event ) =>{
         event.preventDefault();
         login(dataUser)
     }
 
-   
-
 
     return(
 
-        <div className={style.container}>
+        <div>
+            <form onSubmit={handleSubmit}>
 
-            <form className={style.Form} onSubmit={handleSubmit}>
-
-                <div className={style.grupo}>
-                    <input className={style.input} type= "email" name = "email" value = {dataUser.email} onChange = {handleChange} required/>
-                    <span className={style.barra}></span>
-                    <label className={style.label } htmlFor = "email"> Email </label>
-                    { errors.email && <p> {errors.email} </p>}
+                <div>
+                    <input type= "email" name = "email" value = {dataUser.email} onChange = {handleChange} required/>
+                    <spam></spam>
+                    { Errors.email && <p> {Errors.email} </p>}
+                    <label  htmlFor = "email"> Email </label>
                 </div>
 
-                <div className={style.grupo}>
-                    <input className={style.input} type ="password" name = "password" value = {dataUser.password} onChange = {handleChange} required/>
-                    <span className={style.barra}></span>
-                    <label className={style.label } htmFor = "password" > Password </label>
-                    { errors.password && <p> {errors.password} </p>}
+                <div>
+                    <input  type ="password" name = "password" value = {dataUser.password} onChange = {handleChange} required/>
+                    <spam></spam>
+                    { Errors.password && <p> {Errors.password} </p>}
+                    <label htmForm = "password" > Password </label>
                 </div>
+            
+                <button>Entrar</button>
 
-                 <button className = {style.btn}>Entrar</button>
-
-                 <p className = {style.p}>o</p>
-
-                <Link to="/registro">
-                    <h3>Registrarse</h3>
-                </Link>
             </form>
 
         </div>

@@ -1,0 +1,39 @@
+* {
+    text-decoration: none;
+}
+
+.landing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.landing img {
+    width: 250px;
+    margin-right: 50px;
+}
+
+.landing_text {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    color: #eee;
+}
+
+.landing_text {
+    font-size: 30px;
+}
+
+.landing_text h3 span{
+    background: rgb(230,84,27);
+    background: linear-gradient(180deg, rgba(230,84,27,1) 50%, rgba(252,150,69,1) 100%);
+    font-size: 20px;
+    padding: 15px;
+    -webkit-clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    border-radius: 10px;
+}

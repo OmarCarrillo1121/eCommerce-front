@@ -1,9 +1,18 @@
+import Card from "../Card/Card";
+import styles from "./Cards.module.css"
 
 
-const Cards = () =>{
+function Cards ({ games }){
 
     return(
-        <div>Soy la Card</div>
+        <div className={styles.container}>
+            {
+                games?.map((game, index) =>(
+                    <Card key={index} game={game} />
+                )) 
+            }
+            
+        </div>
     )
 }
 

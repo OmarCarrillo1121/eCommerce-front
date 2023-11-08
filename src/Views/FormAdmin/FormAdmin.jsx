@@ -1,10 +1,9 @@
-import FormUser from "../../components/Formulary/FormUser/FormUser"
 
 
 const FormAdmin = () =>{
     return(
         <div>
-           <FormUser/>
+            <h1> Soy el Administrador de Videojuegos</h1>
         </div>
     )
 }

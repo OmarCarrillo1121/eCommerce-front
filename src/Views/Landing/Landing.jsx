@@ -1,60 +1,25 @@
+import Style from "./Landing.module.css"
 
-import { Link } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar";
+import Home from "../Home/Home";
 
-
-import styles from "./Landing.module.css"
-
-
-
+import btf from '../../Assets/img/background/bft.webp'
+import btfLogo from '../../Assets/img/background/bftLogo.webp'
+import rdr from '../../Assets/img/background/rdr.webp'
+import rdrLogo from '../../Assets/img/background/rdrlogo.webp'
+import { Components, Carrousel } from './Carrousel/carrousel'
 
 const Landing = () =>{
-
-    
-
+  const arrayOfComponents = [
+  <Components name='Battlefield 1' price='32.71' offer='32%' bg={btf} img={btfLogo}/>, 
+  <Components name='Red Dead Redemption 2' price='40.71' offer='20%' bg={rdr} img={rdrLogo}/>]
     return(
-        <div className={styles.Container}>
-
-            <NavBar/>
-
-            <div className={styles.Nav}>
-            <Link to ="/tienda">
-                    <h2>Catalogo</h2>
-                </Link>
-
-                <Link to= "">
-                    <h2>PlayStation</h2>
-                </Link>
-                
-                <Link to= "">
-                    <h2>Xbox One</h2>
-                </Link>
-                  
-                <Link to= "">
-                    <h2>Pc</h2>
-                </Link>
-
-                <Link to = "/contactos">
-                    <h2>Contacto</h2>
-                </Link> 
-
-                <Link to = "/tarjetas">
-                    <h2>Tarjetas</h2>
-
-                </Link>
-
-            </div>
-           
-                
-            
-            
-                
-         
-         
-
-        </div>
-
-        
+      <main>
+        <section>
+            <Carrousel components={arrayOfComponents}/>
+            <div className={Style.landing_clip_path}/>
+        </section>
+        <Home/>
+      </main>
     )
 }
 

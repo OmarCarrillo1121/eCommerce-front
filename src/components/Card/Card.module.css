@@ -1,0 +1,46 @@
+.container{
+    width: 260px;
+    height: 450px;
+    border-radius: 18px;
+    overflow: hidden;
+    margin: 50px 10px 50px; 
+    flex-wrap: nowrap;
+    transition: 0.3s;
+    box-shadow: 5px 5px 15px 5px #989292cf;
+    /* background: url("../../Assents/card.jpg"); */
+    background-repeat: no-repeat;
+    background-size:cover;
+    gap: 5px;
+    color:rgba(17, 16, 16, 0.895);
+    text-shadow: 2px 3px 4px rgba(220, 237, 232, 0.99);
+    
+}
+
+.image_card{
+    width: 220px;
+    height: 350px;
+    height: 40%;
+    transition: 0.3s;
+    border-radius: 50px;
+    position: relative;
+    top: 15px;
+
+}
+.image_card:hover{
+    transform: scale(1.10);
+    background: #f5f1f0;
+    box-shadow: 0 0 10px #f6f7f7, 0 0 40px #fafdfd;
+    cursor: pointer;
+        
+}
+.name{
+    text-align:center;
+    font-size: 28px;
+    margin: 30px;
+}
+
+.price{
+    font-size: 30px;
+    text-align:center;
+    margin: 35px;
+}
