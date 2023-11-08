@@ -1,0 +1,30 @@
+
+h1 {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 25px;
+}
+
+.services_icons {
+    width: 500px;
+    height: 125px;
+    align-items: center;
+}
+
+.services_icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.services_icons img{
+    width: 90px;
+    height: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 100ms ease-in;
+}
+
+.services_icons img:hover {
+    border: 2px solid #E6541B;
+}
