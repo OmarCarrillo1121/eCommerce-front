@@ -1,0 +1,77 @@
+.form {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.form_login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    width: 50%;
+}
+
+.form_img {
+    background: url('../../Assets/img/background/loginPage/D6qqz_JXYAAqM09.jpg');
+    background-size: cover;
+    width: 50%;
+}
+
+.form_exit_button {
+    position: absolute;
+    color: #eee;
+    font-size: 40px;
+    cursor: pointer;
+    font-family: sans-serif;
+    top: 20px;
+    right: 30px;
+} 
+
+.form_exit_button:hover {
+    color: #E6541B
+}
+
+.form_logo {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.form_or_container {
+    color: #eee;
+    font-family: sans-serif;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.form_or_container h2 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.form_or {
+    width: 100%;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 12px;
+}
+
+.form_button {
+    display: flex;
+    gap: 10px;
+}
+
+.form_button button {
+    width: 50%;
+    height: 50px;
+    background: rgb(230,84,27);
+    background: linear-gradient(180deg, rgba(230,84,27,1) 50%, rgba(252,150,69,1) 100%);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
