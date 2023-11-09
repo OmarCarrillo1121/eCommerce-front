@@ -1,6 +1,6 @@
 import React from 'react'
 import Style from './login.module.css'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useField } from '../../util/hook/form/useField'
 import { useHandle } from '../../util/hook/common/useHandle'
 import Register from '../register/register'
@@ -18,7 +18,9 @@ export default function Login () {
 
     return (
       <form autoComplete='off' className={Style.form}>
-        <img src={logo} alt="logo" className={Style.form_logo} />
+        <NavLink to={'/'}>
+          <img src={logo} alt="logo" className={Style.form_logo} />
+        </NavLink>
         { handle 
         ? <section className={Style.form_login}>
           <Services/>

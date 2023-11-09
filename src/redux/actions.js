@@ -60,12 +60,10 @@ export const getByName = (name) =>{
     }
 
 export const getByGamesDetail = (id) =>{
-
     return async function (dispatch){
         try {
             dispatch(loading(true))
             const response = await axios(`${URL_GAMES}/videogames/${id}`)
-
             return dispatch({
                 type: GET_BY_ID_GAMES,
                 payload: response.data
@@ -88,4 +86,4 @@ export const resetDetailGames = () =>{
 
     }
 }
-   
+    
