@@ -1,10 +1,11 @@
 
-import {  GET_ALL_GAMES, GET_BY_NAME_GAMES} from "./action-types"
+import {  GET_ALL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES} from "./action-types"
 
 
 const initialState ={
     allGames : [],
     allCopyGames : [],
+    detailGame: null,
     loading: true,
 }
 
@@ -31,6 +32,24 @@ const reducer = (state= initialState, action) =>{
                 allCopyGames: action.payload,
                 loading: false,
             };
+
+        case GET_BY_ID_GAMES:
+            const { gamesId } = action.payload
+            return{
+                ...state,
+                detailGame: action.payload,
+                gamesId,
+                loading: false,
+            }
+        case RESET_DETAIL_GAMES:
+
+        return{
+            ...state,
+            detailGame:null,
+            loading:false,
+        }
+        
+       
 
         default:
             
