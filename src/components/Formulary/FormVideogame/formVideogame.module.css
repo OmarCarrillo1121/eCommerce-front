@@ -1,0 +1,67 @@
+.container {
+    position: absolute;
+    top: 50px;
+    height: 900px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form {
+    height: 800px;
+    width: 800px;
+    background-color: lightgoldenrodyellow;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* LABEL && INPUTS */
+.containerLabelInput {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.containerLabelInput div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerLabelInput div div{
+    display: flex;
+    flex-direction: column;
+}
+.containerLabelInput p {
+    color: red;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+/* IMAGE */
+.containerInputImg{
+    display: flex;
+}
+.divImage input {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+}
+.imgContainer {
+    width: 600px;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}

@@ -19,6 +19,7 @@ function App() {
         <Footer key={3}/>]} />
         <Route path = "/login" element = {<Login/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path="/formVideogame" element={<FormVideogame/>}/>
       </Routes>
     </div>
   );
