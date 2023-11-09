@@ -1,87 +1,96 @@
 .search {
-    position: absolute;
-    height: 100%;
-    width: 80px;
-    right: 0;
+  position: absolute;
+  height: 100%;
+  width: 80px;
+  right: 0;
 }
 
 .search_button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 80px;
-    background: rgb(230,84,27);
-    background: linear-gradient(180deg, rgba(230,84,27,1) 50%, rgba(252,150,69,1) 100%);
-    border-radius: 35px;
-    cursor: pointer;
-    transition: transform 100ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 80px;
+  background: rgb(230, 84, 27);
+  background: linear-gradient(
+    180deg,
+    rgba(230, 84, 27, 1) 50%,
+    rgba(252, 150, 69, 1) 100%
+  );
+  border-radius: 35px;
+  cursor: pointer;
+  transition: transform 100ms ease-in-out;
 }
 
 .search img {
-    justify-self: center;
-    filter: contrast(0) brightness(100);
-    transform: scale(1);
-    transition: transform 100ms ease-in;
+  justify-self: center;
+  margin: 0;
+  filter: contrast(0) brightness(100);
+  transform: scale(1);
+  transition: transform 100ms ease-in;
 }
 .search img:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .searching {
-    position: absolute;
-    width: 80px;
-    height: 100%;
-    right: 0;
-    animation-name: search;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
-    overflow: hidden;
+  position: absolute;
+  width: 80px;
+  height: 100%;
+  right: 0;
+  animation-name: search;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  overflow: hidden;
 }
 
 .search_button_searching {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
-    background: rgb(230,84,27);
-    background: linear-gradient(180deg, rgba(230,84,27,1) 50%, rgba(252,150,69,1) 100%);
-    border-radius: 35px;
-    cursor: pointer;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  background: rgb(230, 84, 27);
+  background: linear-gradient(
+    180deg,
+    rgba(230, 84, 27, 1) 50%,
+    rgba(252, 150, 69, 1) 100%
+  );
+  border-radius: 35px;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .search_button_searching img {
-    position: absolute;
-    right: 29px;
-    filter: contrast(0) brightness(100);
-    transform: scale(1);
-    transition: transform 100ms ease-in;
+  position: absolute;
+  right: 29px;
+  filter: contrast(0) brightness(100);
+  transform: scale(1);
+  transition: transform 100ms ease-in;
 }
 .search_button_searching img:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .search_button_searching input {
-    width: 400px;
-    height: 40px;
-    margin-left: 40px;
-    color: #eee;
-    outline: none;
-    border: none;
-    background-color: transparent;
-    font-size: 20px;
+  width: 400px;
+  height: 40px;
+  margin-left: 40px;
+  color: #eee;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
 }
 .search_button_searching input::placeholder {
-    color: #eee;
+  color: #eee;
 }
 
 @keyframes search {
-    from {
-        width: 80;
-    }
-    to {
-        width: 100%;
-    }
+  from {
+    width: 80;
+  }
+  to {
+    width: 100%;
+  }
 }
