@@ -5,14 +5,16 @@ import logo from '../../../Assets/img/icon/nav/logo.png'
 import loginIcon from '../../../Assets/img/icon/nav/logout.png'
 import shopIcon from '../../../Assets/img/icon/nav/shop.png'
 import { useScroll } from "../../../util/hook/landing/useScroll";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const NavBar = () =>{
   const navigate = useNavigate()
   const { scrollY } = useScroll()
     return(
       <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
-        <img src={logo} alt="logo" className={Style.nav_logo}/>
+        <NavLink to={'/'}>
+          <img src={logo} alt="logo" className={Style.nav_logo}/>
+        </NavLink>
         <Menu/>
         <div className={Style.nav_icon}>
           <img src={shopIcon} alt="shop" onClick={() => navigate('/login')}/>
