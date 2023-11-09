@@ -5,6 +5,7 @@ import Login from "./Views/Login/login";
 import Footer from "./Views/footer/footer";
 import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
+import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import './App.css';
 
 function App() {
