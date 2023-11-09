@@ -1,0 +1,8 @@
+.detail {
+    background: url('../../Assets/img/background/detail/detail.png');
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}

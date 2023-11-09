@@ -1,0 +1,23 @@
+.detail_description {
+    display: flex;
+    background-color: #333;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+}
+
+.detail_description_about {
+    color: #999;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-wrap: wrap;
+    width: 50%;
+}
+
+.detail_description_info {
+    display: flex;
+    flex-direction: column;
+    color: #999;
+    text-align: right;
+}

@@ -1,14 +1,16 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGames } from '../../../redux/actions';
+import { getAllGames, getByGamesDetail } from '../../../redux/actions';
 
-export const useGames = () => {
+export const useGames = (id) => {
     const dispatch = useDispatch()
-    const games = useSelector(state => state.allGames)
-
+    const games = useSelector(state => state.detailGame)
+    const game = useSelector(state => state.allGames)
     useEffect(() => {
-        dispatch(getAllGames())
-    },[dispatch])
-
-    return { games }
+        if (id) dispatch(getByGamesDetail(id))
+        else dispatch(getAllGames())
+    },[dispatch, id])
+    
+    if (id) return { games }
+    else return { games: game }
 }
