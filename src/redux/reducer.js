@@ -1,37 +1,30 @@
-
-import {  GET_ALL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES, ORDER, FILTER_PLATFORM, FILTER_DEVELOPER, FILTER_GENRE} from "./action-types"
-
-
-const initialState ={
-    allGames : [],
-    allCopyGames : [],
-    detailGame: null,
-    loading: true,
-}
+import {  GET_ALL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES,ORDER, FILTER_PLATFORM, FILTER_DEVELOPER, FILTER_GENRE} from "./action-types"
 
 
+const initialState = {
+  allGames: [],
+  allCopyGames: [],
+  detailGame: null,
+  loading: true,
+};
 
-const reducer = (state= initialState, action) =>{
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_GAMES:
+      return {
+        ...state,
+        allGames: action.payload,
+        allCopyGames: action.payload,
+        loading: false,
+      };
 
-    switch(action.type){
-
-        case GET_ALL_GAMES:
-
-            return{
-                ...state,
-                allGames : action.payload,
-                allCopyGames : action.payload,
-                loading: false,
-            };
-
-        case GET_BY_NAME_GAMES:
-
-            return{
-                ...state,
-                allGames: action.payload,
-                allCopyGames: action.payload,
-                loading: false,
-            };
+    case GET_BY_NAME_GAMES:
+      return {
+        ...state,
+        allGames: action.payload,
+        allCopyGames: action.payload,
+        loading: false,
+      };
 
         case GET_BY_ID_GAMES:
             const { gamesId } = action.payload
@@ -48,7 +41,6 @@ const reducer = (state= initialState, action) =>{
             detailGame:null,
             loading:false,
         }
-
 
         //!EDWARD
         case ORDER:
@@ -96,8 +88,8 @@ const reducer = (state= initialState, action) =>{
                 };
 
 
-
         //!FIN EDWARD 
+
 
         default:
             
@@ -105,7 +97,6 @@ const reducer = (state= initialState, action) =>{
                 ...state,
             }
     }
-};
-            
+  }
 
 export default reducer;
