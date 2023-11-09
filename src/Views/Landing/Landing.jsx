@@ -1,4 +1,5 @@
 import Style from "./Landing.module.css"
+
 import Home from "../Home/Home";
 
 import btf from '../../Assets/img/background/bft.webp'
