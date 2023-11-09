@@ -5,6 +5,7 @@ import Login from "./Views/Login/login";
 import Footer from "./Views/footer/footer";
 import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
+import Catalogo from "./components/Catalogo/Catalogo";
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Footer key={3}/>]} />
         <Route path = "/login" element = {<Login/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path="/catalogo" element={<Catalogo/>}/>
       </Routes>
     </div>
   );
