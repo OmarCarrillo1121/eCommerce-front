@@ -7,12 +7,13 @@ import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
 import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import './App.css';
+import Catalogo from "./components/Catalogo/Catalogo";
 
 function App() {
   const location = useLocation()
   return (
     <div className="app">
-      {location.pathname !== '/login' && <NavBar/>}
+      {/* {location.pathname !== '/login' && <NavBar/>} */}
       <Routes>
         <Route path= "/" element={[
         <Landing key={1}/>, 
@@ -21,6 +22,7 @@ function App() {
         <Route path = "/login" element = {<Login/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/formVideogame" element={<FormVideogame/>}/>
+        <Route path="/catalogo" element={<Catalogo/>}/>
       </Routes>
     </div>
   );

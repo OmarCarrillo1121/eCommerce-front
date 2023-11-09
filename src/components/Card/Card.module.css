@@ -1,48 +1,31 @@
-.card {
-    position: relative;
-    transform: scale(1);
-    transition: transform 150ms ease-in-out;
+.card_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Puedes ajustar esto según tus preferencias */
 }
-.card:hover {
-    transform: scale(1.05);
-}
+
 .card_game {
-    width: 380px;
-    height: 220px;
-    cursor: pointer;
-    border-radius: 14px;
-    margin-top: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Ajusta este valor según tus preferencias */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin: 10px;
+    width: 200px; /* Ancho fijo para todas las tarjetas */
+    height: 250px; /* Alto fijo para todas las tarjetas */
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    overflow: hidden; /* Añade esto para asegurarte de que la imagen se ajuste a los bordes redondeados */
+    position: relative;
+    z-index: 1;
 }
 
 .card_game img {
-    border-radius: 12px;
+    max-width: 100%;
+    max-height: 60%; /* Ajusta el alto de la imagen según tus necesidades */
+    border-radius: 50%; /* Para un borde circular */
     position: relative;
-}
-
-.descuento {
-    position: absolute;
-    background-color: #E6541B;
-    left: -5px;
-    bottom: 0;
-    font-size: 15px;
-    padding: 8px;
-    color: #fff;
-    -webkit-clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
-    clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
-    border-radius: 10px;
-}
-.card_price {
-    display: flex;
-    margin-top: 20px;
-    justify-content: space-between;
-    align-items: center;
-    color: #eee;
-    margin-bottom: 30px;
-    font-family: sans-serif;
-    font-size: 12px;
-}
-
-.card_name {
-    text-wrap: wrap;
-    text-align: left;
+    z-index: -1;
 }
