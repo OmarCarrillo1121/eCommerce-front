@@ -118,7 +118,7 @@ export const postVideogame = (videogame) => {
 }
 
 /* EDIT VIDEOGAME */
-export const editVideogame = (id, videogame) => {
+export const editVideogame = ({id, videogame}) => {
     return async (dispatch) => {
         try {
             await axios.put(`${URL_GAMES}/videogames/${id}`, videogame)

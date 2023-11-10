@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { editVideogame } from "../../../redux/actions";
+import { editVideogame, getByGamesDetail } from "../../../redux/actions";
 import style from "./formVideogame.module.css"
 import { validation } from "./validationEditeGame.js";
 
@@ -24,6 +24,9 @@ function EditVideogame() {
         stock.push(i)
     }
 
+    useEffect(() => {
+        dispatch(getByGamesDetail(id))
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -76,8 +79,7 @@ function EditVideogame() {
         setEditedVideogame({...detailGame})
         setImage(detailGame.image)
 
-        // dispatch(editVideogame(id, editedVideogame))
-        console.log(editedVideogame);
+        dispatch(editVideogame({id, editedVideogame}))
     }
 
 
