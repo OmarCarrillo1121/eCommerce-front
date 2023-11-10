@@ -13,7 +13,7 @@ function App() {
   const location = useLocation()
   return (
     <div className="app">
-      {location.pathname !== '/login' && <NavBar/>}
+      <NavBar/>
       <Routes>
         <Route path= "/" element={[
         <Landing key={1}/>, 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/formVideogame" element={<FormVideogame/>}/>
         <Route path="/catalogo" element={<Catalogo/>}/>
       </Routes>
-      <Footer/>
+      { location.pathname !== '/login' && <Footer/>}
     </div>
   );
 }
