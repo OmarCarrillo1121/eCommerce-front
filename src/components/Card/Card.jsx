@@ -20,4 +20,4 @@ function Card ({ game }){
     )
 }
 
-export default Card;
+export default Card

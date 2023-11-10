@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getByName, getAllGames } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 import Style from "./Search.module.css";
 import searchIcon from "../../Assets/img/icon/menu/searchIcon.png";
 
 const Search = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [searching, setSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-
+  useEffect(() => {
+    if (searchTerm.length >= 3) navigate('/catalogo')
+  }, [searchTerm.length, navigate])
   const handleChange = (event) => {
     event.preventDefault();
     const term = event.target.value;
