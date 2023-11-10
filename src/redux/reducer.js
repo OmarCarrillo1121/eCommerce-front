@@ -1,4 +1,4 @@
-import {  GET_ALL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES,ORDER, FILTER_PLATFORM, FILTER_DEVELOPER, FILTER_GENRE} from "./action-types"
+import {  GET_ALL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES, POST_VIDEOGAME, EDIT_VIDEOGAME, ORDER, FILTER_PLATFORM, FILTER_DEVELOPER, FILTER_GENRE} from "./action-types"
 
 
 const initialState = {
@@ -8,16 +8,25 @@ const initialState = {
   loading: true,
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_ALL_GAMES:
-      return {
-        ...state,
-        allGames: action.payload,
-        allCopyGames: action.payload,
-        loading: false,
-      };
+const reducer = (state= initialState, action) =>{
+    switch(action.type){
+        case GET_ALL_GAMES:
 
+            return{
+                ...state,
+                allGames : action.payload,
+                allCopyGames : action.payload,
+                loading: false,
+            };
+
+        case GET_BY_NAME_GAMES:
+
+            return{
+                ...state,
+                allGames: action.payload,
+                allCopyGames: action.payload,
+                loading: false,
+            };
     case GET_BY_NAME_GAMES:
       return {
         ...state,
@@ -42,6 +51,18 @@ const reducer = (state = initialState, action) => {
             loading:false,
         }
 
+        /* POST VIDEOGAME */
+        case POST_VIDEOGAME : {
+            return {...state}
+        }
+       
+        /* EDIT VIDEOGAME */
+        case EDIT_VIDEOGAME : {
+            return {...state}
+        }
+        
+        /* DELETE VIDEOGAME */
+        
         //!EDWARD
         case ORDER:
             const copiAllGames = [...state.allGames]//Copia de all games
@@ -57,27 +78,27 @@ const reducer = (state = initialState, action) => {
                 allGames: copiAllGames
 
             }
-            case FILTER_PLATFORM:
-                const filterPlatform = state.allCopyGames.filter(game => action.payload.includes(game.platform));
+        case FILTER_PLATFORM:
+            const filterPlatform = state.allCopyGames.filter(game => action.payload.includes(game.platform));
 
-                    return {
-                    ...state,
-                    allGames: filterPlatform
-                };
+                return {
+                ...state,
+                allGames: filterPlatform
+            };
 
-                case FILTER_DEVELOPER:
-                    const filterDeveloper = state.allCopyGames.filter(game => action.payload.includes(game.developer));
-                    return {
-                        ...state,
-                        allGames: filterDeveloper,
-                };
+        case FILTER_DEVELOPER:
+            const filterDeveloper = state.allCopyGames.filter(game => action.payload.includes(game.developer));
+            return {
+                ...state,
+                allGames: filterDeveloper,
+        };
 
-                case FILTER_GENRE:
-                    const filterGenre = state.allCopyGames.filter(game => action.payload.includes(game.genre));
-                    return {
-                        ...state,
-                        allGames: filterGenre,
-                };
+        case FILTER_GENRE:
+            const filterGenre = state.allCopyGames.filter(game => action.payload.includes(game.genre));
+            return {
+                ...state,
+                allGames: filterGenre,
+        };
 
 
         //!FIN EDWARD 
