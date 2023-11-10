@@ -7,6 +7,7 @@ import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
 import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
+import Catalogo from "./components/Catalogo/Catalogo";
 import './App.css';
 
 function App() {
@@ -17,14 +18,14 @@ function App() {
       <Routes>
         <Route path= "/" element={[
           <Landing key={1}/>, 
-          <Section key={2}/>, 
-          <Footer key={3}/>]} 
-        />
+          <Section key={2}/>]} />
         <Route path = "/login" element = {<Login/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/formVideogame" element={<FormVideogame/>}/>
         <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
+        <Route path="/catalogo" element={<Catalogo/>}/>
       </Routes>
+      <Footer/>
     </div>
   );
 }

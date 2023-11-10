@@ -1,3 +1,5 @@
+import React from "react";
+
 const Paginado = ({ gamesPerPage, allGames, paginado }) => {
   // calcula el número de páginas teniendo en cuenta la cantidad total de games y la cantidad por página.
   const pageNumbers = [];
@@ -5,7 +7,6 @@ const Paginado = ({ gamesPerPage, allGames, paginado }) => {
   for (let i = 1; i <= Math.ceil(allGames / gamesPerPage); i++) {
     pageNumbers.push(i);
   }
-
   return (
     <div>
       <nav>
