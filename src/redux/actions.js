@@ -6,6 +6,7 @@ import {
   GET_BY_NAME_GAMES,
   GET_BY_ID_GAMES,
   RESET_DETAIL_GAMES,
+  ORDER, FILTER_PLATFORM, FILTER_DEVELOPER, FILTER_GENRE
 } from "./action-types";
 
 export const loading = (stateLoading) => {
@@ -73,9 +74,29 @@ export const getByGamesDetail = (id) => {
     }
   };
 };
-
 export const resetDetailGames = () => {
-  return {
-    type: RESET_DETAIL_GAMES,
+    return {
+      type: RESET_DETAIL_GAMES,
+    };
   };
+
+
+
+
+//!EDWARD
+export const orderCards = (order) => {//!Games en orden alfabetico y precio
+    return { type: ORDER, payload: order }
+}
+export const filterPlatform = (parameter) => {
+    return { type: FILTER_PLATFORM, payload: parameter };
 };
+    
+export const filterDeveloper = (parameter) => {
+    return { type: FILTER_DEVELOPER, payload: parameter }; 
+};
+    
+export const filterGenre = (parameter) => {
+    return { type: FILTER_GENRE, payload: parameter };
+};
+//!EDWARD
+
