@@ -7,18 +7,18 @@ import searchIcon from "../../Assets/img/icon/menu/searchIcon.png";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [searching, setSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
-    if (searchTerm.length >= 3) navigate('/catalogo')
-  }, [searchTerm.length, navigate])
+    if (searchTerm.length) navigate("/catalogo");
+  }, [searchTerm.length, navigate]);
   const handleChange = (event) => {
     event.preventDefault();
     const term = event.target.value;
     setSearchTerm(term);
 
-    if (term.length >= 3) {
+    if (term.length) {
       dispatch(getByName(term));
     } else if (!term.trim()) {
       dispatch(getAllGames());
