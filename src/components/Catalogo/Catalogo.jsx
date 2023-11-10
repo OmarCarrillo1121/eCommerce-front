@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllGames } from "../../redux/actions";
 import Paginado from "../../components/Paginado/Paginado";
 import CardList from "../CardList/cardList";
+import { usePaginate } from "../../util/hook/games/usePaginate";
+import { useGames } from "../../util/hook/games/useGames";
 import AlphabeticalOrder from "../Orders/Alphabetical/AlphabeticalOrder";
 import PriceOrder from "../Orders/PriceOrder";
 import Filters from "../Filters/Filters";
@@ -10,31 +9,8 @@ import Filters from "../Filters/Filters";
 import "./Catalogo.css"; // Asegúrate de tener el archivo CSS
 
 const Catalogo = () => {
-  const dispatch = useDispatch();
-  const allGames = useSelector((state) => state.allGames);
-  const [currentPage, setCurrentPage] = useState(1);
-  const gamePerPage = 15;
-
-  useEffect(() => {
-    dispatch(getAllGames());
-  }, [dispatch]);
-
-  const indexOfLastGame = currentPage * gamePerPage;
-  const indexOfFirstGame = indexOfLastGame - gamePerPage;
-
-  const gameMatchingFilter = allGames.filter((game) => game);
-  const currentGames = gameMatchingFilter.slice(
-    indexOfFirstGame,
-    indexOfLastGame
-  );
-
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    paginado(1);
-  }, [allGames]);
+  const { indexOfFirstGame,  indexOfLastGame, gamePerPage, paginado} = usePaginate()
+  const { games } = useGames()
 
   return (
     <div className="catalog-container">
@@ -44,8 +20,8 @@ const Catalogo = () => {
       <div className="main-content">
         <AlphabeticalOrder />
         <PriceOrder />
-        <CardList games={currentGames} />
-        <Paginado paginado={paginado} gamePerPage={gamePerPage} totalGames={gameMatchingFilter.length} />
+        <CardList indexOfFirstGame={indexOfFirstGame} indexOfLastGame={indexOfLastGame}/>
+        <Paginado paginado={paginado} gamesPerPage={gamePerPage} allGames={games.length} />
       </div>
     </div>
   );

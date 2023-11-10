@@ -56,11 +56,6 @@ const Filters = () => {
         dispatch(filterGenre(selectedGenres));
     }, [selectedGenres]);
 
-
-
-
-    console.log(gamesUse);
-
     return (
         <div className="filters-container">
         <h1>Aqui van los filtros</h1>
@@ -77,7 +72,6 @@ const Filters = () => {
             </label>
         ))}
         <h1>Plataformas seleccionadas:</h1>
-        {/* {console.log('Plataformas Seleccionadas Array',selectedPlatforms)} */}
         {selectedPlatforms.map((selectedPlatform) => (
             <div key={selectedPlatform}>{selectedPlatform}</div>
         ))}
@@ -95,7 +89,6 @@ const Filters = () => {
             </label>
         ))}
         <h1>Desarrolladores seleccionados:</h1>
-        {/* {console.log('Desarrolladores Seleccionadas Array',selectedDevelopers)} */}
         {selectedDevelopers.map((selectedDeveloper) => (
             <div key={selectedDeveloper}>{selectedDeveloper}</div>
         ))}
