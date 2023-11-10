@@ -14,8 +14,9 @@ export const useFilter = (setFilteredGames) => {
         filters.every(filter => game.platform.includes(filter) || game.developer.includes(filter) || game.genre.includes(filter))
     );
     useEffect(() => {
-        if (filtered.length > 0) setFilteredGames(filtered)
-        else setFilteredGames(games)
+        if (filters.length > 0) setFilteredGames(filtered)
+        else setFilteredGames(games);
+// eslint-disable-next-line react-hooks/exhaustive-deps
     },[filters, games])
     return { filters, setFilters, platforms, developer, genre }
 }

@@ -4,7 +4,7 @@ import Style from './Filters.module.css'
 
 const Filters = ({ setFilteredGames }) => {
     const { filters, setFilters, platforms, developer, genre } = useFilter(setFilteredGames)
-    return (
+    return (   
         <div className={Style.filters_container}>
             <FilterBy 
             defaultName={'Platform'} 
