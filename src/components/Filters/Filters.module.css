@@ -1,0 +1,8 @@
+.filters_container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 150px;
+  gap: 10px;
+  flex-wrap: wrap;
+}

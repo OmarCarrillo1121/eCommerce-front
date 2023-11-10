@@ -1,0 +1,25 @@
+.box {
+    margin: 20px;
+}
+.box_label {
+    display: inline-block;
+    width: 100%;
+    padding: 4px;
+    color: #eee;
+    cursor: pointer;
+}
+
+.box_label:hover {
+    border-radius: 6px;
+    background-color: #E6541B;
+}
+
+.box_label_check {
+    display: inline-block;
+    width: 100%;
+    padding: 4px;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #E6541B;
+}
