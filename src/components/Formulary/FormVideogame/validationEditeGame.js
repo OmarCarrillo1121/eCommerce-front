@@ -53,10 +53,6 @@ export const validation = (videogame) => {
     if(videogame.image && !videogame.image.match(regexUrl)){
         error.image = "Invalid image URL."
     }
-    if(videogame.image.length === 0) {
-        error.image = "Image field can't be empty."
-    }
-    
     
     /* GENRE */
     if(videogame.genre.length === 0) {

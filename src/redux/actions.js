@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_GAMES, LOADING, URL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES } from "./action-types";
+import { LOADING, URL_GAMES, GET_ALL_GAMES, GET_BY_NAME_GAMES, GET_BY_ID_GAMES, RESET_DETAIL_GAMES, POST_VIDEOGAME, EDIT_VIDEOGAME } from "./action-types";
 
 export const loading = (stateLoading) =>{
     return{
@@ -87,3 +87,34 @@ export const resetDetailGames = () =>{
     }
 }
     
+
+/* POST VIDEOGAME */
+export const postVideogame = (videogame) => {
+    return async (dispatch) => {
+        try {
+            await axios.post(`${URL_GAMES}/videogames`, videogame)
+            alert("Videogame created succesfully!")
+            
+            return dispatch({
+                type: POST_VIDEOGAME
+            })
+        } catch(error){
+            alert(error.message)
+        }
+    }
+}
+
+/* EDIT VIDEOGAME */
+export const editVideogame = (id, videogame) => {
+    return async (dispatch) => {
+        try {
+            await axios.put(`${URL_GAMES}/videogames/${id}`, videogame)
+
+            return dispatch({
+                type: EDIT_VIDEOGAME,
+            })
+        } catch (error){
+            alert(error.message)
+        }
+    }
+}
