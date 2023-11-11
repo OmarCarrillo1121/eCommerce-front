@@ -1,51 +1,46 @@
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { editVideogame, getByGamesDetail } from "../../../redux/actions";
 import style from "./formVideogame.module.css"
-import template from '../../../Assets/img/background/bgVideogameForm.jpg'
-import { useState } from "react";
-import { validation } from './validation.js'
-import { useDispatch } from 'react-redux'
-import { postVideogame } from "../../../redux/actions.js";
+import { validation } from "./validationEditeGame.js";
 
-function FormVideogame() {
+function EditVideogame() {
     const [ genres, setGenres ] = useState([
         "action", "horror", "shooter"
     ])
     const [ platforms, setPlatforms ] = useState([
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
-    const [ newVideogame, setNewVideogame ] = useState({
-        name: "",
-        description: "",
-        image: "",
-        genre: "",
-        developer: "",
-        platform: "",
-        price: 0,
-        stock: 0, 
-        deleted: false
-    })
-    const [ image, setImage ] = useState("");
-    const [ loading, setLoading ] = useState(false);
+    const { detailGame } = useSelector((state) => state)
+    const [ editedVideogame, setEditedVideogame ] = useState({...detailGame})
+    const [ image, setImage ] = useState(editedVideogame.image);
     const [ errors, setErrors ] = useState({})
     const dispatch = useDispatch()
+    const { id } = useParams()
     const stock = [];
 
     for (let i = 1; i <= 100; i++) {
         stock.push(i)
     }
 
+    useEffect(() => {
+        dispatch(getByGamesDetail(id))
+    }, [])
+
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        setErrors(validation({
-            ...newVideogame,
-            [name]: value,
-            deleted: false
-        }))
-        setNewVideogame({
-            ...newVideogame, 
+        setEditedVideogame({
+            ...editedVideogame,
             [name]: value,
             deleted: false
         })
+        setErrors(validation({
+            ...editedVideogame,
+            [name]: value,
+            deleted: false
+        }))
     }
 
     const UploadImage = async (e) => {
@@ -67,13 +62,12 @@ function FormVideogame() {
         const file = await res.json()
         setImage(file.secure_url)
         setErrors(validation({
-            ...newVideogame,
+            ...editVideogame,
             image: file.secure_url,
             deleted: false
         }))
-        setLoading(true)
-        setNewVideogame({
-            ...newVideogame,
+        setEditedVideogame({
+            ...editedVideogame,
             image: file.secure_url,
             deleted: false
         })
@@ -82,22 +76,12 @@ function FormVideogame() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        setNewVideogame({
-            name: "",
-            description: "",
-            image: "",
-            genre: "",
-            developer: "",
-            platform: "",
-            price: 0,
-            stock: 0, 
-            deleted: false
-        })
-        setLoading(false)
-        setImage("")
-        
-        dispatch(postVideogame(newVideogame))
+        setEditedVideogame({...detailGame})
+        setImage(detailGame.image)
+
+        dispatch(editVideogame({id, editedVideogame}))
     }
+
 
     return (  
         <div className={style.container}>
@@ -109,7 +93,7 @@ function FormVideogame() {
                             <input 
                                 type="text" 
                                 name="name"
-                                value={newVideogame.name}
+                                value={editedVideogame.name}
                                 placeholder="Enter the name of the videogame..."
                                 onChange={handleChange}
                             />
@@ -123,7 +107,7 @@ function FormVideogame() {
                             <input
                                 type="text"
                                 name="developer" 
-                                value={newVideogame.developer}
+                                value={editedVideogame.developer}
                                 placeholder="Enter the developer of the videogame..."
                                 onChange={handleChange}
                             />
@@ -174,7 +158,7 @@ function FormVideogame() {
                             <label htmlFor="description">Description:</label>
                             <textarea 
                                 name="description"
-                                value={newVideogame.description}
+                                value={editedVideogame.description}
                                 placeholder="Enter a description for this game..."
                                 onChange={handleChange}
                             ></textarea>
@@ -189,7 +173,7 @@ function FormVideogame() {
                                 <input 
                                     type="number"
                                     name="price"
-                                    value={newVideogame.price}
+                                    value={editedVideogame.price}
                                     onChange={handleChange}
                                 />
                                 <br/>
@@ -199,7 +183,7 @@ function FormVideogame() {
                             </div>
                             <div>
                                 <label htmlFor="stock">Stock:</label>
-                                <select name="stock" onChange={handleChange} value={newVideogame.stock}>
+                                <select name="stock" onChange={handleChange} value={editedVideogame.stock}>
                                     {
                                         stock.length > 0 
                                         ? stock.map((elem) => {
@@ -207,7 +191,7 @@ function FormVideogame() {
                                         }) : null
                                     }
                                 </select>
-                                <br/>
+                                <br />
                                 <p>
                                     {errors.stock ? errors.stock : null}
                                 </p>
@@ -217,13 +201,7 @@ function FormVideogame() {
                 </div>
                 <div className={style.divImage}>
                     <div className={style.imgContainer}>
-                        {
-                            loading ? (
-                                <img src={image} className={style.img}/>
-                            ) : (
-                                <img src={template} className={style.img} alt="template image" />
-                            )
-                        }
+                        <img src={image} className={style.img}/>
                     </div>
                     <div className={style.containerInputImg}>
                         <input type="file" name="image" onChange={UploadImage}/>
@@ -235,14 +213,14 @@ function FormVideogame() {
                 </div>
                 <button type="submit"
                     disabled={Object.keys(errors).length > 0 || 
-                        !newVideogame.name ||
-                        !newVideogame.description ||
-                        !newVideogame.genre ||
-                        !newVideogame.image ||
-                        !newVideogame.developer ||
-                        !newVideogame.platform ||
-                        !newVideogame.price || 
-                        !newVideogame.stock  
+                        !editedVideogame.name ||
+                        !editedVideogame.description ||
+                        !editedVideogame.genre ||
+                        !editedVideogame.image ||
+                        !editedVideogame.developer ||
+                        !editedVideogame.platform ||
+                        !editedVideogame.price || 
+                        !editedVideogame.stock  
                         ? true : false}
                 >Submit</button>
             </form>
@@ -250,4 +228,4 @@ function FormVideogame() {
     );
 }
 
-export default FormVideogame;
+export default EditVideogame;

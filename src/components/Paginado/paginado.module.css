@@ -1,0 +1,20 @@
+.paginate {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.paginate_buttons {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #eee;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.paginate_buttons:hover {
+    background-color: #E6541B;
+}
