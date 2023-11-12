@@ -9,7 +9,8 @@ import Style from './Catalogo.module.css'
 const Catalogo = () => {
   const [filteredGames, setFilteredGames] = useState([])
   const { indexOfFirstGame,  indexOfLastGame, gamePerPage, paginado} = usePaginate()
-  const { games } = useGames()
+  const { games } = useGames();
+  
   return (
     <div className={Style.catalogo}>
       <div className={Style.catalogo_filters}>

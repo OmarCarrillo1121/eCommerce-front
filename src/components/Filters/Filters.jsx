@@ -21,6 +21,12 @@ const Filters = ({ setFilteredGames }) => {
             names={genre}
             setFilters={setFilters} 
             filters={filters}/>
+            <FilterBy 
+            defaultName={'Sort By'} 
+            names={['Menor', 'Mayor', 'Upward', 'Downward']}
+            setFilters={setFilters} 
+            filters={filters}/>
+            <button className={Style.clear_filters} onClick={() => setFilters([])}>X</button>
         </div>
     )
 };

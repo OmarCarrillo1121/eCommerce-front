@@ -6,3 +6,17 @@
   gap: 10px;
   flex-wrap: wrap;
 }
+
+.clear_filters {
+  background-color: transparent;
+  justify-self: flex-end;
+  border: none;
+  font-size: 30px;
+  font-family: sans-serif;
+  color: #eee;
+  cursor: pointer;
+}
+
+.clear_filters:hover {
+  color: #E6541B;
+}

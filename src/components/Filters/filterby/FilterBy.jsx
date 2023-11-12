@@ -26,10 +26,11 @@ const FilterBy = ({ defaultName, names, setFilters, filters }) => {
                 {Object.keys(newArray).map((name, i) => (
                     <FilterBox 
                     key={i} 
-                    name={name} 
+                    name={name}
                     filterChange={filterChange}
                     handleCheck={handleCheck}
-                    check={check}/>
+                    check={check}
+                    filters={filters}/>
                 ))}
               </div>
             : null}
