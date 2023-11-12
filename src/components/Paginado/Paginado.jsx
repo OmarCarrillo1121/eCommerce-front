@@ -1,27 +1,23 @@
-import React from "react";
-import Style from './paginado.module.css'
+import React from 'react'
+import Style from './paginate.module.css'
+import PaginatesSlide from './paginatesSlide/PaginatesSlide'
 
-const Paginado = ({ gamesPerPage, allGames, paginado }) => {
-  // calcula el número de páginas teniendo en cuenta la cantidad total de games y la cantidad por página.
-  const pageNumbers = [];
-  //Math.ceil redondea hacia arriba el resultado de la division
-  for (let i = 1; i <= Math.ceil(allGames / gamesPerPage); i++) {
-    pageNumbers.push(i);
-  }
+export default function Paginate ({currentPage, setCurrentPage, totalPages}) {
   return (
-    <div>
-      <nav>
-        <ul className={Style.paginate}>
-          {pageNumbers &&
-            pageNumbers.map((number, index) => (
-              <p key={index}>
-                <button onClick={() => paginado(number)} className={Style.paginate_buttons}>{number}</button>
-              </p>
-            ))}
-        </ul>
-      </nav>
+    <div className={Style.paginate}>
+      {currentPage === 1 || currentPage === 0
+      ? <button disabled className={Style.prev}>{'<'}</button> 
+      : <button 
+          className={Style.prev} 
+          onClick={() => setCurrentPage(currentPage - 1)}>{'<'}</button>}
+        <PaginatesSlide 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}/>
+        {currentPage === totalPages 
+        ? <button disabled className={Style.next}>{'>'}</button>
+        : <button className={Style.next} 
+          onClick={() => setCurrentPage(currentPage + 1)}>{'>'}</button>}
     </div>
-  );
-};
-
-export default Paginado;
+    )
+}

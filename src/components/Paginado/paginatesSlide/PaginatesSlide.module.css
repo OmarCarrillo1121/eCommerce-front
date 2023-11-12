@@ -1,0 +1,43 @@
+.paginate_list {
+    display: flex;
+    gap: 10px;
+}
+
+.paginate_list_current {
+    font-family: sans-serif;
+    color: #eee;
+    padding: 7px 14px 7px 14px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.paginate_list_select {
+    font-family: sans-serif;
+    color: #eee;
+    padding: 7px 14px 7px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.paginate_list_select:hover {
+    background-color: #E6541B;
+}
+
+.paginate_list_total {
+    font-family: sans-serif;
+    color: #eee;
+    cursor: pointer;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.paginate_list_total span {
+    padding: 7px 14px 7px 14px;
+    border-radius: 50%;
+}
+
+.paginate_list_total span:hover {
+    background-color: #E6541B;
+}
