@@ -7,9 +7,11 @@
     margin-bottom: 5%;
 }
 
-.detail_main img {
+.detail_img{
     width: 600px;
+    height: 350px;
     border-radius: 12px;
+    object-fit: fill;
 }
 
 .detail_info {

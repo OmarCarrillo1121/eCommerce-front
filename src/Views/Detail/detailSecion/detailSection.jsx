@@ -4,7 +4,7 @@ import Button from '../../../components/button/button'
 const DetailSection = ({ games }) => {
     return (
       <section className={Style.detail_main}>
-        <img src={games?.image} alt="imagen" />
+        <img src={games?.image} alt="imagen" className={Style.detail_img}/>
           <div className={Style.detail_info}>
             <h1>{games?.name}</h1>
             <div className={Style.detail_info_more}>

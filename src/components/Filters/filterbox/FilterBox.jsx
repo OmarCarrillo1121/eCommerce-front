@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 import Style from './filterBox.module.css'
 
-const FilterBox = ({ name, filterChange, handleCheck, check, filters }) => {
+const FilterBox = ({ name, filterChange, handleCheck, check, filters}) => {
     function checked (e) {
-        if (e.target.checked) handleCheck({...check, [e.target.name]: true}) 
+        if (e.target.checked) {
+            handleCheck({...check, [e.target.name]: true})
+        }
         else delete check[e.target.name]
     }
     useEffect(() => {

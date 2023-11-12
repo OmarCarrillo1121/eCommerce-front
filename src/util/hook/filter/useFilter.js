@@ -20,10 +20,10 @@ export const useFilter = (setFilteredGames) => {
     useEffect(() => {
         if (filters.length > 0) setFilteredGames(filtered)
         else setFilteredGames(games)
-        if (filters.includes('Menor')) setFilteredGames(sortPrice)
-        else if (filters.includes('Mayor')) setFilteredGames(sortPrice.reverse())
-        if (filters.includes('Upward')) setFilteredGames(sortBy)
-        else if (filters.includes('Downward')) setFilteredGames(sortBy.reverse())
+        if (filters.includes('Price: Low')) setFilteredGames(sortPrice)
+        else if (filters.includes('Price: High')) setFilteredGames(sortPrice.reverse())
+        if (filters.includes('Alpha: Up')) setFilteredGames(sortBy)
+        else if (filters.includes('Alpha: Down')) setFilteredGames(sortBy.reverse())
 // eslint-disable-next-line react-hooks/exhaustive-deps
     },[filters, games])
     
