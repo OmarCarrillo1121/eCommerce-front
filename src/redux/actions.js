@@ -47,7 +47,7 @@ export const getByName = (name) => {
       dispatch(loading(false));
       return;
     }
-    axios(`${URL_GAMES}/videogames/all?name=${encodeURIComponent(name)}`)
+    axios(`${URL_GAMES}/videogames/?name=${encodeURIComponent(name)}`)
       .then((response) => {
         dispatch({
           type: GET_BY_NAME_GAMES,

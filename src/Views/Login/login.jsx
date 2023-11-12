@@ -15,7 +15,6 @@ export default function Login () {
     const { handle, handleChange } = useHandle()
     const email = useField({type: 'email'})
     const password = useField({type: 'password'})
-
     return (
       <form autoComplete='off' className={Style.form}>
         <NavLink to={'/'}>
@@ -27,7 +26,7 @@ export default function Login () {
           <article className={Style.form_interface}>
             <Middle/>
             <Input userInfo={email} name='Email Adress' width={500}/>
-            <Input userInfo={password} name='Password'/>
+            <Input userInfo={password} name='Password' width={500}/>
             <Button onClick={handleChange} children={'Register'}/>
             <Button onClick={() => console.log('register')} children={'Login'}/>
           </article>

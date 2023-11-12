@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useWindow } from "./util/hook/window/useWindow";
 import Landing  from "./Views/Landing/Landing";
 import NavBar from "./components/NavBar/navbar/NavBar";
 import Login from "./Views/Login/login";
@@ -8,13 +9,16 @@ import Detail from "./Views/Detail/Detail";
 import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
+import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import './App.css';
 
 function App() {
   const location = useLocation()
+  const { viewportWidth } = useWindow()
   return (
     <div className="app">
-      <NavBar/>
+      {location.pathname !== '/login' && viewportWidth > 800 && <NavBar/>}
+      {viewportWidth <= 800 && <ResponsiveNav/>}
       <Routes>
         <Route path= "/" element={[
           <Landing key={1}/>, 

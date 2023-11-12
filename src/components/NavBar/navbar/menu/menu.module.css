@@ -16,6 +16,11 @@
     height: 25px;
 }
 
+.nav_menu_platform img {
+    width: 25px;
+    height: 25px;
+}
+
 .nav_menu_platform {
     display: flex;
     align-items: center;

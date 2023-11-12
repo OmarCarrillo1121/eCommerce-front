@@ -1,0 +1,28 @@
+.paginate {
+    display: flex;
+    gap: 10px;
+}
+
+.prev, .next {
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    background-color: #555;
+    border: none;
+    cursor: pointer;
+    padding: 7px 14px 7px 14px;
+    border-radius: 50%;
+}
+
+.prev:hover, .next:hover {
+    background-color: #E6541B;
+}
+
+.prev:disabled {
+    color: #999;
+}
+
+
+.next:disabled {
+    color: #999;
+}
