@@ -10,6 +10,7 @@ import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
+import DashBoard from "./Views/Dashboard/dashboard";
 import './App.css';
 
 function App() {
@@ -17,7 +18,11 @@ function App() {
   const { viewportWidth } = useWindow()
   return (
     <div className="app">
-      {location.pathname !== '/login' && viewportWidth > 800 && <NavBar/>}
+      {location.pathname === '/' ||
+      location.pathname === '/detail' || 
+      location.pathname === '/catalogo' || 
+      location.pathname === '/detail/:id' ?
+      <NavBar/> : null}
       {viewportWidth <= 800 && <ResponsiveNav/>}
       <Routes>
         <Route path= "/" element={[
@@ -28,8 +33,13 @@ function App() {
         <Route path="/formVideogame" element={<FormVideogame/>}/>
         <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
         <Route path="/catalogo" element={<Catalogo/>}/>
+        <Route path="/dashboard/:id" element={<DashBoard/>}/>
       </Routes>
-      { location.pathname !== '/login' && <Footer/>}
+      {location.pathname === '/' ||
+      location.pathname === '/detail' || 
+      location.pathname === '/catalogo' || 
+      location.pathname === '/detail/:id' ?
+      <Footer/> : null}
     </div>
   );
 }

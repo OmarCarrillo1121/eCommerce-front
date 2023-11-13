@@ -5,7 +5,6 @@ import _ from "lodash";
 export const useFilter = (setFilteredGames) => {
     const [filters, setFilters] = useState([])
     const { games } = useGames()
-
     const platforms = _.uniqBy(games, 'platform').map(game => game.platform);
     const developer = _.uniqBy(games, 'developer').map(game => game.developer);
     const genre = _.uniqBy(games, 'genre').map(game => game.genre);
