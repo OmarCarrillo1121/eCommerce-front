@@ -14,7 +14,16 @@ import {
 const initialState = {
   allGames: [],
   allCopyGames: [],
-  detailGame: null,
+  detailGame: {"id": 1,
+  "name": "Mario Galaxy 2",
+  "description": "Únete al único e irrepetible Mario en un viaje por extraños planetas en los que te esperan nuevas trampas y peligros, en Super Mario Galaxy 2.",
+  "image": "https://m.media-amazon.com/images/I/81iCVhLDJFL.jpg",
+  "genre": "Accion",
+  "developer": "Nintendo",
+  "platform": "Nintendo Switch",
+  "price": 50.5,
+  "stock": 12,
+  "deleted": false},
   loading: true,
 };
 
