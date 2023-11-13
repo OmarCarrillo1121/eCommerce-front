@@ -1,15 +1,16 @@
-import { Fragment } from "react";
-import { useGames } from "../../util/hook/games/useGames";
+import Style from './cardList.module.css'
 import Card from "../Card/Card";
+import { AnimatePresence } from 'framer-motion';
 
-const CardList = ({ indexOfLastGame, indexOfFirstGame }) => {
-    const { games } = useGames();
+const CardList = ({ indexOfLastGame, indexOfFirstGame, currentGames }) => {
     return (
-        <Fragment>
-          {games?.map((game) => (
+      <AnimatePresence>
+        <div className={Style.cardList}>
+          {currentGames?.map((game) => (
             <Card key={game.id} game={game}/>
           )).slice(indexOfFirstGame, indexOfLastGame)}
-        </Fragment>
+        </div>
+        </AnimatePresence>
     )
 }
 

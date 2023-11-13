@@ -1,28 +1,28 @@
-import Paginado from "../../components/Paginado/Paginado";
+import { useState } from "react";
+import Paginate from "../../components/Paginado/Paginado";
 import CardList from "../CardList/cardList";
 import { usePaginate } from "../../util/hook/games/usePaginate";
-import { useGames } from "../../util/hook/games/useGames";
-import AlphabeticalOrder from "../Orders/Alphabetical/AlphabeticalOrder";
-import PriceOrder from "../Orders/PriceOrder";
 import Filters from "../Filters/Filters";
-
-import "./Catalogo.css"; // Asegúrate de tener el archivo CSS
+import Style from './Catalogo.module.css'
 
 const Catalogo = () => {
-  const { indexOfFirstGame,  indexOfLastGame, gamePerPage, paginado} = usePaginate()
-  const { games } = useGames()
-
+  const [filteredGames, setFilteredGames] = useState([])
+  const { firstIndex, lastIndex, currentPage, totalPages, setCurrentPage } = usePaginate(filteredGames)
+  
   return (
-    <div className="catalog-container">
-      <div className="filters-column">
-        <Filters />
+    <div className={Style.catalogo}>
+      <div className={Style.catalogo_filters}>
+        <Filters setFilteredGames={setFilteredGames}/>
       </div>
-      <div className="main-content">
-        <AlphabeticalOrder />
-        <PriceOrder />
-        <CardList indexOfFirstGame={indexOfFirstGame} indexOfLastGame={indexOfLastGame}/>
-        <Paginado paginado={paginado} gamesPerPage={gamePerPage} allGames={games.length} />
+      <div style={{width: 100 + '%'}}>
+          <CardList indexOfFirstGame={firstIndex} 
+            indexOfLastGame={lastIndex}
+            currentGames={filteredGames}/>
       </div>
+      <Paginate 
+        currentPage={currentPage} 
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}/>
     </div>
   );
 };
