@@ -21,18 +21,19 @@ const FilterBy = ({ defaultName, names, setFilters, filters }) => {
                 <span>{defaultName}</span>
                 <span className={Style.filterBox_button_span}>{'>'}</span>
             </button>
-            {!handle 
-            ? <div className={Style.filterBox_checkboxes}>
+            {!handle &&
+            <div className={Style.filterBox_checkboxes}>
                 {Object.keys(newArray).map((name, i) => (
                     <FilterBox 
                     key={i} 
-                    name={name} 
+                    name={name}
                     filterChange={filterChange}
                     handleCheck={handleCheck}
-                    check={check}/>
+                    check={check}
+                    filters={filters}
+                    handleChange={handleChange}/>
                 ))}
-              </div>
-            : null}
+              </div>}
         </div>
 
     )

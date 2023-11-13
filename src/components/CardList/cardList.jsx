@@ -1,13 +1,16 @@
-import { Fragment } from "react";
+import Style from './cardList.module.css'
 import Card from "../Card/Card";
+import { AnimatePresence } from 'framer-motion';
 
 const CardList = ({ indexOfLastGame, indexOfFirstGame, currentGames }) => {
     return (
-        <Fragment>
+      <AnimatePresence>
+        <div className={Style.cardList}>
           {currentGames?.map((game) => (
             <Card key={game.id} game={game}/>
           )).slice(indexOfFirstGame, indexOfLastGame)}
-        </Fragment>
+        </div>
+        </AnimatePresence>
     )
 }
 
