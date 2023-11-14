@@ -10,18 +10,19 @@ import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
-import DashBoard from "./Views/Dashboard/dashboard";
+import Account from "./Views/Dashboard/account";
 import './App.css';
 
 function App() {
   const location = useLocation()
-  const { viewportWidth } = useWindow()
+  const { viewportWidth } = useWindow();
   return (
     <div className="app">
-      {location.pathname === '/' ||
-      location.pathname === '/detail' || 
+      {(location.pathname === '/' ||
+      location.pathname.includes('/detail') || 
       location.pathname === '/catalogo' || 
-      location.pathname === '/detail/:id' ?
+      location.pathname === '/detail/:id') &&
+      viewportWidth >= 800 ?
       <NavBar/> : null}
       {viewportWidth <= 800 && <ResponsiveNav/>}
       <Routes>
@@ -33,10 +34,10 @@ function App() {
         <Route path="/formVideogame" element={<FormVideogame/>}/>
         <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
         <Route path="/catalogo" element={<Catalogo/>}/>
-        <Route path="/dashboard/:id" element={<DashBoard/>}/>
+        <Route path="/dashboard/:id" element={<Account/>}/>
       </Routes>
       {location.pathname === '/' ||
-      location.pathname === '/detail' || 
+      location.pathname.includes('/detail') || 
       location.pathname === '/catalogo' || 
       location.pathname === '/detail/:id' ?
       <Footer/> : null}

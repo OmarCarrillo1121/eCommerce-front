@@ -1,5 +1,5 @@
 import React from "react";
-import Style from './dashComponents.module.css'
+import Style from './navComponents.module.css'
 import { useLocation, NavLink, useNavigate  } from "react-router-dom";
 import userFirsIcon from '../../../../Assets/img/icon/nav/login.png'
 import logoutIcon from '../../../../Assets/img/icon/dashboard/close.png'

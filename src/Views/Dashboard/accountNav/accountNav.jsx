@@ -1,12 +1,12 @@
 import React from "react";
-import Style from './dashBoardNav.module.css'
+import Style from './accountNav.module.css'
 import userIcon from '../../../Assets/img/icon/dashboard/usuario.png'
 import dashIcon from '../../../Assets/img/icon/dashboard/tablero.png'
 import shops from '../../../Assets/img/icon/dashboard/shopping.png'
 import settingIcon from '../../../Assets/img/icon/dashboard/settings.png'
-import { Links, DashBoardCloseLogout, DashboardUserInfo } from "./dashboardNavComponents/dashComponents";
+import { Links, DashBoardCloseLogout, DashboardUserInfo } from "./accountNavComponents/navComponents";
 
-const DashBoardNav = () => {
+const AccountNav = () => {
   return (
     <nav className={Style.dashboard_nav}>
      <DashboardUserInfo/>
@@ -22,4 +22,4 @@ const DashBoardNav = () => {
   }
 
 
-export default DashBoardNav
+export default AccountNav
