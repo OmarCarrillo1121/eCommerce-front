@@ -8,7 +8,6 @@ import Style from './Catalogo.module.css'
 const Catalogo = () => {
   const [filteredGames, setFilteredGames] = useState([])
   const { firstIndex, lastIndex, currentPage, totalPages, setCurrentPage } = usePaginate(filteredGames)
-  
   return (
     <div className={Style.catalogo}>
       <div className={Style.catalogo_filters}>
