@@ -4,12 +4,14 @@ export const validation = (videogame) => {
     /* REGEX */
     const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,2}$/;
     const nameRegex = /^(?=(?:\S*\s){0,3})(?=(?:\D*\d){0,4})[A-Za-z0-9\s]*$/;
+    const genreRegex = /^[A-Za-z]+$/
     const descriptionRegex = /^[A-Za-z0-9,?*\s]+[A-Za-z0-9]+/;
     const developerRegex = /^([^A-Za-z]+\s){3,}/;
     const numberRegex = /^[^0-9]+$/    ;
     const imageRegexUrl = /https?:\/\/[^\s]+\.(png|jpg|gif)/;
     const regexUrl = new RegExp(imageRegexUrl)
-
+    
+    /* NAME */
     if (!nameRegexFirst.test(videogame.name)) {
         error.name = "Name must start and finish with a letter or number"
     }
@@ -59,8 +61,14 @@ export const validation = (videogame) => {
     
     
     /* GENRE */
+    if(!genreRegex.test(videogame.genre)) {
+      error.genre = "Genre must be just letters"   
+    }
     if(videogame.genre.length === 0) {
-        error.genre = "Must select one genre."
+        error.genre = "Genre field can't be empty."
+    }
+    if(videogame.genre.length > 20) {
+        error.genre = "The genre can't be more than 20 characters"
     }
     
     /* PLATFORM */
@@ -94,6 +102,14 @@ export const validation = (videogame) => {
     }
     if(videogame.stock.length === 0) {
         error.stock = "Stock field can't be empty."
+    }
+
+    /* DISCOUNT */
+    if(numberRegex.test(videogame.stock)) {
+        error.discount = "The discount must contain just numbers."
+    }
+    if(videogame.discount > 60) {
+        error.discount = "The discount must be less than 60 porcent"
     }
 
     return error

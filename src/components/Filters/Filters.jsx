@@ -3,7 +3,7 @@ import FilterBy from './filterby/FilterBy';
 import Style from './Filters.module.css'
 
 const Filters = ({ setFilteredGames }) => {
-    const { filters, setFilters, platforms, developer, genre } = useFilter(setFilteredGames)
+    const { filters, setFilters, platforms, developer, genre, min, setMin, max, setMax } = useFilter(setFilteredGames)
     return (   
         <div className={Style.filters_container}>
             <FilterBy 
@@ -23,10 +23,15 @@ const Filters = ({ setFilteredGames }) => {
             filters={filters}/>
             <FilterBy 
             defaultName={'Sort By'} 
-            names={['Price: Low', 'Price: High', 'Alpha: Up', 'Alpha: Down']}
+            names={['range','Price: Low', 'Price: High', 'Alpha: Up', 'Alpha: Down']}
             setFilters={setFilters} 
-            filters={filters}/>
-            <button className={Style.clear_filters} onClick={() => setFilters([])}>X</button>
+            filters={filters}
+            min={min}
+            max={max}
+            setMin={setMin}
+            setMax={setMax}/>
+            <button className={Style.clear_filters} 
+            onClick={() => {setFilters([]); setMin(0); setMax(999)}}>X</button>
         </div>
     )
 };

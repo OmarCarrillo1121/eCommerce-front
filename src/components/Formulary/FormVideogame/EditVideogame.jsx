@@ -6,9 +6,6 @@ import style from "./formVideogame.module.css"
 import { validation } from "./validationEditeGame.js";
 
 function EditVideogame() {
-    const [ genres, setGenres ] = useState([
-        "action", "horror", "shooter"
-    ])
     const [ platforms, setPlatforms ] = useState([
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
@@ -19,9 +16,15 @@ function EditVideogame() {
     const dispatch = useDispatch()
     const { id } = useParams()
     const stock = [];
+    const discount = [];
+
 
     for (let i = 1; i <= 100; i++) {
         stock.push(i)
+    }
+
+    for (let i = 0; i < 100; i++) {
+        discount.push(i)
     }
 
     useEffect(() => {
@@ -120,16 +123,13 @@ function EditVideogame() {
                     <div>
                         <div>
                             <label htmlFor="genre">Genre:</label>
-                            <select name="genre" onChange={handleChange}>
-                                {
-                                    genres && genres.length > 0 
-                                    ? genres.map((genre) => {
-                                        return (
-                                            <option value={genre}>{genre}</option>
-                                        )
-                                    }) : null
-                                }    
-                            </select> 
+                            <input 
+                                type="text"
+                                name="genre"
+                                value={editedVideogame.genre}
+                                placeholder="Enter the genre of the videogame..."
+                                onChange={handleChange}
+                            />
                             <br/>
                             <p>
                                 {errors.genre ? errors.genre : null}
@@ -194,6 +194,21 @@ function EditVideogame() {
                                 <br />
                                 <p>
                                     {errors.stock ? errors.stock : null}
+                                </p>
+                            </div>
+                            <div>
+                                <label htmlFor="discount">Discount:</label>
+                                <select name="discount" onChange={handleChange} value={editedVideogame.discount}>
+                                    {
+                                        discount.length > 0 
+                                        ? discount.map((elem) => {
+                                            return (<option key={elem} value={elem}>{elem}</option>)
+                                        }) : null
+                                    }
+                                </select>
+                                <br/>
+                                <p>
+                                    {errors.discount ? errors.discount : null}
                                 </p>
                             </div>
                         </div>

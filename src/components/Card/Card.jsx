@@ -3,8 +3,7 @@ import Style from "./Card.module.css"
 import { motion } from "framer-motion";
 
 function Card ({ game }){
-    const {id, name, image, price } = game
-    const offer = Math.floor(Math.random() * 50)
+    const {id, name, image, price, discount } = game
     return(
         <motion.figure className={Style.carta} key={id}
           layout
@@ -16,7 +15,7 @@ function Card ({ game }){
             <Link to={`/detail/${id}`}>
             <div className = {Style.card}>
               <img className= {Style.card_game} src={image} alt={name} />
-              <span className={Style.descuento}>-{offer}%</span>
+              <span className={Style.descuento}>-{discount}%</span>
             </div>
             </Link>
             <div className={Style.card_price}>
