@@ -7,7 +7,7 @@ import githubIcon from '../../../Assets/img/icon/services/github.webp'
 const Services = () => {
     return (
         <article className={Style.services}>
-            <h1>Log in</h1>
+            <h1>Login</h1>
             <div className={Style.services_icons}>
                 <img src={fbIcon} alt="fb" />
                 <img src={googleIcon} alt="google" />

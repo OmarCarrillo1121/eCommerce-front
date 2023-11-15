@@ -27,6 +27,12 @@ const initialState = {
   loading: true,
 };
 
+export const getInitialState = () => {
+  const storedState = JSON.parse(localStorage.getItem("yourGameState")) ?? { allGames: [], allCopyGames: [], detailGame: null, loading: false };
+  return storedState;
+};
+
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_GAMES:
@@ -38,6 +44,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case GET_BY_NAME_GAMES:
+     
       return {
         ...state,
         allGames: action.payload,
@@ -54,6 +61,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
       };
     case RESET_DETAIL_GAMES:
+      
       return {
         ...state,
         detailGame: null,
@@ -72,7 +80,6 @@ const reducer = (state = initialState, action) => {
 
     /* DELETE VIDEOGAME */
 
-    //!EDWARD
     case ORDER:
       const copiAllGames = [...state.allGames]; //Copia de all games
       const orden = (payload) => {
@@ -120,7 +127,7 @@ const reducer = (state = initialState, action) => {
         allGames: filterGenre,
       };
 
-    //!FIN EDWARD
+    
 
     default:
       return {
