@@ -1,0 +1,58 @@
+
+.dashboard_nav_user {
+    display: flex;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    align-items: center;
+}
+
+.dashboard_nav_user img {
+    filter: contrast(0) brightness(100);
+}
+
+.dashboard_nav_user_info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #eee;
+    font-size: 10px;
+}
+
+
+.dashboard_link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+}
+
+.dashboard_link h2 {
+    font-size: 17px;
+    color: #eee;
+}
+
+.dashboard_link img {
+    filter: contrast(0) brightness(100);
+    width: 35px;
+}
+
+.dashboard_link_not {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+}
+
+.dashboard_link_not img {
+    filter: contrast(0) brightness(100);
+    width: 35px;
+}
+
+.dashboard_link_not h2 {
+    color: #E6541B;
+    font-size: 17px;
+}
+
+.dashboard_link_not img{
+    filter: invert(45%) sepia(97%) saturate(3447%) hue-rotate(353deg) brightness(94%) contrast(91%);
+}

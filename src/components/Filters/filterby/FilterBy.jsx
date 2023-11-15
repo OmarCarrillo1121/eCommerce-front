@@ -4,7 +4,7 @@ import _ from 'lodash'
 import FilterBox from "../filterbox/FilterBox";
 import Style from './filterBy.module.css'
 
-const FilterBy = ({ defaultName, names, setFilters, filters }) => {
+const FilterBy = ({ defaultName, names, setFilters, filters, min, setMin, max, setMax  }) => {
     const { handle, handleChange } = useHandle();
     const [check, handleCheck] = useState({});
     function filterChange (e) {
@@ -31,12 +31,15 @@ const FilterBy = ({ defaultName, names, setFilters, filters }) => {
                     handleCheck={handleCheck}
                     check={check}
                     filters={filters}
-                    handleChange={handleChange}/>
+                    handleChange={handleChange}
+                    min={min}
+                    max={max}
+                    setMin={setMin}
+                    setMax={setMax}/>
                 ))}
               </div>}
         </div>
 
     )
 }
-
 export default FilterBy
