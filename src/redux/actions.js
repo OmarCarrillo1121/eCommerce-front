@@ -14,6 +14,19 @@ import {
   FILTER_GENRE,
 } from "./action-types";
 
+
+export const saveStateToLocalStorage = () => {
+  return (dispatch, getState) => {
+    try {
+      const state = getState();
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem("appState", serializedState);
+    } catch (error) {
+      console.error("Error saving state to localStorage:", error);
+    }
+  };
+};
+
 export const loading = (stateLoading) => {
   return {
     type: LOADING,
@@ -101,14 +114,15 @@ export const filterDeveloper = (parameter) => {
 export const filterGenre = (parameter) => {
   return { type: FILTER_GENRE, payload: parameter };
 };
-//!EDWARD
 
-/* POST VIDEOGAME */
+
 export const postVideogame = (videogame) => {
   return async (dispatch) => {
     try {
       await axios.post(`${URL_GAMES}/videogames`, videogame);
       alert("Videogame created succesfully!");
+
+      dispatch(saveStateToLocalStorage())
 
       return dispatch({
         type: POST_VIDEOGAME,
