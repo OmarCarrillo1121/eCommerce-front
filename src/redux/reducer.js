@@ -26,7 +26,7 @@ const initialState = {
   "deleted": false},
   loading: true,
 };
-
+// luis barrios
 export const getInitialState = () => {
   const storedState = JSON.parse(localStorage.getItem("yourGameState")) ?? { allGames: [], allCopyGames: [], detailGame: null, loading: false };
   return storedState;
