@@ -19,7 +19,13 @@
 .footer_ul_li li {
     margin-top: 20px;
     list-style-type: none;
+    cursor: pointer;
 }
+.footer_ul_li li:hover {
+    color: #E6541B;
+}
+
+
 
 .footer_icons {
     display: flex;
@@ -31,11 +37,17 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.footer_icons img:hover{
+    border: 2px solid #E6541B;
 }
 
 .footer_span {
-    color: #eee;
-    border-top: 2px solid #eee;
+    color: #999;
+    border-top: 1px solid #777;
     display: inline-flex;
     align-items: center;
     height: 50px;

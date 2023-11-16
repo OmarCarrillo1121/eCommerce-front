@@ -20,7 +20,7 @@ function Card ({ game }){
             </Link>
             <div className={Style.card_price}>
                 <h2 className={Style.card_name}>{name}</h2>
-                <h2>${price}</h2>
+                <h2 className={Style.card_price_name}>${price}</h2>
             </div>
         </motion.figure>
     )
