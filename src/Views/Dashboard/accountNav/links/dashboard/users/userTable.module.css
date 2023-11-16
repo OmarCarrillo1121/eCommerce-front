@@ -1,0 +1,35 @@
+.tabletUsers {
+    padding: 0;
+    margin: 0;
+}
+.tabletUsers table{
+    width: 100%;
+    position: relative;
+    border-collapse: collapse;
+}
+.tabletUsers table td {
+    text-align: center;
+}
+.row {
+    border: 1px solid black;
+    padding: 10px 5px;
+}
+.editRol {
+    position: absolute;
+    top: 0;
+    height: 300px;
+    width: 450px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: #fff;
+    z-index: 10;
+}
+
+
+
+.divRol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}

@@ -28,3 +28,15 @@ h1 {
 .services_icons img:hover {
     border: 2px solid #E6541B;
 }
+
+@media only screen and (max-width: 800px) {
+    .services_icons {
+        width: 300px;
+        height: 125px;
+        align-items: center;
+    }
+    .services_icons {
+        display: flex;
+        justify-content: space-between;
+    }
+}

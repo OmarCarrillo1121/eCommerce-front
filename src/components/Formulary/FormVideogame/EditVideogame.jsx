@@ -6,10 +6,7 @@ import style from "./formVideogame.module.css"
 import { validation } from "./validationEditeGame.js";
 
 function EditVideogame() {
-    const [ genres, setGenres ] = useState([
-        "action", "horror", "shooter"
-    ])
-    const [ platforms, setPlatforms ] = useState([
+    const [ platforms] = useState([
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
     const { detailGame } = useSelector((state) => state)
@@ -19,14 +16,20 @@ function EditVideogame() {
     const dispatch = useDispatch()
     const { id } = useParams()
     const stock = [];
+    const discount = [];
+
 
     for (let i = 1; i <= 100; i++) {
         stock.push(i)
     }
 
+    for (let i = 0; i < 100; i++) {
+        discount.push(i)
+    }
+
     useEffect(() => {
         dispatch(getByGamesDetail(id))
-    }, [])
+    }, [id, dispatch])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -120,16 +123,13 @@ function EditVideogame() {
                     <div>
                         <div>
                             <label htmlFor="genre">Genre:</label>
-                            <select name="genre" onChange={handleChange}>
-                                {
-                                    genres && genres.length > 0 
-                                    ? genres.map((genre) => {
-                                        return (
-                                            <option value={genre}>{genre}</option>
-                                        )
-                                    }) : null
-                                }    
-                            </select> 
+                            <input 
+                                type="text"
+                                name="genre"
+                                value={editedVideogame.genre}
+                                placeholder="Enter the genre of the videogame..."
+                                onChange={handleChange}
+                            />
                             <br/>
                             <p>
                                 {errors.genre ? errors.genre : null}
@@ -196,12 +196,27 @@ function EditVideogame() {
                                     {errors.stock ? errors.stock : null}
                                 </p>
                             </div>
+                            <div>
+                                <label htmlFor="discount">Discount:</label>
+                                <select name="discount" onChange={handleChange} value={editedVideogame.discount}>
+                                    {
+                                        discount.length > 0 
+                                        ? discount.map((elem) => {
+                                            return (<option key={elem} value={elem}>{elem}</option>)
+                                        }) : null
+                                    }
+                                </select>
+                                <br/>
+                                <p>
+                                    {errors.discount ? errors.discount : null}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className={style.divImage}>
                     <div className={style.imgContainer}>
-                        <img src={image} className={style.img}/>
+                        <img src={image} alt="" className={style.img}/>
                     </div>
                     <div className={style.containerInputImg}>
                         <input type="file" name="image" onChange={UploadImage}/>
