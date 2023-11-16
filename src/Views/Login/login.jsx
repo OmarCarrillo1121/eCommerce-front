@@ -15,6 +15,16 @@ export default function Login () {
     const { handle, handleChange } = useHandle()
     const email = useField({type: 'email'})
     const password = useField({type: 'password'})
+    // luis barrios
+
+    // const handleLogin = () =>{
+    //   const user ={
+    //     email: email.value,
+    //     password: password.value,
+    //   }
+    //   localStorage.setItem("user", JSON.stringify(user))
+    
+    // }
     return (
       <form autoComplete='off' className={Style.form}>
         <NavLink to={'/'}>
