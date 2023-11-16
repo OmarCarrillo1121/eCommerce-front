@@ -6,7 +6,7 @@ import style from "./formVideogame.module.css"
 import { validation } from "./validationEditeGame.js";
 
 function EditVideogame() {
-    const [ platforms, setPlatforms ] = useState([
+    const [ platforms] = useState([
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
     const { detailGame } = useSelector((state) => state)
@@ -29,7 +29,7 @@ function EditVideogame() {
 
     useEffect(() => {
         dispatch(getByGamesDetail(id))
-    }, [])
+    }, [id, dispatch])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -216,7 +216,7 @@ function EditVideogame() {
                 </div>
                 <div className={style.divImage}>
                     <div className={style.imgContainer}>
-                        <img src={image} className={style.img}/>
+                        <img src={image} alt="" className={style.img}/>
                     </div>
                     <div className={style.containerInputImg}>
                         <input type="file" name="image" onChange={UploadImage}/>

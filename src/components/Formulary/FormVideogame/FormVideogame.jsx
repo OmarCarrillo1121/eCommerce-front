@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { postVideogame } from "../../../redux/actions.js";
 
 function FormVideogame() {
-    const [ platforms, setPlatforms ] = useState([
+    const [ platforms ] = useState([
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
     const [ newVideogame, setNewVideogame ] = useState({
@@ -103,6 +103,8 @@ function FormVideogame() {
         
         dispatch(postVideogame(newVideogame))
     }
+
+   
 
     return (  
         <div className={style.container}>
@@ -236,9 +238,9 @@ function FormVideogame() {
                     <div className={style.imgContainer}>
                         {
                             loading ? (
-                                <img src={image} className={style.img}/>
+                                <img src={image} alt="" className={style.img}/>
                             ) : (
-                                <img src={template} className={style.img} alt="template image" />
+                                <img src={template}  className={style.img} alt="" />
                             )
                         }
                     </div>

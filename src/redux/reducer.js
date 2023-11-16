@@ -30,42 +30,73 @@ const initialState = {
   loading: true,
 };
 
+
+const saveStateToLocalStorage = (state, action) => {
+  try {
+    if (action && action.type === POST_VIDEOGAME) {
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem("appState", serializedState);
+    }
+  } catch (error) {
+    console.error("Error saving state to localStorage:", error);
+  }
+};
+
+
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_GAMES:
-      return {
-        ...state,
-        allGames: action.payload,
-        allCopyGames: action.payload,
-        loading: false,
-      };
+
+    const newStateGetAllGames = {
+      ...state,
+      allGames: action.payload,
+      allCopyGames: action.payload,
+      loading: false,
+    };
+    saveStateToLocalStorage(newStateGetAllGames);
+    return newStateGetAllGames;
 
     case GET_BY_NAME_GAMES:
-      return {
+      const newStateGetByNameGames = {
         ...state,
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
       };
+      saveStateToLocalStorage(newStateGetByNameGames);
+      return newStateGetByNameGames;
 
     case GET_BY_ID_GAMES:
       const { gamesId } = action.payload;
-      return {
+      const newStateGetByIdGames = {
         ...state,
         detailGame: {...action.payload},
         gamesId,
         loading: false,
       };
+      saveStateToLocalStorage(newStateGetByIdGames);
+      return newStateGetByIdGames;
+
     case RESET_DETAIL_GAMES:
-      return {
+      const newStateResetDetailGames = {
         ...state,
         detailGame: null,
         loading: false,
       };
+      saveStateToLocalStorage(newStateResetDetailGames);
+      return newStateResetDetailGames;
 
     /* POST VIDEOGAME */
     case POST_VIDEOGAME: {
-      return { ...state };
+      const newState={
+        ...state 
+
+      }
+      saveStateToLocalStorage(newState, action);
+
+      return newState;
+       
     }
 
     /* EDIT VIDEOGAME */
