@@ -1,0 +1,47 @@
+.scrolled_nav {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(74, 74, 74, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.nav_logo {
+    width: 100px;
+    height: 60px;
+    margin-left: 20px;
+}
+
+
+.nav_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.nav_icon img:nth-child(1) {
+    width: 35px;
+    height: 35px;
+    filter: contrast(0) brightness(100);
+    cursor: pointer;
+}
+
+.nav_extend {
+    background-color: transparent;
+    border: none;
+    font-size: 55px;
+    color: #eee;
+    cursor: pointer;
+}
+
+.nav_icon img:nth-child(1):hover, .nav_extend:hover {
+    filter: invert(45%) sepia(97%) saturate(3447%) hue-rotate(353deg) brightness(94%) contrast(91%);
+} 

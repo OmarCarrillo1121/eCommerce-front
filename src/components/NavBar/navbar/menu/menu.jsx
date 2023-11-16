@@ -22,9 +22,9 @@ export default function Menu() {
   );
 }
 
-const Platform = ({ img, tittle }) => {
+export const Platform = ({ img, tittle, mt }) => {
   return (
-    <div className={Style.nav_menu_platform}>
+    <div className={Style.nav_menu_platform} style={{marginTop: mt + 'px'}}>
       <img src={img} alt="platform" />
       <span>{tittle}</span>
       <span className={Style.nav_menu_platform_icon}>{">"}</span>

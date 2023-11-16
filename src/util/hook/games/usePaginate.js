@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
-import { useGames } from "./useGames";
 
-export const usePaginate = () => {
-    const { games } = useGames()
-    const [currentPage, setCurrentPage] = useState(1);
-    const gamePerPage = 15;
+export const usePaginate = (totalCountries) => {
+    const [currentPage, setCurrentPage] = useState(1)
+    const countriesPerPage = 6
+    const totalPages = Math.ceil(totalCountries?.length / 6)
+    const lastIndex = currentPage * countriesPerPage
+    const firstIndex = lastIndex - countriesPerPage
+    return { firstIndex, lastIndex, currentPage, totalPages, setCurrentPage }
+}
 
-    const indexOfLastGame = currentPage * gamePerPage;
-    const indexOfFirstGame = indexOfLastGame - gamePerPage;
-
-    const paginado = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+export const usePaginatePerPage = (currentPage, totalPages, setCurrentPage)  => {
+    const [paginates, setPaginates] = useState([])
+    const previous = currentPage > 1 ? currentPage - 1 : null;
+    const next = totalPages > currentPage ?  currentPage + 1 : null;
 
     useEffect(() => {
-        paginado(1);
-    }, [games]);
+        setPaginates([previous, currentPage ,next])
+        if (currentPage > totalPages) setCurrentPage(totalPages)
+        if (totalPages === 0) return
+        else if (currentPage === 0) setCurrentPage(1)
+    },[currentPage, totalPages, setCurrentPage, previous, next])
 
-    return { indexOfFirstGame,  indexOfLastGame, gamePerPage, paginado}
+    return { paginates }
 }

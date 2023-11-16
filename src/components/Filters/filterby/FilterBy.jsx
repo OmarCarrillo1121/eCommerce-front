@@ -4,7 +4,7 @@ import _ from 'lodash'
 import FilterBox from "../filterbox/FilterBox";
 import Style from './filterBy.module.css'
 
-const FilterBy = ({ defaultName, names, setFilters, filters }) => {
+const FilterBy = ({ defaultName, names, setFilters, filters, min, setMin, max, setMax  }) => {
     const { handle, handleChange } = useHandle();
     const [check, handleCheck] = useState({});
     function filterChange (e) {
@@ -21,21 +21,25 @@ const FilterBy = ({ defaultName, names, setFilters, filters }) => {
                 <span>{defaultName}</span>
                 <span className={Style.filterBox_button_span}>{'>'}</span>
             </button>
-            {!handle 
-            ? <div className={Style.filterBox_checkboxes}>
+            {!handle &&
+            <div className={Style.filterBox_checkboxes}>
                 {Object.keys(newArray).map((name, i) => (
                     <FilterBox 
                     key={i} 
-                    name={name} 
+                    name={name}
                     filterChange={filterChange}
                     handleCheck={handleCheck}
-                    check={check}/>
+                    check={check}
+                    filters={filters}
+                    handleChange={handleChange}
+                    min={min}
+                    max={max}
+                    setMin={setMin}
+                    setMax={setMax}/>
                 ))}
-              </div>
-            : null}
+              </div>}
         </div>
 
     )
 }
-
 export default FilterBy

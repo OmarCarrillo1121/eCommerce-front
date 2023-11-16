@@ -23,3 +23,24 @@
     border-radius: 6px;
     background-color: #E6541B;
 }
+
+
+.box_range {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-left: 4px;
+}
+
+.box_range_box {
+    display: flex;
+    gap: 10px;
+}
+
+.box_range_box input {
+    width: 40px;
+}
+
+.box_range_box label {
+    color: #eee;
+}
