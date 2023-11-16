@@ -28,17 +28,17 @@ const initialState = {
 };
 
 
-
 const saveStateToLocalStorage = (state, action) => {
   try {
-    if(action.type === POST_VIDEOGAME){
+    if (action && action.type === POST_VIDEOGAME) {
       const serializedState = JSON.stringify(state);
-      localStorage.setItem("appState", serializedState)
+      localStorage.setItem("appState", serializedState);
     }
   } catch (error) {
     console.error("Error saving state to localStorage:", error);
   }
 };
+
 
 
 const reducer = (state = initialState, action) => {
