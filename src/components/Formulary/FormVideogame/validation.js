@@ -2,7 +2,7 @@ export const validation = (videogame) => {
     const error = {}
 
     /* REGEX */
-    const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,2}$/;
+    const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,4}$/;
     const nameRegex = /^(?=(?:\S*\s){0,3})(?=(?:\D*\d){0,4})[A-Za-z0-9\s]*$/;
     const genreRegex = /^[A-Za-z]+$/
     const descriptionRegex = /^[A-Za-z0-9,?*\s]+[A-Za-z0-9]+/;

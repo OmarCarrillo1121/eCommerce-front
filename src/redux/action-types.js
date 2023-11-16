@@ -7,6 +7,12 @@ export const RESET_DETAIL_GAMES = "RESET_DETAIL_GAMES";
 export const POST_VIDEOGAME = "POST_VIDEOGAME";
 export const EDIT_VIDEOGAME = "EDIT_VIDEOGAME";
 
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const GET_USERS_NOT_BANNED = "GET_USERS_NOT_BANNED";
+export const GET_USERS_BANNED = "GET_USERS_BANNED";
+export const BAN_USER = "BAN_USER";
+export const UNBAN_USER = "UNBAN_USER";
+
 //!EDWARD
 export const ORDER = "ORDER";
 export const FILTER_PLATFORM = "FILTER_PLATFORM";
