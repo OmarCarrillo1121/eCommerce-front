@@ -14,6 +14,7 @@ import {
   BAN_USER,
   UNBAN_USER,
   GET_USERS_BANNED,
+  UPDATE_USER,
 } from "./action-types";
 
 const initialState = {
@@ -138,6 +139,11 @@ const reducer = (state = initialState, action) => {
 
     /* UNBAN USER */
     case UNBAN_USER : {
+      return {...state}
+    }
+
+    /* UPDATE USER */
+    case UPDATE_USER : {
       return {...state}
     }
 

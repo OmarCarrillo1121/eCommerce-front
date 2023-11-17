@@ -18,6 +18,7 @@ import {
   GET_USERS_NOT_BANNED,
   BAN_USER,
   UNBAN_USER,
+  UPDATE_USER
 } from "./action-types";
 
 
@@ -122,6 +123,7 @@ export const filterGenre = (parameter) => {
 };
 
 
+/* POST VIDEOGAMES */
 export const postVideogame = (videogame) => {
   return async (dispatch) => {
     try {
@@ -225,6 +227,21 @@ export const unbanUser = (userId) => {
 
       return dispatch({
         type: UNBAN_USER
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* UPDATE USER */
+export const updateUser = ({ id, user }) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/users/${id}`, user)
+
+      return dispatch({
+        type: UPDATE_USER,
       })
     } catch (error) {
       alert(error.message)
