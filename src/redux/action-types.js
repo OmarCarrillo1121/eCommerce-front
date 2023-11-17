@@ -12,6 +12,8 @@ export const GET_USERS_NOT_BANNED = "GET_USERS_NOT_BANNED";
 export const GET_USERS_BANNED = "GET_USERS_BANNED";
 export const BAN_USER = "BAN_USER";
 export const UNBAN_USER = "UNBAN_USER";
+export const UPDATE_USER = "UPDATE_USER";
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
 
 //!EDWARD
 export const ORDER = "ORDER";
