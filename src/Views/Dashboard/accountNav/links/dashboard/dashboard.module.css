@@ -1,8 +1,45 @@
-.graphics {
-    position: relative;
-    height: 30%;
-}
 .tablet {
     position: relative;
-    height: 70%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar {
+    /* background-color: red; */
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 30px;
+    justify-content: center;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.navbar h2 {
+    font-size: 30px;
+    position: relative;
+    height: 60%;
+    display: flex;
+    align-items: end;
+}
+.navbar div {
+    position: relative;
+    height: 40%;
+    display: flex;
+    align-items: end;
+    gap: 80px;
+}
+.navbar div button {
+    padding: 0 10px;
+    padding-bottom: 8px;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid #fff;
+}
+.activeButton {
+    color: green;
+    border-bottom: 2px solid green !important;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllUsers, getUsersNotBanned, banUser, unbanUser, getBannedUsers, updateUser } from "../../../../../../redux/actions";
+import { getAllUsers, getUsersNotBanned, banUser, unbanUser, getBannedUsers, updateUser, filterByRol, getUserByName } from "../../../../../../redux/actions";
 import style from './userTable.module.css'
 import img from '../../../../../../Assets/img/icon/dashboard/adminboard/person.jpg'
 import { NavLink } from 'react-router-dom'
@@ -11,7 +11,21 @@ const UserTable = () => {
     const [ rol, setRol ] = useState(false)
     const [ info, setInfo ] = useState(false)
     const [ user, setUser ] = useState({})
+    const [ name, setName ] = useState("") 
     const viewMore = ">>>"
+
+    const lookAtName = (e) => {
+        const { value } = e.target
+
+        setName(value)
+    }
+
+    const searchToUser = (e) => {
+        e.preventDefault()
+
+       dispatch(getUserByName(name))
+       setName("")
+    }
 
     const openEditRol = (user) => {
         setUser(user)
@@ -60,6 +74,10 @@ const UserTable = () => {
         }
     }
 
+    const filterRol = (e) => {
+        dispatch(filterByRol(e.target.value))
+    }
+
     const updatedUser = (e) => {
         e.preventDefault()
 
@@ -83,30 +101,50 @@ const UserTable = () => {
         setUser("")
     }
 
+    const showAllUsers = (e) => {
+        e.preventDefault()
+
+        const rolSelect = document.querySelector("#rolSelect");
+        const statusSelect = document.querySelector("#statusSelect");
+
+        if (rolSelect.value !== "All roles") {
+            rolSelect.value = "All roles";
+        }
+
+        if (statusSelect.value !== "All users") {
+            statusSelect.value = "All users";
+        }
+
+        dispatch(getAllUsers())
+    }
+
     useEffect(() => {         
         dispatch(getAllUsers())
     }, [])
 
     return (<>
     <div className={style.tabletUsers}>
-        <div>
-            <h2>Users</h2>
-            {
-                users.length !== 1 
-                ? <small>{users.length} users found</small>
-                : <small>{users.length} user found</small>
-            }
+        <div className={style.searchbar}>
+            <input  type="text" value={name} onChange={lookAtName} placeholder="Search for a user"/>
+            <button onClick={searchToUser}>🔍︎</button>
         </div>
-        <div>
-            <select name="" onChange={handleChange}>
-                <option value="All users">All users</option>
-                <option value="Users not Banned">Users not Banned</option>
-                <option value="Users Banned">Users Banned</option>
-            </select>
-            <select name="" >
-                <option value="Admins">Admins</option>
-                <option value="Users">Users</option>
-            </select>
+        <div className={style.containerSelect}>
+            <div>
+                <b>Rol: </b>
+                <select id="rolSelect" onChange={filterRol}>
+                    <option value="All roles">All</option>
+                    <option value="admin">Admins</option>
+                    <option value="user">Users</option>
+                </select>
+            </div>
+            <div>
+                <b>Status: </b>
+                <select id="statusSelect" onChange={handleChange}>
+                    <option value="All users">All</option>
+                    <option value="Users not Banned">Active</option>
+                    <option value="Users Banned">Banned</option>
+                </select>
+            </div>
         </div>
         <table>
             <thead>
@@ -123,30 +161,43 @@ const UserTable = () => {
             <tbody>
                 {
                     users.length > 0 
-                    ? users.map((user) => (
-                        <tr className={style.row} key={user.id}>
-                            <td>
-                                <button onClick={() => openEditRol(user)}>✎</button>
-                            </td>
-                            <td>
-                                {user.rol}
-                            </td>
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>{user.address}</td>
-                            <td>
-                                {
-                                    user.banned 
-                                    ? 'Banned'
-                                    : 'Active'
-                                }
-                            </td>
-                            <td><button onClick={() => openInfo(user)}>🛈</button></td>
-                        </tr>
-                    )): null
+                    ? users.map((user, index) => {
+                        const rowClass = index % 2 === 0 ? style['rowEven'] : style['rowOdd']
+
+                        return (
+                            <tr className={`${style.row} ${rowClass}`} key={user.id}>
+                                <td>
+                                    <button onClick={() => openEditRol(user)}>✎</button>
+                                </td>
+                                <td>
+                                    {user.rol}
+                                </td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.address}</td>
+                                <td>
+                                    {
+                                        user.banned 
+                                        ? 'Banned'
+                                        : 'Active'
+                                    }
+                                </td>
+                                <td><button onClick={() => openInfo(user)}>🛈</button></td>
+                            </tr>
+                        )
+                    }): null
                 }
             </tbody>
         </table>
+        <div className={style.containerMessage}>
+            <p><b>Didn't find what are looking for?</b> Some users may be hidden because of the filters you've selected.</p>
+            <button className={style.showUsers} onClick={showAllUsers}>Show all users</button>
+            {
+                users.length !== 1 
+                ? <small>{users.length} users found</small>
+                : <small>{users.length} user found</small>
+            }
+        </div>
     </div>
     {
         rol 
@@ -154,7 +205,7 @@ const UserTable = () => {
                 <div className={style.editRol}>
                     <div className={style.containerEditUser}>
                         <button onClick={closeEditRol}>X</button>
-                        <strong>Do you want to change the role?</strong>
+                        <strong>Do you want to change the role of {user.name}?</strong>
                         <select name="rol" onChange={changeRol} value={user.rol}>
                             <option value="admin">admin</option>
                             <option value="user">user</option>
