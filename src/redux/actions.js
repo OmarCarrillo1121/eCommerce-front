@@ -18,6 +18,10 @@ import {
   GET_USERS_NOT_BANNED,
   BAN_USER,
   UNBAN_USER,
+  UPDATE_USER,
+  GET_USER_BY_ID,
+  FILTER_BY_ROL,
+  GET_USER_BY_NAME
 } from "./action-types";
 
 
@@ -122,6 +126,7 @@ export const filterGenre = (parameter) => {
 };
 
 
+/* POST VIDEOGAMES */
 export const postVideogame = (videogame) => {
   return async (dispatch) => {
     try {
@@ -226,6 +231,64 @@ export const unbanUser = (userId) => {
       return dispatch({
         type: UNBAN_USER
       })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* UPDATE USER */
+export const updateUser = ({ id, user }) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/users/${id}`, user)
+
+      return dispatch({
+        type: UPDATE_USER,
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET USER BY ID */
+export const getUserById = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/users/${id}`)
+
+      return dispatch({
+        type: GET_USER_BY_ID,
+        payload: response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* FILTER BY ADMIN */
+export const filterByRol = (role) => {
+  return {
+    type: FILTER_BY_ROL,
+    payload: role
+  }
+}
+
+
+/* FILTER BY USER */
+export const getUserByName = (name) => {
+  return async (dispatch) => {
+    try {
+      if(name){
+        const response = await axios.get(`${URL_GAMES}/users/search?name=${name}`)
+
+        return dispatch({
+          type: GET_USER_BY_NAME,
+          payload: response.data
+        })
+      }
     } catch (error) {
       alert(error.message)
     }
