@@ -1,5 +1,5 @@
 export const LOADING = "LOADING";
-export const URL_GAMES = "http://localhost:3001";
+export const URL_GAMES = "ecomercestorebacken.vercel.app";
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_BY_NAME_GAMES = "GET_BY_NAME_GAMES";
 export const GET_BY_ID_GAMES = "GET_BY_ID_GAMES";
