@@ -1,31 +1,98 @@
 .tabletUsers {
     padding: 0;
     margin: 0;
+    margin-top: 60px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 650px;
 }
 
+.tabletUsers .searchbar {
+    margin: 30px 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #cfcccc;
+}
+.tabletUsers .searchbar input {
+    border: none;
+    background-color: none;
+    width: 300px;
+}
+.tabletUsers .searchbar button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.tabletUsers .containerSelect{
+    display: flex;
+    gap: 50px;
+    padding: 15px 10px;
+}
+.tabletUsers .containerSelect select {
+    border: none;
+    text-align: end;
+    padding-right: 2px;
+    width: 40px;
+}
+.tabletUsers .containerSelect select option {
+    background-color: #e3dbdb;
+    font-family: Arial, Helvetica, sans-serif;
+}
 .tabletUsers table{
     position: relative;
-    width: 100%;
     border-collapse: collapse;
 }
 .tabletUsers table thead {
     background-color: rgba(17, 25, 40);
-    border: 1px solid black;
     color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
-.tabletUsers table td {
-    text-align: center;
+.tabletUsers table thead tr{
+    text-align: left;
+}
+.tabletUsers table thead tr th {
+    padding: 7px 5px;
 }
 .tabletUsers table td button {
     cursor: pointer;
     background: none;
     border: none;
 }
-.row {
-    padding: 10px 5px;
+.rowEven {
+    background-color: #e9e8e8;
+}
+.rowOdd {
+    background-color: #fff;
 }
 .row td {
-    border: 1px solid black;
+    padding: 10px 5px;
+}
+.containerMessage {
+    position: absolute;
+    bottom: 3%;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    gap: 5px;
+}
+.containerMessage button{
+    background-color: #fff;
+    border: none;
+    font-size: 12px;
+    color: rgb(0, 128, 94);
+    cursor: pointer;
 }
 .overlay {
     display: flex;
@@ -85,6 +152,8 @@
     position: absolute;
     top: 20%;
     font-size: 20px;
+    width: 80%;
+    text-align: center;
 }
 .containerEditUser select {
     position: absolute;
@@ -92,6 +161,7 @@
     padding-right: 10px;
     padding-top: 1px;
     padding-bottom: 1px;
+    bottom: 40%;
     font-family:'Times New Roman', Times, serif
 }
 .containerEditUser select option {

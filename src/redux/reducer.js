@@ -15,6 +15,9 @@ import {
   UNBAN_USER,
   GET_USERS_BANNED,
   UPDATE_USER,
+  GET_USER_BY_ID,
+  FILTER_BY_ROL,
+  GET_USER_BY_NAME,
 } from "./action-types";
 
 const initialState = {
@@ -145,6 +148,39 @@ const reducer = (state = initialState, action) => {
     /* UPDATE USER */
     case UPDATE_USER : {
       return {...state}
+    }
+
+    /* GET USER BY ID */
+    case GET_USER_BY_ID : {
+      return {
+        ...state,
+        user: {...action.payload}
+      }
+    }
+
+    /* GET USER BY NAME */
+    case GET_USER_BY_NAME : {
+      return {
+        ...state,
+        users: action.payload
+      }
+    }
+
+    /* FILTER BY ROL */
+    case FILTER_BY_ROL : {
+      if(action.payload === "All roles"){
+        return {
+          ...state,
+          users: [...state.allUsers]
+        }
+      }
+
+      const usersFiltered = state.allUsers.filter((user) => user.rol === action.payload)
+
+      return {
+        ...state,
+        users: [...usersFiltered]
+      }
     }
 
     //!EDWARD
