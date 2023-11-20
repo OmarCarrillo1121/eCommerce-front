@@ -6,10 +6,11 @@ const CardList = ({ indexOfLastGame, indexOfFirstGame, currentGames }) => {
     return (
       <AnimatePresence>
         <div className={Style.cardList}>
-          {currentGames?.map((game) => (
-            <Card key={game.id} game={game}/>
+        {Array.isArray(currentGames) &&
+          currentGames.map((game) => (
+            <Card key={game.id} game={game} />
           )).slice(indexOfFirstGame, indexOfLastGame)}
-        </div>
+      </div>
         </AnimatePresence>
     )
 }
