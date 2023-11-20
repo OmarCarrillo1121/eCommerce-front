@@ -1,7 +1,7 @@
 import Style from './cardList.module.css'
 import Card from "../Card/Card";
 import { AnimatePresence } from 'framer-motion';
-// solo puse que si no es array no muestre nada en vez del error
+
 const CardList = ({ indexOfLastGame, indexOfFirstGame, currentGames }) => {
     return (
       <AnimatePresence>
