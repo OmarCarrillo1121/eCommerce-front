@@ -9,21 +9,28 @@ import {
   FILTER_PLATFORM,
   FILTER_DEVELOPER,
   FILTER_GENRE,
+  GET_ALL_USERS,
+  GET_USERS_NOT_BANNED,
+  BAN_USER,
+  UNBAN_USER,
+  GET_USERS_BANNED,
+  UPDATE_USER,
+  GET_USER_BY_ID,
+  FILTER_BY_ROL,
+  GET_USER_BY_NAME,
 } from "./action-types";
 
 const initialState = {
   allGames: [],
   allCopyGames: [],
-  detailGame: {"id": 1,
-  "name": "Mario Galaxy 2",
-  "description": "Únete al único e irrepetible Mario en un viaje por extraños planetas en los que te esperan nuevas trampas y peligros, en Super Mario Galaxy 2.",
-  "image": "https://m.media-amazon.com/images/I/81iCVhLDJFL.jpg",
-  "genre": "Accion",
-  "developer": "Nintendo",
-  "platform": "Nintendo Switch",
-  "price": 50.5,
-  "stock": 12,
-  "deleted": false},
+  detailGame: {},
+  
+  allUsers: [],
+  users: [],
+  usersNotBanned: [],
+  bannedUsers: [],
+  user: {},
+
   loading: true,
 };
 
@@ -68,7 +75,7 @@ const reducer = (state = initialState, action) => {
       const { gamesId } = action.payload;
       const newStateGetByIdGames = {
         ...state,
-        detailGame: action.payload,
+        detailGame: {...action.payload},
         gamesId,
         loading: false,
       };
@@ -101,7 +108,80 @@ const reducer = (state = initialState, action) => {
       return { ...state };
     }
 
-    /* DELETE VIDEOGAME */
+    /* GET ALL USERS */
+    case GET_ALL_USERS : {
+      return {
+        ...state,
+        users: [...action.payload],
+        allUsers: [...action.payload],
+      }
+    }
+
+    /* GET USERS NOT BANNED */
+    case GET_USERS_NOT_BANNED : {
+      return {
+        ...state,
+        users: [...action.payload],
+        usersNotBanned: [...action.payload]
+      }
+    }
+
+    /* GET BANNED USERS */
+    case GET_USERS_BANNED : {
+      return {
+        ...state,
+        bannedUsers: [...action.payload],
+        users: [...action.payload]
+      }
+    }
+
+    /* BAN USER */
+    case BAN_USER : {
+      return {...state,}
+    }
+
+    /* UNBAN USER */
+    case UNBAN_USER : {
+      return {...state}
+    }
+
+    /* UPDATE USER */
+    case UPDATE_USER : {
+      return {...state}
+    }
+
+    /* GET USER BY ID */
+    case GET_USER_BY_ID : {
+      return {
+        ...state,
+        user: {...action.payload}
+      }
+    }
+
+    /* GET USER BY NAME */
+    case GET_USER_BY_NAME : {
+      return {
+        ...state,
+        users: action.payload
+      }
+    }
+
+    /* FILTER BY ROL */
+    case FILTER_BY_ROL : {
+      if(action.payload === "All roles"){
+        return {
+          ...state,
+          users: [...state.allUsers]
+        }
+      }
+
+      const usersFiltered = state.allUsers.filter((user) => user.rol === action.payload)
+
+      return {
+        ...state,
+        users: [...usersFiltered]
+      }
+    }
 
     //!EDWARD
     case ORDER:

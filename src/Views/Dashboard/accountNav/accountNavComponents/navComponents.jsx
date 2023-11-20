@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Style from './navComponents.module.css'
 import { useLocation, NavLink, useNavigate  } from "react-router-dom";
 import userFirsIcon from '../../../../Assets/img/icon/nav/login.png'
@@ -6,14 +6,16 @@ import logoutIcon from '../../../../Assets/img/icon/dashboard/close.png'
 import closeIcon from '../../../../Assets/img/icon/dashboard/closed.png'
    
 export const Links = ({ url, img, name}) => {
-    const locate = useLocation().pathname.includes(`/dashboard/${url}`)    
-    return (
+    const locate = useLocation().pathname.includes(`/dashboard/${url}`)
+
+    return (<>
         <NavLink to={`/dashboard/${url}`}>
-        <div className={`${locate ? Style.dashboard_link_not : Style.dashboard_link}`}>
-            <img src={img} alt="icon"/>
-            <h2>{name}</h2>
-        </div>
+          <div className={`${locate ? Style.dashboard_link_not : Style.dashboard_link}`}>
+              <img src={img} alt="icon"/>
+              <h2>{name}</h2>
+          </div>
         </NavLink>
+        </>
     )
 }
 

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 export default function Account() {
     const { id } = useParams()
-    console.log(id);
+    
     return (
         <main className={Style.dashboard}>
             <AccountNav/>

@@ -84,6 +84,7 @@ function FormVideogame() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(newVideogame);
 
         setNewVideogame({
             name: "",

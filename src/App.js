@@ -11,6 +11,7 @@ import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import Account from "./Views/Dashboard/account";
+import DetailUser from "./Views/Detail/detailUser/DetailUser"
 import './App.css';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
         <Route path="/catalogo" element={<Catalogo/>}/>
         <Route path="/dashboard/:id" element={<Account/>}/>
+        <Route path="/user/:id" element={<DetailUser/>}/>
       </Routes>
       {location.pathname === '/' ||
       location.pathname.includes('/detail') || 
