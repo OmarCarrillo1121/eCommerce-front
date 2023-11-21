@@ -12,7 +12,6 @@ import {
   FILTER_PLATFORM,
   FILTER_DEVELOPER,
   FILTER_GENRE,
-
   GET_ALL_USERS,
   GET_USERS_BANNED,
   GET_USERS_NOT_BANNED,
@@ -21,9 +20,9 @@ import {
   UPDATE_USER,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
-  GET_USER_BY_NAME
+  GET_USER_BY_NAME,
+  AUTH_USER,
 } from "./action-types";
-
 
 export const saveStateToLocalStorage = () => {
   return (dispatch, getState) => {
@@ -125,7 +124,6 @@ export const filterGenre = (parameter) => {
   return { type: FILTER_GENRE, payload: parameter };
 };
 
-
 /* POST VIDEOGAMES */
 export const postVideogame = (videogame) => {
   return async (dispatch) => {
@@ -133,7 +131,7 @@ export const postVideogame = (videogame) => {
       await axios.post(`${URL_GAMES}/videogames`, videogame);
       alert("Videogame created succesfully!");
 
-      dispatch(saveStateToLocalStorage())
+      dispatch(saveStateToLocalStorage());
 
       return dispatch({
         type: POST_VIDEOGAME,
@@ -163,134 +161,143 @@ export const editVideogame = ({ id, videogame }) => {
 export const getAllUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/users/all`)
+      const response = await axios.get(`${URL_GAMES}/users/all`);
 
       return dispatch({
         type: GET_ALL_USERS,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* GET USERS NOT BANNED */
 export const getUsersNotBanned = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/users/`)
+      const response = await axios.get(`${URL_GAMES}/users/`);
 
       return dispatch({
         type: GET_USERS_NOT_BANNED,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* GET BANNED USERS */
 export const getBannedUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/users/disabled`)
+      const response = await axios.get(`${URL_GAMES}/users/disabled`);
 
       return dispatch({
         type: GET_USERS_BANNED,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* BAN USER */
 export const banUser = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`${URL_GAMES}/users/${userId}`)
+      await axios.delete(`${URL_GAMES}/users/${userId}`);
 
       return dispatch({
-        type: BAN_USER
-      })
+        type: BAN_USER,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* UNBAN USERS */
 export const unbanUser = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.put(`${URL_GAMES}/users/${userId}/restore`)
+      await axios.put(`${URL_GAMES}/users/${userId}/restore`);
 
       return dispatch({
-        type: UNBAN_USER
-      })
+        type: UNBAN_USER,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* UPDATE USER */
 export const updateUser = ({ id, user }) => {
   return async (dispatch) => {
     try {
-      await axios.put(`${URL_GAMES}/users/${id}`, user)
+      await axios.put(`${URL_GAMES}/users/${id}`, user);
 
       return dispatch({
         type: UPDATE_USER,
-      })
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* GET USER BY ID */
 export const getUserById = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/users/${id}`)
+      const response = await axios.get(`${URL_GAMES}/users/${id}`);
 
       return dispatch({
         type: GET_USER_BY_ID,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* FILTER BY ADMIN */
 export const filterByRol = (role) => {
   return {
     type: FILTER_BY_ROL,
-    payload: role
-  }
-}
-
+    payload: role,
+  };
+};
 
 /* FILTER BY USER */
 export const getUserByName = (name) => {
   return async (dispatch) => {
     try {
-      if(name){
-        const response = await axios.get(`${URL_GAMES}/users/search?name=${name}`)
+      if (name) {
+        const response = await axios.get(
+          `${URL_GAMES}/users/search?name=${name}`
+        );
 
         return dispatch({
           type: GET_USER_BY_NAME,
-          payload: response.data
-        })
+          payload: response.data,
+        });
       }
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
+
+/* AUTH_USER */
+export const authUser = (user) => {
+  return {
+    type: AUTH_USER,
+    payload: user,
+  };
+};
