@@ -73,8 +73,9 @@ const UserTable = () => {
         if (value === "All users") {
             if (time) {
                 dispatch(getUserByName(name))
+            } else {
+                dispatch(getAllUsers())
             }
-            dispatch(getAllUsers())
         } else if (value === "Users not Banned"){
             dispatch(getUsersNotBanned())
         } else if (value === "Users Banned") {
@@ -133,6 +134,7 @@ const UserTable = () => {
         }
 
         dispatch(getAllUsers())
+        setTime(false)
     }
 
     useEffect(() => {         
