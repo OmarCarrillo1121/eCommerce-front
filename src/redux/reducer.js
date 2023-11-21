@@ -29,7 +29,11 @@ const initialState = {
   users: [],
   usersNotBanned: [],
   bannedUsers: [],
+  adminsFiltered: [],
+  usersFilteredO: [],
   user: {},
+  statusFilter: "all",
+  rolFilter: "All roles", 
 
   loading: true,
 };
@@ -110,28 +114,85 @@ const reducer = (state = initialState, action) => {
 
     /* GET ALL USERS */
     case GET_ALL_USERS : {
+      if (state.rolFilter === "All roles"){
+        return {
+          ...state,
+          users: [...action.payload],
+          allUsers: [...action.payload],
+          statusFilter: "all"
+        }
+      }
+
+      const adminsFilteredNew = state.adminsFiltered
+
       return {
         ...state,
-        users: [...action.payload],
+        users: adminsFilteredNew,
         allUsers: [...action.payload],
+        statusFilter: "all"
       }
     }
 
     /* GET USERS NOT BANNED */
     case GET_USERS_NOT_BANNED : {
+      if (state.rolFilter === "All roles") {
+        const newUsers = state.allUsers.filter((user) => {
+          if (!user.banned) {
+            return user
+          }
+        }) 
+  
+        return {
+          ...state,
+          users: [...newUsers],
+          statusFilter: "active",
+          usersNotBanned: [...action.payload] 
+        }
+      }
+
+      const newUsers = state.adminsFiltered.filter((user) => {
+        if (!user.banned && state.allUsers.includes(user)) {
+          console.log(user);
+          return user
+        }
+      }) 
+
       return {
         ...state,
-        users: [...action.payload],
+        users: [...newUsers],
+        statusFilter: "active",
         usersNotBanned: [...action.payload]
       }
     }
 
     /* GET BANNED USERS */
     case GET_USERS_BANNED : {
+      if (state.rolFilter === "All roles") {
+        const newUsers = state.allUsers.filter((user) => {
+          if (user.banned) {
+            return user
+          }
+        }) 
+  
+        return {
+          ...state,
+          users: [...newUsers],
+          bannedUsers: [...action.payload],
+          statusFilter: "banned"
+        }
+      }
+
+      const newUsers = state.adminsFiltered.filter((user) => {
+        if (user.banned) {
+          return user
+        }
+      }) 
+
       return {
         ...state,
+        users: [...newUsers],
         bannedUsers: [...action.payload],
-        users: [...action.payload]
+        statusFilter: "banned"
       }
     }
 
@@ -160,26 +221,85 @@ const reducer = (state = initialState, action) => {
 
     /* GET USER BY NAME */
     case GET_USER_BY_NAME : {
+      if (state.rolFilter === "All roles") {
+
+        return {
+          ...state,
+          users: action.payload,
+          allUsers: action.payload,
+          statusFilter: "all"
+        }
+      }
+
+      const adminsFilteredNew = state.adminsFiltered
+      
       return {
         ...state,
-        users: action.payload
+        users: adminsFilteredNew,
+        allUsers: action.payload,
+        statusFilter: "all"
       }
     }
 
     /* FILTER BY ROL */
     case FILTER_BY_ROL : {
-      if(action.payload === "All roles"){
+      if (state.statusFilter === "active"){
+        if(action.payload === "All roles"){
+          // const usersFiltered = state.usersNotBanned.filter((user) => state.allUsers.includes(user))
+          return {
+            ...state,
+            users: [...state.usersNotBanned],
+            rolFilter: action.payload
+          }
+        }
+        const usersFiltered = state.usersNotBanned.filter((user) => {
+          if (user.rol === action.payload && state.allUsers.includes(user)) {
+            return user
+          }
+        })
+        const usersFilteredNew = state.allUsers.filter((user) => user.rol === action.payload)
         return {
           ...state,
-          users: [...state.allUsers]
+          users: [...usersFilteredNew],
+          adminsFiltered: usersFilteredNew,
+          rolFilter: action.payload
         }
       }
 
-      const usersFiltered = state.allUsers.filter((user) => user.rol === action.payload)
+      if (state.statusFilter === "banned"){
+        if(action.payload === "All roles"){
+  
+          return {
+            ...state,
+            users: [...state.bannedUsers],
+            rolFilter: action.payload
+          }
+        }
+        const usersFiltered = state.bannedUsers.filter((user) => user.rol === action.payload)
+        const usersFilteredNew = state.allUsers.filter((user) => user.rol === action.payload)
+        return {
+          ...state,
+          users: [...usersFiltered],
+          adminsFiltered: usersFilteredNew,
+          rolFilter: action.payload
+        }
+      }
 
+      if(action.payload === "All roles"){
+        // console.log("d");
+        return {
+          ...state,
+          users: [...state.allUsers],
+          rolFilter: action.payload
+        }
+      }
+      const usersFiltered = state.allUsers.filter((user) => user.rol === action.payload)
+  
       return {
         ...state,
-        users: [...usersFiltered]
+        users: [...usersFiltered],
+        adminsFiltered: [...usersFiltered],
+        rolFilter: action.payload
       }
     }
 

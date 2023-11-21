@@ -76,6 +76,9 @@
 .row td {
     padding: 10px 5px;
 }
+.rowHover td {
+    padding: 10px 5px;
+}
 .containerMessage {
     position: absolute;
     bottom: 3%;
@@ -93,6 +96,11 @@
     font-size: 12px;
     color: rgb(0, 128, 94);
     cursor: pointer;
+}
+.containerMessage small {
+    position: absolute;
+    left: 1%;
+    font-size: 13px;
 }
 .overlay {
     display: flex;
