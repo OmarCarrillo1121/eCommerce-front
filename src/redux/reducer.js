@@ -253,14 +253,14 @@ const reducer = (state = initialState, action) => {
           }
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
-          if (user.rol === action.payload && state.allUsers.includes(user)) {
+          if (user.rol === action.payload) {
             return user
           }
         })
         const usersFilteredNew = state.allUsers.filter((user) => user.rol === action.payload)
         return {
           ...state,
-          users: [...usersFilteredNew],
+          users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload
         }
