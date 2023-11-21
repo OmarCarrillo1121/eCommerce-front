@@ -280,7 +280,7 @@ export const getUserByName = (name) => {
     try {
       if (name) {
         const response = await axios.get(
-          `${URL_GAMES}/users/search?name=${name}`
+          `${URL_GAMES}/users/search/name?name=${name}`
         );
 
         return dispatch({

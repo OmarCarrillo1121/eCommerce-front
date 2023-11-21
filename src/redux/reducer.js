@@ -28,6 +28,7 @@ const initialState = {
 
   allUsers: [],
   users: [],
+  usersByName: [],
   usersNotBanned: [],
   bannedUsers: [],
   adminsFiltered: [],
@@ -142,13 +143,12 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: [...newUsers],
           statusFilter: "active",
-          usersNotBanned: [...action.payload],
+          usersNotBanned: [...newUsers],
         };
       }
 
       const newUsers = state.adminsFiltered.filter((user) => {
-        if (!user.banned && state.allUsers.includes(user)) {
-          console.log(user);
+        if (!user.banned) {
           return user;
         }
       });
@@ -157,7 +157,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: [...newUsers],
         statusFilter: "active",
-        usersNotBanned: [...action.payload],
+        usersNotBanned: [...newUsers],
       };
     }
 
@@ -173,7 +173,7 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           users: [...newUsers],
-          bannedUsers: [...action.payload],
+          bannedUsers: [...newUsers],
           statusFilter: "banned",
         };
       }
@@ -187,7 +187,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         users: [...newUsers],
-        bannedUsers: [...action.payload],
+        bannedUsers: [...newUsers],
         statusFilter: "banned",
       };
     }
@@ -222,6 +222,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: action.payload,
           allUsers: action.payload,
+          usersByName: action.payload,
           statusFilter: "all",
         };
       }
@@ -232,6 +233,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: adminsFilteredNew,
         allUsers: action.payload,
+        usersByName: action.payload,
         statusFilter: "all",
       };
     }
@@ -240,7 +242,6 @@ const reducer = (state = initialState, action) => {
     case FILTER_BY_ROL: {
       if (state.statusFilter === "active") {
         if (action.payload === "All roles") {
-          // const usersFiltered = state.usersNotBanned.filter((user) => state.allUsers.includes(user))
           return {
             ...state,
             users: [...state.usersNotBanned],
@@ -248,8 +249,8 @@ const reducer = (state = initialState, action) => {
           };
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
-          if (user.rol === action.payload && state.allUsers.includes(user)) {
-            return user;
+          if (user.rol === action.payload) {
+            return user
           }
         });
         const usersFilteredNew = state.allUsers.filter(
@@ -257,7 +258,7 @@ const reducer = (state = initialState, action) => {
         );
         return {
           ...state,
-          users: [...usersFilteredNew],
+          users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
         };
@@ -286,7 +287,6 @@ const reducer = (state = initialState, action) => {
       }
 
       if (action.payload === "All roles") {
-        // console.log("d");
         return {
           ...state,
           users: [...state.allUsers],
