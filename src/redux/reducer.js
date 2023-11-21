@@ -18,22 +18,27 @@ import {
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
+  AUTH_USER,
 } from "./action-types";
 
 const initialState = {
   allGames: [],
   allCopyGames: [],
   detailGame: {},
-  
+
   allUsers: [],
   users: [],
   usersNotBanned: [],
   bannedUsers: [],
+  adminsFiltered: [],
+  usersFilteredO: [],
   user: {},
+  statusFilter: "all",
+  rolFilter: "All roles",
+  authUser: {},
 
   loading: true,
 };
-
 
 const saveStateToLocalStorage = (state, action) => {
   try {
@@ -46,20 +51,17 @@ const saveStateToLocalStorage = (state, action) => {
   }
 };
 
-
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_GAMES:
-
-    const newStateGetAllGames = {
-      ...state,
-      allGames: action.payload,
-      allCopyGames: action.payload,
-      loading: false,
-    };
-    saveStateToLocalStorage(newStateGetAllGames);
-    return newStateGetAllGames;
+      const newStateGetAllGames = {
+        ...state,
+        allGames: action.payload,
+        allCopyGames: action.payload,
+        loading: false,
+      };
+      saveStateToLocalStorage(newStateGetAllGames);
+      return newStateGetAllGames;
 
     case GET_BY_NAME_GAMES:
       const newStateGetByNameGames = {
@@ -75,7 +77,7 @@ const reducer = (state = initialState, action) => {
       const { gamesId } = action.payload;
       const newStateGetByIdGames = {
         ...state,
-        detailGame: {...action.payload},
+        detailGame: { ...action.payload },
         gamesId,
         loading: false,
       };
@@ -93,14 +95,12 @@ const reducer = (state = initialState, action) => {
 
     /* POST VIDEOGAME */
     case POST_VIDEOGAME: {
-      const newState={
-        ...state 
-
-      }
+      const newState = {
+        ...state,
+      };
       saveStateToLocalStorage(newState, action);
 
       return newState;
-       
     }
 
     /* EDIT VIDEOGAME */
@@ -109,78 +109,200 @@ const reducer = (state = initialState, action) => {
     }
 
     /* GET ALL USERS */
-    case GET_ALL_USERS : {
+    case GET_ALL_USERS: {
+      if (state.rolFilter === "All roles") {
+        return {
+          ...state,
+          users: [...action.payload],
+          allUsers: [...action.payload],
+          statusFilter: "all",
+        };
+      }
+
+      const adminsFilteredNew = state.adminsFiltered;
+
       return {
         ...state,
-        users: [...action.payload],
+        users: adminsFilteredNew,
         allUsers: [...action.payload],
-      }
+        statusFilter: "all",
+      };
     }
 
     /* GET USERS NOT BANNED */
-    case GET_USERS_NOT_BANNED : {
+    case GET_USERS_NOT_BANNED: {
+      if (state.rolFilter === "All roles") {
+        const newUsers = state.allUsers.filter((user) => {
+          if (!user.banned) {
+            return user;
+          }
+        });
+
+        return {
+          ...state,
+          users: [...newUsers],
+          statusFilter: "active",
+          usersNotBanned: [...action.payload],
+        };
+      }
+
+      const newUsers = state.adminsFiltered.filter((user) => {
+        if (!user.banned && state.allUsers.includes(user)) {
+          console.log(user);
+          return user;
+        }
+      });
+
       return {
         ...state,
-        users: [...action.payload],
-        usersNotBanned: [...action.payload]
-      }
+        users: [...newUsers],
+        statusFilter: "active",
+        usersNotBanned: [...action.payload],
+      };
     }
 
     /* GET BANNED USERS */
-    case GET_USERS_BANNED : {
+    case GET_USERS_BANNED: {
+      if (state.rolFilter === "All roles") {
+        const newUsers = state.allUsers.filter((user) => {
+          if (user.banned) {
+            return user;
+          }
+        });
+
+        return {
+          ...state,
+          users: [...newUsers],
+          bannedUsers: [...action.payload],
+          statusFilter: "banned",
+        };
+      }
+
+      const newUsers = state.adminsFiltered.filter((user) => {
+        if (user.banned) {
+          return user;
+        }
+      });
+
       return {
         ...state,
+        users: [...newUsers],
         bannedUsers: [...action.payload],
-        users: [...action.payload]
-      }
+        statusFilter: "banned",
+      };
     }
 
     /* BAN USER */
-    case BAN_USER : {
-      return {...state,}
+    case BAN_USER: {
+      return { ...state };
     }
 
     /* UNBAN USER */
-    case UNBAN_USER : {
-      return {...state}
+    case UNBAN_USER: {
+      return { ...state };
     }
 
     /* UPDATE USER */
-    case UPDATE_USER : {
-      return {...state}
+    case UPDATE_USER: {
+      return { ...state };
     }
 
     /* GET USER BY ID */
-    case GET_USER_BY_ID : {
+    case GET_USER_BY_ID: {
       return {
         ...state,
-        user: {...action.payload}
-      }
+        user: { ...action.payload },
+      };
     }
 
     /* GET USER BY NAME */
-    case GET_USER_BY_NAME : {
+    case GET_USER_BY_NAME: {
+      if (state.rolFilter === "All roles") {
+        return {
+          ...state,
+          users: action.payload,
+          allUsers: action.payload,
+          statusFilter: "all",
+        };
+      }
+
+      const adminsFilteredNew = state.adminsFiltered;
+
       return {
         ...state,
-        users: action.payload
-      }
+        users: adminsFilteredNew,
+        allUsers: action.payload,
+        statusFilter: "all",
+      };
     }
 
     /* FILTER BY ROL */
-    case FILTER_BY_ROL : {
-      if(action.payload === "All roles"){
+    case FILTER_BY_ROL: {
+      if (state.statusFilter === "active") {
+        if (action.payload === "All roles") {
+          // const usersFiltered = state.usersNotBanned.filter((user) => state.allUsers.includes(user))
+          return {
+            ...state,
+            users: [...state.usersNotBanned],
+            rolFilter: action.payload,
+          };
+        }
+        const usersFiltered = state.usersNotBanned.filter((user) => {
+          if (user.rol === action.payload && state.allUsers.includes(user)) {
+            return user;
+          }
+        });
+        const usersFilteredNew = state.allUsers.filter(
+          (user) => user.rol === action.payload
+        );
         return {
           ...state,
-          users: [...state.allUsers]
-        }
+          users: [...usersFilteredNew],
+          adminsFiltered: usersFilteredNew,
+          rolFilter: action.payload,
+        };
       }
 
-      const usersFiltered = state.allUsers.filter((user) => user.rol === action.payload)
+      if (state.statusFilter === "banned") {
+        if (action.payload === "All roles") {
+          return {
+            ...state,
+            users: [...state.bannedUsers],
+            rolFilter: action.payload,
+          };
+        }
+        const usersFiltered = state.bannedUsers.filter(
+          (user) => user.rol === action.payload
+        );
+        const usersFilteredNew = state.allUsers.filter(
+          (user) => user.rol === action.payload
+        );
+        return {
+          ...state,
+          users: [...usersFiltered],
+          adminsFiltered: usersFilteredNew,
+          rolFilter: action.payload,
+        };
+      }
+
+      if (action.payload === "All roles") {
+        // console.log("d");
+        return {
+          ...state,
+          users: [...state.allUsers],
+          rolFilter: action.payload,
+        };
+      }
+      const usersFiltered = state.allUsers.filter(
+        (user) => user.rol === action.payload
+      );
 
       return {
         ...state,
-        users: [...usersFiltered]
-      }
+        users: [...usersFiltered],
+        adminsFiltered: [...usersFiltered],
+        rolFilter: action.payload,
+      };
     }
 
     //!EDWARD
@@ -232,6 +354,13 @@ const reducer = (state = initialState, action) => {
       };
 
     //!FIN EDWARD
+
+    case AUTH_USER: {
+      return {
+        ...state,
+        authUser: { ...action.payload },
+      };
+    }
 
     default:
       return {
