@@ -15,7 +15,9 @@ export const UNBAN_USER = "UNBAN_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const FILTER_BY_ROL = "FILTER_BY_ROL";
-export const GET_USER_BY_NAME ="GET_USER_BY_NAME";
+export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
+
+export const AUTH_USER = "AUTH_USER";
 
 //!EDWARD
 export const ORDER = "ORDER";
