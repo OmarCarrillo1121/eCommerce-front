@@ -19,6 +19,7 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
+  SET_CURRENT_PAGE
 } from "./action-types";
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   statusFilter: "all",
   rolFilter: "All roles",
   authUser: {},
+  currentPage: 1,
 
   loading: true,
 };
@@ -117,6 +119,7 @@ const reducer = (state = initialState, action) => {
           users: [...action.payload],
           allUsers: [...action.payload],
           statusFilter: "all",
+          currentPage: 1,
         };
       }
 
@@ -127,6 +130,7 @@ const reducer = (state = initialState, action) => {
         users: adminsFilteredNew,
         allUsers: [...action.payload],
         statusFilter: "all",
+        currentPage: 1,
       };
     }
 
@@ -144,6 +148,7 @@ const reducer = (state = initialState, action) => {
           users: [...newUsers],
           statusFilter: "active",
           usersNotBanned: [...newUsers],
+          currentPage: 1,
         };
       }
 
@@ -158,6 +163,7 @@ const reducer = (state = initialState, action) => {
         users: [...newUsers],
         statusFilter: "active",
         usersNotBanned: [...newUsers],
+        currentPage: 1,
       };
     }
 
@@ -175,6 +181,7 @@ const reducer = (state = initialState, action) => {
           users: [...newUsers],
           bannedUsers: [...newUsers],
           statusFilter: "banned",
+          currentPage: 1,
         };
       }
 
@@ -189,6 +196,7 @@ const reducer = (state = initialState, action) => {
         users: [...newUsers],
         bannedUsers: [...newUsers],
         statusFilter: "banned",
+        currentPage: 1,
       };
     }
 
@@ -224,6 +232,7 @@ const reducer = (state = initialState, action) => {
           allUsers: action.payload,
           usersByName: action.payload,
           statusFilter: "all",
+          currentPage: 1,
         };
       }
 
@@ -235,6 +244,7 @@ const reducer = (state = initialState, action) => {
         allUsers: action.payload,
         usersByName: action.payload,
         statusFilter: "all",
+        currentPage: 1,
       };
     }
 
@@ -246,6 +256,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             users: [...state.usersNotBanned],
             rolFilter: action.payload,
+            currentPage: 1,
           };
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
@@ -261,6 +272,7 @@ const reducer = (state = initialState, action) => {
           users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
 
@@ -270,6 +282,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             users: [...state.bannedUsers],
             rolFilter: action.payload,
+            currentPage: 1,
           };
         }
         const usersFiltered = state.bannedUsers.filter(
@@ -283,6 +296,7 @@ const reducer = (state = initialState, action) => {
           users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
 
@@ -291,6 +305,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: [...state.allUsers],
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
       const usersFiltered = state.allUsers.filter(
@@ -302,8 +317,17 @@ const reducer = (state = initialState, action) => {
         users: [...usersFiltered],
         adminsFiltered: [...usersFiltered],
         rolFilter: action.payload,
+        currentPage: 1,
       };
     }
+
+    /* SET CURRENT PAGE */
+    case SET_CURRENT_PAGE: {
+      return {
+          ...state,
+          currentPage: action.payload
+      }
+  }
 
     //!EDWARD
     case ORDER:
