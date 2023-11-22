@@ -1,30 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllUsers, getUsersNotBanned, banUser, unbanUser, getBannedUsers, updateUser, filterByRol, getUserByName } from "../../../../../../redux/actions";
+import { getAllUsers, getUsersNotBanned, banUser, unbanUser, getBannedUsers, updateUser, filterByRol, getUserByName, setCurrentPage } from "../../../../../../redux/actions";
 import style from './userTable.module.css'
-import img from '../../../../../../Assets/img/icon/dashboard/adminboard/person.jpg'
-import { NavLink } from 'react-router-dom'
+import Rol from "./rol/Rol";
+import Info from "./info/Info";
+import Select from "./selects/Select";
+import NotUser from "./notUsers/NotUser"
+import Pagination from "../pagination/Pagination";
 
 const UserTable = () => {
-    const { users } = useSelector((state) => state)
+    const { users, currentPage } = useSelector((state) => state)
     const dispatch = useDispatch()
     const [ rol, setRol ] = useState(false)
     const [ info, setInfo ] = useState(false)
     const [ user, setUser ] = useState({})
-    const [ name, setName ] = useState("") 
+    const [ name, setName ] = useState("")
+    const [ time, setTime ] = useState(false)
+    const rolSelect = document.querySelector("#rolSelect");
+    const statusSelect = document.querySelector("#statusSelect"); 
     const viewMore = ">>>"
+
+    /* SET CURRENT PAGE */
+    const usersPerPage = 10;
+    const totalUsers = users.length
+
+    const firstIndex = usersPerPage * (currentPage - 1)
+    const lastIndex = firstIndex + usersPerPage
+
+    let currentPageData = users.slice(firstIndex, lastIndex)
+
+
+    const onPageChange  = (pageNum) => {
+        dispatch(setCurrentPage(pageNum))
+    }
+
+    /* ---------------- */
 
     const lookAtName = (e) => {
         const { value } = e.target
 
+        if (value === "") {
+            dispatch(getAllUsers())
+        }
         setName(value)
     }
 
     const searchToUser = (e) => {
         e.preventDefault()
 
-       dispatch(getUserByName(name))
-       setName("")
+        dispatch(getUserByName(name))
+        setTime(true)
+
+        if (rolSelect.value !== "All roles") {
+            rolSelect.value = "All roles";
+        }
+
+        if (statusSelect.value !== "All users") {
+            statusSelect.value = "All users";
+        }
     }
 
     const openEditRol = (user) => {
@@ -55,7 +88,11 @@ const UserTable = () => {
         const { value } = e.target
 
         if (value === "All users") {
-            dispatch(getAllUsers())
+            if (time) {
+                dispatch(getUserByName(name))
+            } else {
+                dispatch(getAllUsers())
+            }
         } else if (value === "Users not Banned"){
             dispatch(getUsersNotBanned())
         } else if (value === "Users Banned") {
@@ -104,9 +141,7 @@ const UserTable = () => {
     const showAllUsers = (e) => {
         e.preventDefault()
 
-        const rolSelect = document.querySelector("#rolSelect");
-        const statusSelect = document.querySelector("#statusSelect");
-
+        setName("")
         if (rolSelect.value !== "All roles") {
             rolSelect.value = "All roles";
         }
@@ -116,6 +151,7 @@ const UserTable = () => {
         }
 
         dispatch(getAllUsers())
+        setTime(false)
     }
 
     useEffect(() => {         
@@ -128,24 +164,10 @@ const UserTable = () => {
             <input  type="text" value={name} onChange={lookAtName} placeholder="Search for a user"/>
             <button onClick={searchToUser}>🔍︎</button>
         </div>
-        <div className={style.containerSelect}>
-            <div>
-                <b>Rol: </b>
-                <select id="rolSelect" onChange={filterRol}>
-                    <option value="All roles">All</option>
-                    <option value="admin">Admins</option>
-                    <option value="user">Users</option>
-                </select>
-            </div>
-            <div>
-                <b>Status: </b>
-                <select id="statusSelect" onChange={handleChange}>
-                    <option value="All users">All</option>
-                    <option value="Users not Banned">Active</option>
-                    <option value="Users Banned">Banned</option>
-                </select>
-            </div>
-        </div>
+        <Select
+            filterRol={filterRol}
+            handleChange={handleChange}
+        />
         <table>
             <thead>
                 <tr className={style.row}>
@@ -160,8 +182,8 @@ const UserTable = () => {
             </thead>
             <tbody>
                 {
-                    users.length > 0 
-                    ? users.map((user, index) => {
+                    currentPageData.length > 0 
+                    ? currentPageData.map((user, index) => {
                         const rowClass = index % 2 === 0 ? style['rowEven'] : style['rowOdd']
 
                         return (
@@ -185,10 +207,16 @@ const UserTable = () => {
                                 <td><button onClick={() => openInfo(user)}>🛈</button></td>
                             </tr>
                         )
-                    }): null
+                    }): <NotUser/>
                 }
             </tbody>
         </table>
+        <Pagination
+            totalUsers={totalUsers}
+            currentPage={currentPage}
+            pageSize={usersPerPage}
+            onPageChange={onPageChange}
+        />
         <div className={style.containerMessage}>
             <p><b>Didn't find what are looking for?</b> Some users may be hidden because of the filters you've selected.</p>
             <button className={style.showUsers} onClick={showAllUsers}>Show all users</button>
@@ -199,59 +227,19 @@ const UserTable = () => {
             }
         </div>
     </div>
-    {
-        rol 
-        && <div className={style.overlay}>
-                <div className={style.editRol}>
-                    <div className={style.containerEditUser}>
-                        <button onClick={closeEditRol}>X</button>
-                        <strong>Do you want to change the role of {user.name}?</strong>
-                        <select name="rol" onChange={changeRol} value={user.rol}>
-                            <option value="admin">admin</option>
-                            <option value="user">user</option>
-                        </select>
-                        <button onClick={updatedUser} className={style.updateBtn}>Save</button>
-                    </div>
-                </div> 
-        </div>
+    {rol && <Rol
+       user={user}
+       closeEditRol={closeEditRol}
+       changeRol={changeRol}
+       updatedUser={updatedUser} /> 
     }
-    {
-        info 
-        && <div className={style.overlay}>
-                <div className={style.seeInfo}>
-                    <div className={style.containerImg}>
-                        <button onClick={closeInfo}>X</button>
-                        {
-                            user.image === "" 
-                            ? <img src={img} alt="person"/>
-                            : <img src={user.image} alt={user.name} />
-                        }
-                        <h3>{user.name}</h3>
-                    </div>
-                    <div className={style.containerInfo}>
-                        <div className={style.details}>
-                            <p><span>Role:</span>&nbsp;&nbsp;<b>{user.rol}</b></p>
-                            <p><span>Email:</span>&nbsp;&nbsp;<b>{user.email}</b></p>
-                            <p><span>Address:</span>&nbsp;&nbsp;<b>{user.address}</b></p>
-                        </div>
-                        <div className={style.btnStatus}>
-                            {
-                                user.banned 
-                                ?   <button onClick={() => unbanToUser(user.id)}>UnBan</button>
-                                :   <button onClick={() => banToUser(user.id)}>Ban</button>
-                            }
-                        </div>
-                        <div className={style.containerBtn}>
-                            <div className={`${style.btn} ${style.btn2}`} id="button-2">
-                                <div className={style.slideBtn}></div>
-                                <NavLink className={style.view} to={`/user/${user.id}`}>
-                                    View more <small>{viewMore}</small>
-                                </NavLink>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
+    { info && <Info
+        user={user}
+        closeInfo={closeInfo}
+        unbanToUser={unbanToUser}
+        banToUser={banToUser}
+        viewMore={viewMore}
+    /> 
     }
     </>);
 };

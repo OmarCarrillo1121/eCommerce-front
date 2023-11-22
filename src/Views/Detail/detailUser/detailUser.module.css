@@ -1,0 +1,459 @@
+.bigContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+.aside {
+    position: relative;
+    width: 10%;
+    background-color: rgba(17, 25, 40);
+    height: 100%;
+}
+.main {
+    position: relative;
+    width: 90%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.main nav {
+    position: relative;
+    width: 100%;
+    height: 5%;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+    display: flex;
+    border-top: 2px solid #fff;
+    justify-content: end;
+}
+.main nav div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: auto;
+    border-left: 1px solid #e4e0e0;
+    padding: 0 15px;
+}
+.main nav div img {
+    border-radius: 50%;
+    border: 1px solid rgba(0 ,0, 0, 0.3);
+    height: 30px;
+    width: 30px;
+}
+.main nav div h2 {
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: rgb(79, 78, 78);
+    font-family:'Times New Roman', Times, serif;
+}
+.container{
+    position: relative;
+    height: 95%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.container .subtitles {
+    position: relative;
+    height: 14%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30px;
+}
+.container .subtitles p{
+    letter-spacing: 1px;
+    font-size: 15px;
+    padding-left: 2px;
+}
+.container .subtitles h2 {
+    font-size: 30px;
+    color: rgba(17, 25, 40);
+}
+.container .divsInfo {
+    position: relative;
+    height: 86%;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    /* background-color: red; */
+    padding: 0 20px;
+}
+.tooltipX {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    width: 20px;
+    transition: all .3s ease-in-out;
+}
+
+.tooltipX:hover::after {
+    content: "Banned";
+    position: absolute;
+    background-color: rgba(51, 51, 51, 0.347);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    bottom: 125%;
+    white-space: nowrap;
+}
+.tooltipX p {
+    font-size: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.tooltipY {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    width: 20px;
+    transition: all .3s ease-in-out;
+}
+
+.tooltipY:hover::after {
+    content: "Active";
+    position: absolute;
+    background-color: rgba(51, 51, 51, 0.347);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    bottom: 125%;
+    white-space: nowrap;
+}
+.tooltipY p {
+    font-size: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.container .divsInfo .divInfoLeft {
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.3), 0px -2px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 550px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.divInfoLeft button {
+    position: absolute;
+    transform: scaleX(-1);
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    right: 3%;
+    top: 1%;
+}
+.partLeftFirst {
+    position: relative;
+    height: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #e4e0e0;
+}
+.partLeftFirst div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    gap: 5px;
+} 
+.partLeftFirst div h3 {
+    font-size: 30px;
+    color: rgba(17, 25, 40);
+}
+.partLeftFirst div small {
+    color: rgb(79, 78, 78);
+    font-size: 15px;
+}
+.partLeftSecond {
+    position: relative;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 15px;
+    padding-bottom: 0;
+}
+.partLeftSecond h4 {
+    position: relative;
+    height: 25%;
+}
+.partLeftSecond p {
+    position: relative;
+    height: 75%;
+}
+.imageInfo{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 1px solid rgba(17, 25, 40);
+}
+.divInfoRight {
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.3), 0px -2px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 700px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+.titleDetails {
+    position: relative;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    border-bottom: 1px solid #e4e0e0;
+    font-size: 22px;
+}
+.titleDetails button {
+    transform: scaleX(-1);
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+    font-size: 22px;
+}
+.details {
+    height: 90%;
+    width: 100%;
+    color: rgba(17, 25, 40);
+    padding: 20px;
+}
+.details h4{
+    font-size: 20px;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+}
+.namePassword {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+}
+.containerName, .containerPassword {
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.containerData {
+    border: 1px solid #e4e0e0;
+    border-radius: 5px;
+    width: 97%;
+    padding: 10px;
+    font-size: 17px;
+}
+.containerEmail {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.containerData2 {
+    border: 1px solid #e4e0e0;
+    border-radius: 5px;
+    width: 98.5%;
+    padding: 10px;
+    font-size: 17px;
+}
+.containerAddress {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.containerPurchase {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.orders {
+    border: 1px solid #e4e0e0;
+    border-radius: 5px;
+    width: 98.5%;
+    padding: 10px;
+    font-size: 17px;
+    height: 200px;
+}
+.noOrders {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;  
+    background-color: rgba(0, 0, 0, 0.5)
+}
+.openImg {
+    position: relative;
+    height: 400px;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    z-index: 10;
+}
+.imgContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.imgContainer button:first-child {
+    position: absolute;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    left: 4%;
+    top: 4%;
+    font-size: 14px;
+    transition: all .3s ease-in-out;
+}
+.imgContainer button:first-child:hover {
+    transform: scale(1.4);
+}
+.imgContainer div {
+    padding: 0 25px;
+    border: 1px solid #e4e0e0;
+    background-color: rgba(204, 204, 204, 0.079);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+.imgContainer img {
+    height: 270px;
+    width: 220px;
+    border-left: 1px solid #e4e0e0;
+    border-right: 1px solid #e4e0e0;
+    padding: 0;
+}
+.imgContainer h3 {
+    color: rgba(17, 25, 40);
+}
+.imgContainer input[type="file"] {
+    display: none;
+}
+.custom_img_upload {
+    position: absolute;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #fff;
+    height: 270px;
+    width: 270px;
+    background-color: rgba(0 ,0, 0, 0.3);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    font-size: 40px;
+}
+.updateImg {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    border: 2px solid rgba(17, 25, 40);
+}
+.updateImg:hover {
+    background-color: rgba(17, 25, 40);
+    color: white;
+}
+.openInfo {
+    position: relative;
+    height: 400px;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    z-index: 10;
+}
+.infoContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    /* align-items: center; */
+    color: rgba(17, 25, 40);
+}
+.infoContainer div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    padding: 0 20px;
+}
+.infoContainer button:first-child {
+    position: absolute;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    left: 4%;
+    top: 4%;
+    font-size: 14px;
+    transition: all .3s ease-in-out;
+}
+.infoContainer button:first-child:hover {
+    transform: scale(1.4);
+}
+.infoContainer label {
+    font-size: 17px;
+}
+.infoContainer input {
+    padding: 2px 4px;
+    width: 400px;
+}
+.updateUser {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    border: 2px solid rgba(17, 25, 40);
+}
+.updateUser:hover {
+    background-color: rgba(17, 25, 40);
+    color: white;
+}
