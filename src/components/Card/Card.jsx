@@ -1,29 +1,21 @@
 import { Link } from "react-router-dom";
-import Style from "./Card.module.css"
-import { motion } from "framer-motion";
+import style from "./card.module.css";
 
-function Card ({ game }){
-    const {id, name, image, price, discount } = game
-    return(
-        <motion.figure className={Style.carta} key={id}
-          layout
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          >
-            <Link to={`/detail/${id}`}>
-            <div className = {Style.card}>
-              <img className= {Style.card_game} src={image} alt={name} />
-              <span className={Style.descuento}>-{discount}%</span>
-            </div>
-            </Link>
-            <div className={Style.card_price}>
-                <h2 className={Style.card_name}>{name}</h2>
-                <h2>${price}</h2>
-            </div>
-        </motion.figure>
-    )
+function Card({ game }) {
+  const { id, name, image, price } = game;
+  return (
+    <Link to={`/detail/${id}`}>
+      <div className={style.cardContainer}>
+        <div className={style.card}>
+          <img className={style.cardImg} src={image} alt={name} />
+        </div>
+        <div className={style.cardText}>
+          <h2 className={style.cardTextName}>{name}</h2>
+          <h2 className={style.cardTextPrice}>${price}</h2>
+        </div>
+      </div>
+    </Link>
+  );
 }
 
-export default Card
+export default Card;

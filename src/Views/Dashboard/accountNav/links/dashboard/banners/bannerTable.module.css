@@ -1,0 +1,59 @@
+.tabletBanners {
+    padding: 0;
+    margin: 0;
+    margin-top: 60px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 650px;
+}
+
+.tabletBanners .containerSelect{
+    display: flex;
+    gap: 50px;
+    padding: 15px 10px;
+}
+.tabletBanners .containerSelect select {
+    border: none;
+    text-align: end;
+    padding-right: 2px;
+    width: 40px;
+}
+.tabletBanners .containerSelect select option {
+    background-color: #e3dbdb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.tabletBanners table{
+    position: relative;
+    border-collapse: collapse;
+}
+.tabletBanners table thead {
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+.tabletBanners table thead tr{
+    text-align: left;
+}
+.tabletBanners table thead tr th {
+    padding: 7px 5px;
+}
+.tabletBanners table td button {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+.rowEven {
+    background-color: #e9e8e8;
+}
+.rowOdd {
+    background-color: #fff;
+}
+.row td {
+    padding: 10px 5px;
+}
+.rowHover td {
+    padding: 10px 5px;
+}

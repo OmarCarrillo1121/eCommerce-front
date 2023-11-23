@@ -15,10 +15,21 @@ import {
   UNBAN_USER,
   GET_USERS_BANNED,
   UPDATE_USER,
+  GET_ALL_REVIEWS,
+  GET_DELETED_REVIEWS,
+  GET_ENABLED_REVIEWS,
+  DELETE_REVIEW,
+  RESTORE_REVIEW,
+  GET_ALL_BANNERS,
+  DELETE_BANNER,
+  RESTORE_BANNER,
+  GET_DELETED_BANNERS,
+  GET_ENABLED_BANNERS,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
+  SET_CURRENT_PAGE
 } from "./action-types";
 
 const initialState = {
@@ -28,6 +39,7 @@ const initialState = {
 
   allUsers: [],
   users: [],
+  usersByName: [],
   usersNotBanned: [],
   bannedUsers: [],
   adminsFiltered: [],
@@ -36,7 +48,19 @@ const initialState = {
   statusFilter: "all",
   rolFilter: "All roles",
   authUser: {},
+  currentPage: 1,
 
+  allReviews: [],
+  reviews: [],
+  deletedReviews: [],
+  enabledReviews: [],
+  review: {},
+
+  allBanners: [],
+  banners: [],
+  deletedBanners: [],
+  enabledBanners: [],
+  banner: {},
   loading: true,
 };
 
@@ -116,6 +140,7 @@ const reducer = (state = initialState, action) => {
           users: [...action.payload],
           allUsers: [...action.payload],
           statusFilter: "all",
+          currentPage: 1,
         };
       }
 
@@ -126,6 +151,7 @@ const reducer = (state = initialState, action) => {
         users: adminsFilteredNew,
         allUsers: [...action.payload],
         statusFilter: "all",
+        currentPage: 1,
       };
     }
 
@@ -142,13 +168,13 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: [...newUsers],
           statusFilter: "active",
-          usersNotBanned: [...action.payload],
+          usersNotBanned: [...newUsers],
+          currentPage: 1,
         };
       }
 
       const newUsers = state.adminsFiltered.filter((user) => {
-        if (!user.banned && state.allUsers.includes(user)) {
-          console.log(user);
+        if (!user.banned) {
           return user;
         }
       });
@@ -157,7 +183,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: [...newUsers],
         statusFilter: "active",
-        usersNotBanned: [...action.payload],
+        usersNotBanned: [...newUsers],
+        currentPage: 1,
       };
     }
 
@@ -173,8 +200,9 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           users: [...newUsers],
-          bannedUsers: [...action.payload],
+          bannedUsers: [...newUsers],
           statusFilter: "banned",
+          currentPage: 1,
         };
       }
 
@@ -187,8 +215,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         users: [...newUsers],
-        bannedUsers: [...action.payload],
+        bannedUsers: [...newUsers],
         statusFilter: "banned",
+        currentPage: 1,
       };
     }
 
@@ -207,6 +236,82 @@ const reducer = (state = initialState, action) => {
       return { ...state };
     }
 
+
+    /* GET ALL REVIEWS */
+    case GET_ALL_REVIEWS: {
+      return {
+        ...state,
+        reviews: [...action.payload],
+        allReviews: [...action.payload]
+      }
+    }
+
+    /* GET DELETED REVIEWS */
+    case GET_DELETED_REVIEWS: {
+      return {
+        ...state,
+        deletedReviews: [...action.payload],
+        reviews: [...action.payload]
+      }
+    }
+
+    /* GET ENABLED REVIEWS */
+    case GET_ENABLED_REVIEWS: {
+      return {
+        ...state,
+        enabledReviews: [...action.payload],
+        reviews: [...action.payload]
+      }
+    }
+
+    /* DELETE REVIEW */
+    case DELETE_REVIEW: {
+      return {...state}
+    }
+
+    /* RESTORE REVIEW */
+    case RESTORE_REVIEW: {
+      return {...state}
+    }
+
+
+    /* GET ALL BANNERS */
+    case GET_ALL_BANNERS: {
+      return {
+        ...state,
+        banners: [...action.payload],
+        allBanners: [...action.payload]
+      }
+    }
+
+    /* GET DELETED BANNERS */
+    case GET_DELETED_BANNERS: {
+      return {
+        ...state,
+        deletedBanners: [...action.payload],
+        banners: [...action.payload]
+      }
+    }
+
+    /* GET ENABLED BANNERS */
+    case GET_ENABLED_BANNERS: {
+      return {
+        ...state,
+        enabledBanners: [...action.payload],
+        banners: [...action.payload]
+      }
+    }
+
+    /* DELETE BANNER */
+    case DELETE_BANNER: {
+      return {...state}
+    }
+
+    /* RESTORE BANNER */
+    case RESTORE_BANNER: {
+      return {...state}
+    }
+
     /* GET USER BY ID */
     case GET_USER_BY_ID: {
       return {
@@ -222,7 +327,9 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: action.payload,
           allUsers: action.payload,
+          usersByName: action.payload,
           statusFilter: "all",
+          currentPage: 1,
         };
       }
 
@@ -232,7 +339,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: adminsFilteredNew,
         allUsers: action.payload,
+        usersByName: action.payload,
         statusFilter: "all",
+        currentPage: 1,
       };
     }
 
@@ -240,16 +349,16 @@ const reducer = (state = initialState, action) => {
     case FILTER_BY_ROL: {
       if (state.statusFilter === "active") {
         if (action.payload === "All roles") {
-          // const usersFiltered = state.usersNotBanned.filter((user) => state.allUsers.includes(user))
           return {
             ...state,
             users: [...state.usersNotBanned],
             rolFilter: action.payload,
+            currentPage: 1,
           };
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
-          if (user.rol === action.payload && state.allUsers.includes(user)) {
-            return user;
+          if (user.rol === action.payload) {
+            return user
           }
         });
         const usersFilteredNew = state.allUsers.filter(
@@ -257,9 +366,10 @@ const reducer = (state = initialState, action) => {
         );
         return {
           ...state,
-          users: [...usersFilteredNew],
+          users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
 
@@ -269,6 +379,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             users: [...state.bannedUsers],
             rolFilter: action.payload,
+            currentPage: 1,
           };
         }
         const usersFiltered = state.bannedUsers.filter(
@@ -282,15 +393,16 @@ const reducer = (state = initialState, action) => {
           users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
 
       if (action.payload === "All roles") {
-        // console.log("d");
         return {
           ...state,
           users: [...state.allUsers],
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
       const usersFiltered = state.allUsers.filter(
@@ -302,8 +414,17 @@ const reducer = (state = initialState, action) => {
         users: [...usersFiltered],
         adminsFiltered: [...usersFiltered],
         rolFilter: action.payload,
+        currentPage: 1,
       };
     }
+
+    /* SET CURRENT PAGE */
+    case SET_CURRENT_PAGE: {
+      return {
+          ...state,
+          currentPage: action.payload
+      }
+  }
 
     //!EDWARD
     case ORDER:
