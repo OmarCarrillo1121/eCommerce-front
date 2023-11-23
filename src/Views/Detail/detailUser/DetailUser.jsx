@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom";
 import style from './detailUser.module.css'
 import img from '../../../Assets/img/icon/dashboard/usuario.png'
+import AsideUser from "./AsideUser/AsideUser";
 
 function DetailUser() {
     const dispatch = useDispatch()
@@ -104,7 +105,9 @@ function DetailUser() {
 
     return (<>  
         <div className={style.bigContainer}>
-            <aside className={style.aside}></aside>
+            <AsideUser
+                user={user}
+            />
             <main className={style.main}>
                 <nav>
                     {/* <p>carrito de compras</p> */}

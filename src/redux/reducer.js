@@ -76,16 +76,24 @@ const reducer = (state = initialState, action) => {
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
 
-    case GET_BY_ID_GAMES:
-      const { gamesId } = action.payload;
-      const newStateGetByIdGames = {
-        ...state,
-        detailGame: { ...action.payload },
-        gamesId,
-        loading: false,
-      };
-      saveStateToLocalStorage(newStateGetByIdGames);
-      return newStateGetByIdGames;
+      case GET_BY_ID_GAMES: {
+        const { gamesId } = action.payload;
+        const newStateGetByIdGames = {
+          ...state,
+          detailGame: { ...state.detailGame, ...action.payload }, // Combinar detailGame con action.payload
+          gamesId,
+          loading: false,
+        };
+      
+        saveStateToLocalStorage(newStateGetByIdGames);
+        // console.log("adios", newStateGetByIdGames);
+        // console.log("holadetaiñ", state.detailGame);
+        // Retornar un nuevo estado que incluye la actualización de detailGame
+        return {
+          ...newStateGetByIdGames,
+          // Otros campos globales que puedas tener en tu estado
+        };
+      }
 
     case RESET_DETAIL_GAMES:
       const newStateResetDetailGames = {

@@ -6,7 +6,7 @@
     gap: 15px;
 }
 .containerPages button {
-    background-color: #fff;
+    background-color: transparent;
     border: none;
     cursor: pointer;
     color: rgb(6, 195, 195);

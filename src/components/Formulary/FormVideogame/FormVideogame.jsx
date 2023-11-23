@@ -15,7 +15,7 @@ function FormVideogame() {
         image: "",
         genre: "",
         developer: "",
-        platform: "",
+        platform: "PC",
         price: 0,
         stock: 0, 
         discount: 0,
@@ -92,7 +92,7 @@ function FormVideogame() {
             image: "",
             genre: "",
             developer: "",
-            platform: "",
+            platform: "PC",
             price: 0,
             stock: 0,
             discount: 0, 
@@ -109,9 +109,12 @@ function FormVideogame() {
     return (  
         <div className={style.container}>
             <form className={style.form} onSubmit={handleSubmit}>
+                <nav>
+                    <h1>Form to create a Videogame</h1>
+                </nav>
                 <div className={style.containerLabelInput}>
-                    <div>
-                        <div>
+                    <div className={style.first}>
+                        <div className={style.nameContainer}>
                             <label htmlFor="name">Name:</label>
                             <input 
                                 type="text" 
@@ -125,7 +128,7 @@ function FormVideogame() {
                                 {errors.name ? errors.name : null}
                             </p>
                         </div>
-                        <div>
+                        <div className={style.developerContainer}>
                             <label htmlFor="developer">Developer:</label>
                             <input
                                 type="text"
@@ -140,8 +143,8 @@ function FormVideogame() {
                             </p>
                         </div>
                     </div>
-                    <div>
-                        <div>
+                    <div className={style.second}>
+                        <div className={style.genreContainer}>
                             <label htmlFor="genre">Genre:</label>
                             <input 
                                 type="text"
@@ -173,8 +176,8 @@ function FormVideogame() {
                             </p>
                         </div>
                     </div> 
-                    <div>
-                        <div>
+                    <div className={style.third}>
+                        <div className={style.thirdFirst}>
                             <label htmlFor="description">Description:</label>
                             <textarea 
                                 name="description"
@@ -187,8 +190,8 @@ function FormVideogame() {
                                 {errors.description ? errors.description : null}
                             </p>
                         </div>
-                        <div>
-                            <div>
+                        <div className={style.thirdSecond}>
+                            <div className={style.thirdSecondPrice}>
                                 <label htmlFor="price">Price in USD:</label>
                                 <input 
                                     type="number"
@@ -201,7 +204,7 @@ function FormVideogame() {
                                     {errors.price ? errors.price : null}
                                 </p>
                             </div>
-                            <div>
+                            <div className={style.thirdSecondStock}>
                                 <label htmlFor="stock">Stock:</label>
                                 <select name="stock" onChange={handleChange} value={newVideogame.stock}>
                                     {
@@ -216,7 +219,7 @@ function FormVideogame() {
                                     {errors.stock ? errors.stock : null}
                                 </p>
                             </div>
-                            <div>
+                            <div className={style.thirdSecondDiscount}>
                                 <label htmlFor="discount">Discount:</label>
                                 <select name="discount" onChange={handleChange} value={newVideogame.discount}>
                                     {
@@ -243,16 +246,15 @@ function FormVideogame() {
                                 <img src={template}  className={style.img} alt="" />
                             )
                         }
-                    </div>
-                    <div className={style.containerInputImg}>
-                        <input type="file" name="image" onChange={UploadImage}/>
+                        <label htmlFor="imageInput">Choose an Image</label>
+                        <input type="file" id="imageInput" name="image" onChange={UploadImage}/>
                         <br/>
                         <p>
                             {errors.image ? errors.image : null}
                         </p>
                     </div>
                 </div>
-                <button type="submit"
+                <button className={style.btnSubmit}  type="submit"
                     disabled={Object.keys(errors).length > 0 || 
                         !newVideogame.name ||
                         !newVideogame.description ||

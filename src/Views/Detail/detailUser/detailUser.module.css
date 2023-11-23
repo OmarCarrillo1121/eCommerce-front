@@ -5,13 +5,46 @@
 }
 .aside {
     position: relative;
-    width: 10%;
+    width: 15%;
     background-color: rgba(17, 25, 40);
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+.aside div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all .3s ease-in-out;
+    gap: 20px;
+    margin-left: 40px;
+    cursor: pointer;
+    width: 100%;
+}
+.aside div:hover img {
+    filter: invert(45%) sepia(97%) saturate(3447%) hue-rotate(353deg) brightness(94%) contrast(91%);
+}
+.aside div:hover .asideDashboard,
+.aside div:hover .catalogo {
+    color: #E6541B;
+}
+.aside div img {
+    filter: contrast(0) brightness(100);
+    height: 50px;
+    width: 50px;
+    transition: all .3s ease-in-out;
+}
+.aside .asideDashboard,
+.aside .catalogo {
+    font-size: 20px;
+    color: #fff;
 }
 .main {
     position: relative;
-    width: 90%;
+    width: 85%;
     height: 100vh;
     display: flex;
     flex-direction: column;
