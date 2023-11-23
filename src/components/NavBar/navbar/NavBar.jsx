@@ -19,7 +19,7 @@ const NavBar = () =>{
         <Menu/>
         <div className={Style.nav_icon}>
           <img src={categoryIcon} alt="category" onClick={() => navigate('/catalogo')}/>
-          <img src={shopIcon} alt="shop" onClick={() => navigate('/shoppingCart')}/>
+          <img src={shopIcon} alt="shop" onClick={() => navigate('/shoppingCart/cart')}/>
           <img src={loginIcon} alt="login" onClick={() => navigate('/login')}/>
         </div>
       </header> 

@@ -1,0 +1,66 @@
+.cart {
+    background-color: #272727;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cart_container {
+    display: flex;
+   
+    margin: 120px 0px 0px 30px;
+    gap: 50px;
+}
+
+.cart_games {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 600px;
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #323232;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.game_info {
+    display: flex;
+    gap: 20px;
+}
+
+.game_info_img{
+    width: 200px;
+    border-radius: 10px;
+}
+
+.game_info_delete {
+    width: 25px;
+    margin-top: 50px;
+}
+
+.game_info_data {
+    display: flex;
+    flex-direction: column;
+}
+
+.game_info_data span:nth-child(1) {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.game_info_data span:nth-child(2) {
+    color: #999;
+}
+
+
+
+.payment {
+    display: flex;
+    flex-direction: column;
+}
