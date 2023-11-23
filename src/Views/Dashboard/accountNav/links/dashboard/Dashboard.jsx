@@ -20,7 +20,7 @@ export function Dashboard() {
         <>
             <div className={style.tablet}>
                 <nav className={style.navbar}>
-                    <h2>Admin Dashboard</h2>
+                    <h1>Admin Dashboard</h1>
                     <div>
                         {
                             components.map((component, index) => {
