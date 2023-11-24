@@ -12,7 +12,7 @@ import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import Account from "./Views/Dashboard/account";
 import ShoppingCart from "./Views/shoppingCart/shoppingCard";
-import './App.css';
+import './App.css'
 
 function App() {
   const location = useLocation()
