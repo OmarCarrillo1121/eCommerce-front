@@ -1,26 +1,26 @@
 .form_register {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #333;
-    width: 50%;
-    gap: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  width: 50%;
+  gap: 50px;
 }
 
 .form_register_inp {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .form_register h1 {
-    align-self: self-start;
-    margin-left: 50px;
+  align-self: self-start;
+  margin-left: 50px;
 }
 
 .form_register_button {
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
