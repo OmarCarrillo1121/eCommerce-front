@@ -46,7 +46,7 @@ function App() {
         <Route path="/dashboard/Orders/:id" element={<DetailOrders/>}/> 
         <Route path="/dashboard/Orders/cancel" element={<CancelledOrders/>}/>
         <Route path="/dashboard/Orders/active" element={<ActiveOrders/>}/>
-        <Route path="/myProfile" element={<Profile/>}/>
+       
       </Routes>
       {location.pathname === '/' ||
       location.pathname.includes('/detail') || 

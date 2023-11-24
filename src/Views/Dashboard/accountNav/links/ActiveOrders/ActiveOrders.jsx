@@ -111,7 +111,7 @@ const ActiveOrders = () => {
 
         <div className={styles.cardContainer}>
           <ul>
-            {activeOrders.map((order) => (
+            {activeOrders?.map((order) => (
               <div key={order.id}>
                 <div className={styles.cards}>
                   <li key={order.id}>
@@ -122,7 +122,7 @@ const ActiveOrders = () => {
                     <p>Amount: {order.amount}</p>
                     <p>Products:</p>
                     <ul>
-                      {order.products.map((product) => (
+                      {order?.products?.map((product) => (
                         <li key={product.id}>
                           <p>Name: {product.name}</p>
                           <p>Price: {product.price}</p>

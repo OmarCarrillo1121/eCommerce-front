@@ -187,7 +187,7 @@ const reducer = (state = initialState, action) => {
     //agregado
     const updatedActiveOrderss = state.activeOrder.filter(orderId => orderId !== canceledOrderId);
     
-    const updatedOrders = state.orders.map((order) =>
+    const updatedOrders = state?.orders?.map((order) =>
     order.id === canceledOrderId ? { ...order, cancelled: true } : order
   );
 
@@ -223,7 +223,7 @@ const reducer = (state = initialState, action) => {
       
         // Filtra la orden restaurada de canceledOrder
         const updatedCanceledOrders = state.canceledOrder.filter(orderId => orderId !== restoredOrderId);
-        const updated = state.orders.map((order) =>
+        const updated = state?.orders?.map((order) =>
         order.id === restoredOrderId ? { ...order, cancelled: false } : order
       );
         return {
