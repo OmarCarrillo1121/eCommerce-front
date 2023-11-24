@@ -19,7 +19,7 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
-  SET_CURRENT_PAGE
+  SET_CURRENT_PAGE,
 } from "./action-types";
 
 const initialState = {
@@ -76,24 +76,24 @@ const reducer = (state = initialState, action) => {
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
 
-      case GET_BY_ID_GAMES: {
-        const { gamesId } = action.payload;
-        const newStateGetByIdGames = {
-          ...state,
-          detailGame: { ...state.detailGame, ...action.payload }, // Combinar detailGame con action.payload
-          gamesId,
-          loading: false,
-        };
-      
-        saveStateToLocalStorage(newStateGetByIdGames);
-        // console.log("adios", newStateGetByIdGames);
-        // console.log("holadetaiñ", state.detailGame);
-        // Retornar un nuevo estado que incluye la actualización de detailGame
-        return {
-          ...newStateGetByIdGames,
-          // Otros campos globales que puedas tener en tu estado
-        };
-      }
+    case GET_BY_ID_GAMES: {
+      const { gamesId } = action.payload;
+      const newStateGetByIdGames = {
+        ...state,
+        detailGame: { ...state.detailGame, ...action.payload }, // Combinar detailGame con action.payload
+        gamesId,
+        loading: false,
+      };
+
+      saveStateToLocalStorage(newStateGetByIdGames);
+      // console.log("adios", newStateGetByIdGames);
+      // console.log("holadetaiñ", state.detailGame);
+      // Retornar un nuevo estado que incluye la actualización de detailGame
+      return {
+        ...newStateGetByIdGames,
+        // Otros campos globales que puedas tener en tu estado
+      };
+    }
 
     case RESET_DETAIL_GAMES:
       const newStateResetDetailGames = {
@@ -269,7 +269,7 @@ const reducer = (state = initialState, action) => {
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
           if (user.rol === action.payload) {
-            return user
+            return user;
           }
         });
         const usersFilteredNew = state.allUsers.filter(
@@ -332,10 +332,10 @@ const reducer = (state = initialState, action) => {
     /* SET CURRENT PAGE */
     case SET_CURRENT_PAGE: {
       return {
-          ...state,
-          currentPage: action.payload
-      }
-  }
+        ...state,
+        currentPage: action.payload,
+      };
+    }
 
     //!EDWARD
     case ORDER:
@@ -388,10 +388,12 @@ const reducer = (state = initialState, action) => {
     //!FIN EDWARD
 
     case AUTH_USER: {
-      return {
+      const newStateAuthUser = {
         ...state,
         authUser: { ...action.payload },
       };
+      saveStateToLocalStorage(newStateAuthUser);
+      return newStateAuthUser;
     }
 
     default:
