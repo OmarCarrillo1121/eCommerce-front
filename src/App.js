@@ -11,6 +11,13 @@ import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import Account from "./Views/Dashboard/account";
+
+//⭐
+import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
+import DetailOrders from "./Views/Dashboard/accountNav/links/dashboard/DetailOrders/DetailOrdes";
+import CancelledOrders from"./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
+import ActiveOrders from"./Views/Dashboard//accountNav/links/ActiveOrders/ActiveOrders";
+
 import './App.css';
 
 function App() {
@@ -35,6 +42,11 @@ function App() {
         <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
         <Route path="/catalogo" element={<Catalogo/>}/>
         <Route path="/dashboard/:id" element={<Account/>}/>
+        <Route path="/dashboard/Orders" element={<Orders/>}/> 
+        <Route path="/dashboard/Orders/:id" element={<DetailOrders/>}/> 
+        <Route path="/dashboard/Orders/cancel" element={<CancelledOrders/>}/>
+        <Route path="/dashboard/Orders/active" element={<ActiveOrders/>}/>
+        <Route path="/myProfile" element={<Profile/>}/>
       </Routes>
       {location.pathname === '/' ||
       location.pathname.includes('/detail') || 

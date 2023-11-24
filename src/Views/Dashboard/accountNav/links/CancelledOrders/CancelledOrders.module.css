@@ -1,0 +1,58 @@
+
+
+
+.container{
+    display: flex;
+    background-image: url('https://wallpapercave.com/wp/wp8006435.jpg');
+   
+    
+   
+}
+
+.cardContainer{
+    position: relative;
+
+}
+.cards{ 
+ 
+    /* Estilos para las tarjetas */
+  border: 7px solid rgb(250, 250, 250);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 1rem;
+  backdrop-filter: blur(15px);
+  color: beige;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    
+    
+}
+
+
+
+.button{
+    height: 2.5rem;
+    background-color: rgb(27, 232, 4);
+    border-radius: 5px;
+    width: 8rem;
+    cursor: pointer;
+    color: azure;
+    font-size: medium;
+}
+
+.button2{
+    height: 2.5rem;
+    background-color: rgb(27, 232, 4);
+    border-radius: 5px;
+    width: 9rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-left: 3rem;
+    margin-right:  2rem;
+    font-size: medium;
+    
+}
+.link{
+    color: azure;
+}
