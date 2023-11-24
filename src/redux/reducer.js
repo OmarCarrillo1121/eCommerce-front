@@ -19,6 +19,7 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
+  SET_CURRENT_PAGE,
 } from "./action-types";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
 
   allUsers: [],
   users: [],
+  usersByName: [],
   usersNotBanned: [],
   bannedUsers: [],
   adminsFiltered: [],
@@ -36,6 +38,7 @@ const initialState = {
   statusFilter: "all",
   rolFilter: "All roles",
   authUser: {},
+  currentPage: 1,
 
   loading: true,
 };
@@ -73,16 +76,24 @@ const reducer = (state = initialState, action) => {
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
 
-    case GET_BY_ID_GAMES:
+    case GET_BY_ID_GAMES: {
       const { gamesId } = action.payload;
       const newStateGetByIdGames = {
         ...state,
-        detailGame: { ...action.payload },
+        detailGame: { ...state.detailGame, ...action.payload }, // Combinar detailGame con action.payload
         gamesId,
         loading: false,
       };
+
       saveStateToLocalStorage(newStateGetByIdGames);
-      return newStateGetByIdGames;
+      // console.log("adios", newStateGetByIdGames);
+      // console.log("holadetaiñ", state.detailGame);
+      // Retornar un nuevo estado que incluye la actualización de detailGame
+      return {
+        ...newStateGetByIdGames,
+        // Otros campos globales que puedas tener en tu estado
+      };
+    }
 
     case RESET_DETAIL_GAMES:
       const newStateResetDetailGames = {
@@ -116,6 +127,7 @@ const reducer = (state = initialState, action) => {
           users: [...action.payload],
           allUsers: [...action.payload],
           statusFilter: "all",
+          currentPage: 1,
         };
       }
 
@@ -126,6 +138,7 @@ const reducer = (state = initialState, action) => {
         users: adminsFilteredNew,
         allUsers: [...action.payload],
         statusFilter: "all",
+        currentPage: 1,
       };
     }
 
@@ -142,13 +155,13 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: [...newUsers],
           statusFilter: "active",
-          usersNotBanned: [...action.payload],
+          usersNotBanned: [...newUsers],
+          currentPage: 1,
         };
       }
 
       const newUsers = state.adminsFiltered.filter((user) => {
-        if (!user.banned && state.allUsers.includes(user)) {
-          console.log(user);
+        if (!user.banned) {
           return user;
         }
       });
@@ -157,7 +170,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: [...newUsers],
         statusFilter: "active",
-        usersNotBanned: [...action.payload],
+        usersNotBanned: [...newUsers],
+        currentPage: 1,
       };
     }
 
@@ -173,8 +187,9 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           users: [...newUsers],
-          bannedUsers: [...action.payload],
+          bannedUsers: [...newUsers],
           statusFilter: "banned",
+          currentPage: 1,
         };
       }
 
@@ -187,8 +202,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         users: [...newUsers],
-        bannedUsers: [...action.payload],
+        bannedUsers: [...newUsers],
         statusFilter: "banned",
+        currentPage: 1,
       };
     }
 
@@ -222,7 +238,9 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: action.payload,
           allUsers: action.payload,
+          usersByName: action.payload,
           statusFilter: "all",
+          currentPage: 1,
         };
       }
 
@@ -232,7 +250,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: adminsFilteredNew,
         allUsers: action.payload,
+        usersByName: action.payload,
         statusFilter: "all",
+        currentPage: 1,
       };
     }
 
@@ -240,15 +260,15 @@ const reducer = (state = initialState, action) => {
     case FILTER_BY_ROL: {
       if (state.statusFilter === "active") {
         if (action.payload === "All roles") {
-          // const usersFiltered = state.usersNotBanned.filter((user) => state.allUsers.includes(user))
           return {
             ...state,
             users: [...state.usersNotBanned],
             rolFilter: action.payload,
+            currentPage: 1,
           };
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
-          if (user.rol === action.payload && state.allUsers.includes(user)) {
+          if (user.rol === action.payload) {
             return user;
           }
         });
@@ -257,9 +277,10 @@ const reducer = (state = initialState, action) => {
         );
         return {
           ...state,
-          users: [...usersFilteredNew],
+          users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
 
@@ -269,6 +290,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             users: [...state.bannedUsers],
             rolFilter: action.payload,
+            currentPage: 1,
           };
         }
         const usersFiltered = state.bannedUsers.filter(
@@ -282,15 +304,16 @@ const reducer = (state = initialState, action) => {
           users: [...usersFiltered],
           adminsFiltered: usersFilteredNew,
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
 
       if (action.payload === "All roles") {
-        // console.log("d");
         return {
           ...state,
           users: [...state.allUsers],
           rolFilter: action.payload,
+          currentPage: 1,
         };
       }
       const usersFiltered = state.allUsers.filter(
@@ -302,6 +325,15 @@ const reducer = (state = initialState, action) => {
         users: [...usersFiltered],
         adminsFiltered: [...usersFiltered],
         rolFilter: action.payload,
+        currentPage: 1,
+      };
+    }
+
+    /* SET CURRENT PAGE */
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.payload,
       };
     }
 
@@ -356,10 +388,12 @@ const reducer = (state = initialState, action) => {
     //!FIN EDWARD
 
     case AUTH_USER: {
-      return {
+      const newStateAuthUser = {
         ...state,
         authUser: { ...action.payload },
       };
+      saveStateToLocalStorage(newStateAuthUser);
+      return newStateAuthUser;
     }
 
     default:

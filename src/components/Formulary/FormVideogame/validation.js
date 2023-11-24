@@ -2,13 +2,13 @@ export const validation = (videogame) => {
     const error = {}
 
     /* REGEX */
-    const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,4}$/;
-    const nameRegex = /^(?=(?:\S*\s){0,3})(?=(?:\D*\d){0,4})[A-Za-z0-9\s]*$/;
+    const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,6}$/;
+    const nameRegex = /^(?=(?:\S*\s){0,6})(?=(?:\D*\d){0,6})[A-Za-z0-9\s]*$/;
     const genreRegex = /^[A-Za-z]+$/
     const descriptionRegex = /^[A-Za-z0-9,?*\s]+[A-Za-z0-9]+/;
     const developerRegex = /^([^A-Za-z]+\s){3,}/;
     const numberRegex = /^[^0-9]+$/    ;
-    const imageRegexUrl = /https?:\/\/[^\s]+\.(png|jpg|gif)/;
+    const imageRegexUrl = /https?:\/\/[^\s]+\.(png|jpg|gif|svg)/;
     const regexUrl = new RegExp(imageRegexUrl)
     
     /* NAME */

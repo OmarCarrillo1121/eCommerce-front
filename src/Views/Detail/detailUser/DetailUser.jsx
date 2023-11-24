@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom";
 import style from './detailUser.module.css'
 import img from '../../../Assets/img/icon/dashboard/usuario.png'
+import AsideUser from "./AsideUser/AsideUser";
 
 function DetailUser() {
     const dispatch = useDispatch()
@@ -104,9 +105,9 @@ function DetailUser() {
 
     return (<>  
         <div className={style.bigContainer}>
-            <aside className={style.aside}>
-                no sé que poner todavía
-            </aside>
+            <AsideUser
+                user={user}
+            />
             <main className={style.main}>
                 <nav>
                     {/* <p>carrito de compras</p> */}
@@ -152,8 +153,10 @@ function DetailUser() {
                                 </div>
                             </div>
                             <div className={style.partLeftSecond}>
-                                <h4>Description</h4>
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est amet doloremque suscipit cum beatae quaerat voluptates magni laborum, natus architecto quod repudiandae asperiores corporis! Eum, hic. Eius sapiente expedita accusantium.</p>
+                                <h4>Reviews</h4>
+                                <div>
+                                    {user.reviews ? <div>reviews</div> : <p>This user has not submitted any reviews</p>}
+                                </div>
                             </div>
                         </div>
                         <div className={style.divInfoRight}>

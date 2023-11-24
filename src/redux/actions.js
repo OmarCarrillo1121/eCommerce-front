@@ -22,6 +22,7 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
+  SET_CURRENT_PAGE
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -280,7 +281,7 @@ export const getUserByName = (name) => {
     try {
       if (name) {
         const response = await axios.get(
-          `${URL_GAMES}/users/search?name=${name}`
+          `${URL_GAMES}/users/search/name?name=${name}`
         );
 
         return dispatch({
@@ -293,6 +294,14 @@ export const getUserByName = (name) => {
     }
   };
 };
+
+/* SET CURRENT PAGE */
+export const setCurrentPage = (pageNum) => {
+  return {
+      type: SET_CURRENT_PAGE,
+      payload: pageNum
+  }
+}
 
 /* AUTH_USER */
 export const authUser = (user) => {

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllUsers, getUsersNotBanned, banUser, unbanUser, getBannedUsers, updateUser, filterByRol, getUserByName } from "../../../../../../redux/actions";
+import { getAllUsers, getUsersNotBanned, banUser, unbanUser, getBannedUsers, updateUser, filterByRol, getUserByName, setCurrentPage } from "../../../../../../redux/actions";
 import style from './userTable.module.css'
 import Rol from "./rol/Rol";
 import Info from "./info/Info";
 import Select from "./selects/Select";
 import NotUser from "./notUsers/NotUser"
+import Pagination from "../pagination/Pagination";
 
 const UserTable = () => {
-    const { users } = useSelector((state) => state)
+    const { users, currentPage } = useSelector((state) => state)
     const dispatch = useDispatch()
     const [ rol, setRol ] = useState(false)
     const [ info, setInfo ] = useState(false)
@@ -18,6 +19,22 @@ const UserTable = () => {
     const rolSelect = document.querySelector("#rolSelect");
     const statusSelect = document.querySelector("#statusSelect"); 
     const viewMore = ">>>"
+
+    /* SET CURRENT PAGE */
+    const usersPerPage = 10;
+    const totalUsers = users.length
+
+    const firstIndex = usersPerPage * (currentPage - 1)
+    const lastIndex = firstIndex + usersPerPage
+
+    let currentPageData = users.slice(firstIndex, lastIndex)
+
+
+    const onPageChange  = (pageNum) => {
+        dispatch(setCurrentPage(pageNum))
+    }
+
+    /* ---------------- */
 
     const lookAtName = (e) => {
         const { value } = e.target
@@ -73,8 +90,9 @@ const UserTable = () => {
         if (value === "All users") {
             if (time) {
                 dispatch(getUserByName(name))
+            } else {
+                dispatch(getAllUsers())
             }
-            dispatch(getAllUsers())
         } else if (value === "Users not Banned"){
             dispatch(getUsersNotBanned())
         } else if (value === "Users Banned") {
@@ -133,6 +151,7 @@ const UserTable = () => {
         }
 
         dispatch(getAllUsers())
+        setTime(false)
     }
 
     useEffect(() => {         
@@ -163,8 +182,8 @@ const UserTable = () => {
             </thead>
             <tbody>
                 {
-                    users.length > 0 
-                    ? users.map((user, index) => {
+                    currentPageData.length > 0 
+                    ? currentPageData.map((user, index) => {
                         const rowClass = index % 2 === 0 ? style['rowEven'] : style['rowOdd']
 
                         return (
@@ -192,6 +211,12 @@ const UserTable = () => {
                 }
             </tbody>
         </table>
+        <Pagination
+            totalUsers={totalUsers}
+            currentPage={currentPage}
+            pageSize={usersPerPage}
+            onPageChange={onPageChange}
+        />
         <div className={style.containerMessage}>
             <p><b>Didn't find what are looking for?</b> Some users may be hidden because of the filters you've selected.</p>
             <button className={style.showUsers} onClick={showAllUsers}>Show all users</button>
