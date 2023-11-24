@@ -17,7 +17,6 @@ const Input = ({ userInfo, name, error, width }) => {
       <label htmlFor={name} className={Style.label}>
         {name}
       </label>
-      {/* <span>{error}</span> */}
     </div>
   );
 };
