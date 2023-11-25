@@ -8,13 +8,15 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { authUser, saveStateToLocalStorage } from "../../../redux/actions.js";
+import { authUser} from "../../../redux/actions.js";
 import { useDispatch } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../../util/hook/localStorage/localStorage.js"
 
 const Services = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ storedUser, setStoredUser ] = useLocalStorage("user", null)
 
   const [error, setError] = useState();
 
@@ -24,8 +26,8 @@ const Services = () => {
       const googleProvider = new GoogleAuthProvider();
       const authUserInfo = await signInWithPopup(auth, googleProvider);
       dispatch(authUser(authUserInfo));
-      dispatch(saveStateToLocalStorage(authUserInfo));
-      alert("¡Logueado con exito!");
+      setStoredUser(authUserInfo); // Guarda el usuario en el localStorage
+      alert("¡Logueado con éxito!");
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -35,10 +37,10 @@ const Services = () => {
 
   return (
     <article className={Style.services}>
-      <h1>Log in</h1>
+      <h1>Usuario Registrado</h1>
       <div className={Style.services_icons}>
         <button onClick={loginWithGoogle} className={Style.google_login_btn}>
-          Login with google
+         ingresar con google
         </button>
       </div>
     </article>
