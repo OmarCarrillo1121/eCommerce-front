@@ -86,7 +86,7 @@ export default function Login() {
         email.value,
         password.value
       );
-      const authUserInfo = userCredentials.user; // Accede a la propiedad 'user'
+      const authUserInfo = userCredentials.user; 
       dispatch(authUser(authUserInfo));
       dispatch(saveStateToLocalStorage(authUserInfo));
       setStoredAuthUserInfo(authUserInfo);
