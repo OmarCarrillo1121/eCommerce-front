@@ -8,8 +8,9 @@ const FilterBy = ({ defaultName, names, setFilters, filters, min, setMin, max, s
     const { handle, handleChange } = useHandle();
     const [check, handleCheck] = useState({});
     function filterChange (e) {
-        if (e.target.checked) setFilters([...filters, e.target.name])
-        else {
+        if (!filters.includes(e.target.name)) {
+            setFilters([...filters, e.target.name])
+        } else {
           const borrar = filters.filter(filter => filter !== e.target.name)
           setFilters(borrar)
         }

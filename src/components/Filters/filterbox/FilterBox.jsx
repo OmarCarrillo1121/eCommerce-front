@@ -1,12 +1,15 @@
 import { Fragment, useEffect } from 'react'
 import Style from './filterBox.module.css'
 
-const FilterBox = ({ name, filterChange, handleCheck, check, filters,  min, setMin, max, setMax}) => {
+const FilterBox = ({ name, filterChange, handleChange ,handleCheck, check, filters,  min, setMin, max, setMax}) => {
     function checked (e) {
         if (e.target.checked) {
-            handleCheck({...check, [e.target.name]: true})
+            handleCheck({...check, [e.target.name]: true});
+            handleChange()
         }
-        else delete check[e.target.name]
+        else {
+            delete check[e.target.name]
+            handleChange()}
     }
     useEffect(() => {
         if (filters.length === 0) handleCheck({})

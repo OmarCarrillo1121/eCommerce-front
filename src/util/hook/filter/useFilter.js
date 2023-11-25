@@ -18,7 +18,6 @@ export const useFilter = (setFilteredGames) => {
     );
 
     const minMax = games.filter((game) => game.price >= min && game.price <= max)
-        console.log(filters);
     useEffect(() => {
         if (filters.length > 0) setFilteredGames(filtered)
         else setFilteredGames(minMax)
