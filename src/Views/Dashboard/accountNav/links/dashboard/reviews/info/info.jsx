@@ -12,14 +12,14 @@ function Info ({ review, closeInfo, reviewDelete, reviewRestore }) {
             </div>
             <div className={style.containerInfo}>
                 <div className={style.details}>
-                    <p><span>Content:</span>&nbsp;&nbsp;<b>review.content</b></p>
-                    <p><span>Rating:</span>&nbsp;&nbsp;<b>review.rating</b></p>
+                    <p><span>Contenido:</span>&nbsp;&nbsp;<b>review.content</b></p>
+                    <p><span>Puntuacion:</span>&nbsp;&nbsp;<b>review.rating</b></p>
                 </div>
                 <div className={style.btnStatus}>
                     {
                         review.banned
-                        ? <button onClick={() => reviewRestore(review.id)}>Restore</button>
-                        : <button onClick={() => reviewDelete(review.id)}>Delete</button>
+                        ? <button onClick={() => reviewRestore(review.id)}>Recuperar</button>
+                        : <button onClick={() => reviewDelete(review.id)}>Borrar</button>
                     }
                 </div>
             </div>

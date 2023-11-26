@@ -6,7 +6,7 @@ import {
   getEnabledReviews,
   deleteReview,
   restoreReview,
-  setCurrentPage
+  setCurrentPage,
 } from "../../../../../../redux/actions";
 import style from "./reviewsTable.module.css";
 import NotReviews from "./notReviews/NotReviews";
@@ -17,8 +17,8 @@ import Pagination from "../pagination/Pagination";
 const ReviewsTable = () => {
   const { reviews, currentPage } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [ info, setInfo ] = useState(false);
-  const [ review, setReview ] = useState({});
+  const [info, setInfo] = useState(false);
+  const [review, setReview] = useState({});
   const statusSelect = document.querySelector("#statusSelect");
 
   /* SET CURRENT PAGE */
@@ -31,8 +31,8 @@ const ReviewsTable = () => {
   let currentPageData = reviews.slice(firstIndex, lastIndex);
 
   const onPageChange = (pageNum) => {
-    dispatch(setCurrentPage(pageNum))
-  }
+    dispatch(setCurrentPage(pageNum));
+  };
 
   const openInfo = (review) => {
     setReview(review);
@@ -50,7 +50,7 @@ const ReviewsTable = () => {
     if (statusSelect.value !== "All reviews") {
       statusSelect.value = "All reviews";
     }
-  }
+  };
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -92,16 +92,16 @@ const ReviewsTable = () => {
 
   return (
     <div className={style.tabletReviews}>
-      <Select filter={filterStatus} handleChange={handleChange}/>
+      <Select filter={filterStatus} handleChange={handleChange} />
       <table>
         <thead>
           <tr className={style.row}>
             <th></th>
-            <th>Review Id</th>
-            <th>User Id</th>
-            <th>Videogame Id</th>
-            <th>Rating</th>
-            <th>Status</th>
+            <th>ID de reseña</th>
+            <th>ID de usuario</th>
+            <th>ID de juego</th>
+            <th>Puntuacion</th>
+            <th>Estado</th>
             <th>Info</th>
           </tr>
         </thead>
@@ -109,7 +109,7 @@ const ReviewsTable = () => {
           {currentPageData.length > 0 ? (
             currentPageData.map((review, index) => {
               const rowClass =
-              index % 2 === 0 ? style["rowEven"] : style["rowOdd"];
+                index % 2 === 0 ? style["rowEven"] : style["rowOdd"];
 
               return (
                 <tr className={`${style.row} ${rowClass}`} key={review.id}>
@@ -119,16 +119,18 @@ const ReviewsTable = () => {
                   <td>{review.videogameId}</td>
                   <td>{review.rating}</td>
                   <td>{review.banned ? "Disabled" : "Enabled"}</td>
-                  <td><button onClick={() => openInfo(review)}>🛈</button></td>
+                  <td>
+                    <button onClick={() => openInfo(review)}>🛈</button>
+                  </td>
                 </tr>
               );
             })
-          ): (
+          ) : (
             <NotReviews />
           )}
         </tbody>
       </table>
-      <Pagination 
+      <Pagination
         totalUsers={totalReviews}
         currentPage={currentPage}
         pageSize={reviewsPerPage}
@@ -136,28 +138,28 @@ const ReviewsTable = () => {
       />
       <div className={style.containerMessage}>
         <p>
-          <b>Didn't find what you looking for?</b> Some reviews may be hidden
-          because of the filters you've selected.
+          <b>¿No encontraste lo que buscabas?</b> Es posible que algunas reseñas
+          estén ocultas debido a los filtros que has seleccionado.
         </p>
         <button className={style.showReviews} onClick={showAllReviews}>
-          Show all reviews
+          Mostrar todas las reseñas
         </button>
         {reviews.length !== 1 ? (
-          <small>{reviews.length} reviews found</small>
+          <small>{reviews.length} reseñas encontradas</small>
         ) : (
-          <small>{reviews.length} review found</small>
+          <small>{reviews.length} reseña encontrada</small>
         )}
         {info && (
-          <Info 
-          review={review}
-          closeInfo={closeInfo}
-          reviewDelete={reviewDelete}
-          reviewRestore={reviewRestore}
+          <Info
+            review={review}
+            closeInfo={closeInfo}
+            reviewDelete={reviewDelete}
+            reviewRestore={reviewRestore}
           />
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ReviewsTable;
