@@ -14,6 +14,15 @@ import {
   BAN_USER,
   UNBAN_USER,
   GET_USERS_BANNED,
+  //
+  GET_ORDERS,
+  GET_BY_ID_ORDERS,
+  RESET_DETAIL_ORDERS,
+  CANCELED_ORDER,
+  GET_ORDER_CANCELLED,
+  RESTORE_ORDER,
+  GET_ORDER_ACTIVE,
+
   UPDATE_USER,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
@@ -39,6 +48,13 @@ const initialState = {
   rolFilter: "All roles",
   authUser: {},
   currentPage: 1,
+
+  //Orders:
+  allOrders: [],
+  orders: [],
+  detailOrders: {},
+  canceledOrder: [],
+  activeOrder: [],
 
   loading: true,
 };
@@ -336,6 +352,76 @@ const reducer = (state = initialState, action) => {
         currentPage: action.payload,
       };
     }
+/////////////////////////////////////////////////////////
+     /* GET ALL ORDERS❤ */
+     case GET_ORDERS : {
+      return {
+        ...state,
+        orders: [...action.payload],
+        allOrders: [...action.payload],
+      }
+    }
+
+    /*GET ORDERS BY ID❤ */
+    case GET_BY_ID_ORDERS:
+  let payloadObject = typeof action.payload === 'object' ? action.payload : {};
+  return {
+    ...state,
+    detailOrders: { ...payloadObject }, // Convertir detailOrders en un objeto
+  };
+    case RESET_DETAIL_ORDERS:
+        return {
+          ...state,
+          detailOrders: [...action.payload],
+        };
+
+    /* Cancelar ordenes❤*/ 
+    case CANCELED_ORDER:
+    const canceledOrderId = action.payload;
+    //agregado
+    const updatedActiveOrderss = state.activeOrder.filter(orderId => orderId !== canceledOrderId);
+    
+    const updatedOrders = state?.orders?.map((order) =>
+    order.id === canceledOrderId ? { ...order, cancelled: true } : order
+  );
+
+  return {
+    ...state,
+    orders: updatedOrders,
+    
+    activeOrder: updatedActiveOrderss,
+    
+    canceledOrder: [...state.canceledOrder, canceledOrderId], // Agrega la orden cancelada al estado canceledOrders
+  };
+
+  case GET_ORDER_CANCELLED:
+      return {
+        ...state,
+        canceledOrder: action.payload, // Actualiza el estado canceledOrder con las órdenes canceladas
+      };
+     
+      case RESTORE_ORDER:
+        const restoredOrderId = action.payload;
+      
+        // Filtra la orden restaurada de canceledOrder
+        const updatedCanceledOrders = state.canceledOrder.filter(orderId => orderId !== restoredOrderId);
+        const updated = state?.orders?.map((order) =>
+        order.id === restoredOrderId ? { ...order, cancelled: false } : order
+      );
+        return {
+          ...state,
+          orders: updated,
+          canceledOrder: [...updatedCanceledOrders], // Agrega la orden cancelada al estado canceledOrders
+          activeOrder:[...state.activeOrder, restoredOrderId],
+          
+        };
+        
+        case GET_ORDER_ACTIVE:
+          return {
+            ...state,
+            activeOrder: [...action.payload],
+          };
+//////////////////////////////////////////////////////////////////
 
     //!EDWARD
     case ORDER:
