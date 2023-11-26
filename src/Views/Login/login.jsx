@@ -86,10 +86,17 @@ export default function Login() {
         email.value,
         password.value
       );
+<<<<<<< HEAD
       const authUserInfo = userCredentials.user; // Accede a la propiedad 'user'
       // dispatch(authUser(authUserInfo));
       // dispatch(saveStateToLocalStorage(authUserInfo));
       // setStoredAuthUserInfo(authUserInfo);
+=======
+      const authUserInfo = userCredentials.user; 
+      dispatch(authUser(authUserInfo));
+      dispatch(saveStateToLocalStorage(authUserInfo));
+      setStoredAuthUserInfo(authUserInfo);
+>>>>>>> 22635cfe5f5b32b0ba1168d23676866ea9542b26
       alert("¡Logueado con éxito!");
       navigate("/");
     } catch (error) {
