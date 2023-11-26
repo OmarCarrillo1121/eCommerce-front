@@ -36,22 +36,22 @@ export default function Login() {
     null
   );
 
-  useEffect(() => {
-   
-    if (storedAuthUserInfo) {
-     
-      alert('Bienvenido de nuevo, ' + storedAuthUserInfo.email + '!');
-    }
-  }, [storedAuthUserInfo]);
+  // useEffect(() => {
+
+  //   if (storedAuthUserInfo) {
+
+  //     alert('Bienvenido de nuevo, ' + storedAuthUserInfo.email + '!');
+  //   }
+  // }, [storedAuthUserInfo]);
 
   const loginWithGoogle = async () => {
     try {
       const googleProvider = new GoogleAuthProvider();
       const userCredentials = await signInWithPopup(auth, googleProvider);
       const authUserInfo = userCredentials.user; // Accede a la propiedad 'user'
-      dispatch(authUser(authUserInfo));
-      dispatch(saveStateToLocalStorage(authUserInfo));
-      setStoredAuthUserInfo(authUserInfo);
+      // dispatch(authUser(authUserInfo));
+      // dispatch(saveStateToLocalStorage(authUserInfo));
+      // setStoredAuthUserInfo(authUserInfo);
       alert("¡Logueado con éxito!");
       navigate("/");
     } catch (error) {
@@ -68,8 +68,8 @@ export default function Login() {
       const userCredentials = await loginWithGoogle();
       console.log(userCredentials);
       const authUserInfo = userCredentials;
-      dispatch(authUser(authUserInfo));
-      dispatch(saveStateToLocalStorage(authUserInfo));
+      // dispatch(authUser(authUserInfo));
+      // dispatch(saveStateToLocalStorage(authUserInfo));
       alert("¡Logueado con exito!");
       navigate("/");
     } catch (error) {
@@ -86,7 +86,7 @@ export default function Login() {
         email.value,
         password.value
       );
-      const authUserInfo = userCredentials.user; 
+      const authUserInfo = userCredentials.user;
       dispatch(authUser(authUserInfo));
       dispatch(saveStateToLocalStorage(authUserInfo));
       setStoredAuthUserInfo(authUserInfo);
