@@ -173,8 +173,7 @@ const reducer = (state = initialState, action) => {
     ...state,
     detailOrders: { ...payloadObject }, // Convertir detailOrders en un objeto
   };
-
-      case RESET_DETAIL_ORDERS:
+    case RESET_DETAIL_ORDERS:
         return {
           ...state,
           detailOrders: [...action.payload],
@@ -226,8 +225,8 @@ const reducer = (state = initialState, action) => {
             ...state,
             activeOrder: [...action.payload],
           };
-
 //////////////////////////////////////////////////////////////////
+
     //!EDWARD
     case ORDER:
       const copiAllGames = [...state.allGames]; //Copia de all games

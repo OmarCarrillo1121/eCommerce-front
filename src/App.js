@@ -13,7 +13,7 @@ import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import Account from "./Views/Dashboard/account";
 
 //⭐
-import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
+//import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
 import DetailOrders from "./Views/Dashboard/accountNav/links/dashboard/DetailOrders/DetailOrdes";
 import CancelledOrders from"./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
 import ActiveOrders from"./Views/Dashboard/accountNav/links/ActiveOrders/ActiveOrders";
@@ -42,7 +42,7 @@ function App() {
         <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
         <Route path="/catalogo" element={<Catalogo/>}/>
         <Route path="/dashboard/:id" element={<Account/>}/>
-        <Route path="/dashboard/Orders" element={<Orders/>}/> 
+        
         <Route path="/dashboard/Orders/:id" element={<DetailOrders/>}/> 
         <Route path="/dashboard/Orders/cancel" element={<CancelledOrders/>}/>
         <Route path="/dashboard/Orders/active" element={<ActiveOrders/>}/>

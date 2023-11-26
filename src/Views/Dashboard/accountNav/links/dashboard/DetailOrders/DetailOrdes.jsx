@@ -38,7 +38,6 @@ const DetailOrdes = () => {//DetailOrdes
           </div>
           <div>
             <ul>
-              {/* Solo hay un detalle de pedido, no es necesario usar map */}
               <div key={localOrders.order}>
                 <li>
                   <div className={styles.cards}>
