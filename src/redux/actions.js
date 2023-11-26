@@ -22,7 +22,8 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
-  SET_CURRENT_PAGE
+  SET_CURRENT_PAGE,
+  POST_USER,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -246,7 +247,6 @@ export const updateUser = ({ id, user }) => {
         type: UPDATE_USER,
       });
       dispatch(saveStateToLocalStorage());
-
     } catch (error) {
       alert(error.message);
     }
@@ -300,15 +300,33 @@ export const getUserByName = (name) => {
 /* SET CURRENT PAGE */
 export const setCurrentPage = (pageNum) => {
   return {
-      type: SET_CURRENT_PAGE,
-      payload: pageNum
-  }
-}
+    type: SET_CURRENT_PAGE,
+    payload: pageNum,
+  };
+};
 
 /* AUTH_USER */
 export const authUser = (user) => {
   return {
     type: AUTH_USER,
     payload: user,
+  };
+};
+
+/* POST_USER */
+export const postUser = (user) => {
+  return async (dispatch) => {
+    try {
+      await axios.post(`${URL_GAMES}/users`, user);
+      alert("User created succesfully!");
+
+      dispatch(saveStateToLocalStorage());
+
+      return dispatch({
+        type: POST_VIDEOGAME,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 };

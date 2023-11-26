@@ -20,6 +20,7 @@ import {
   GET_USER_BY_NAME,
   AUTH_USER,
   SET_CURRENT_PAGE,
+  POST_USER,
 } from "./action-types";
 
 const initialState = {
@@ -388,6 +389,15 @@ const reducer = (state = initialState, action) => {
     //!FIN EDWARD
 
     case AUTH_USER: {
+      const newStateAuthUser = {
+        ...state,
+        authUser: { ...action.payload },
+      };
+      saveStateToLocalStorage(newStateAuthUser);
+      return newStateAuthUser;
+    }
+
+    case POST_USER: {
       const newStateAuthUser = {
         ...state,
         authUser: { ...action.payload },
