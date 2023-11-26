@@ -16,7 +16,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const FILTER_BY_ROL = "FILTER_BY_ROL";
 export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
-
+export const POST_USER = "POST_USER";
 export const AUTH_USER = "AUTH_USER";
 
 //!EDWARD
@@ -26,5 +26,15 @@ export const FILTER_DEVELOPER = "FILTER_DEVELOPER";
 export const FILTER_GENRE = "FILTER_GENRE";
 //!EDWARD
 
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
+//❤Orders:
+export const  GET_ORDERS = "GET_ORDERS";
+export const EDIT_ORDERS = "EDIT_ORDERS";
+export const GET_BY_ID_ORDERS = "GET_BY_ID_ORDERS";
+export const RESET_DETAIL_ORDERS = "RESET_DETAIL_ORDERS";
+export const CANCELED_ORDER = "CANCELED_ORDER";
+export const GET_ORDER_CANCELLED = "GET_ORDER_CANCELLED";
+export const RESTORE_ORDER = "RESTORE_ORDER";
+export const GET_ORDER_ACTIVE = "GET_ORDER_ACTIVE"; 
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"

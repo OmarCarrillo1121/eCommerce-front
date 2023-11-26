@@ -16,8 +16,12 @@ const AccountNav = () => {
     <nav className={Style.dashboard_nav}>
      <DashboardUserInfo/>
      <div className={Style.dashboard_nav_links}>
+       {/*<Links url={'account'} img={userIcon} name={'Account'}/>*/}
+       {/*<Links url={'dashboard'} img={dashIcon} name={'DashBoard'}/>*/}
+       {/*<Links url={'settings'} img={settingIcon} name={'Settings'}/>*/}
        <Links url={'dashboard'} img={userIcon} name={'DashBoard'}/>
-       <Links url={'shops'} img={shops} name={'Shops'}/>
+       <Links url={'Orders/active'} img={shops} name={'Orders'}/>
+       {/*<Links url={'shops'} img={shops} name={'Shops'}/>*/}
        <Links url={'insights'} img={dashIcon} name={'Insights'}/>
        <DashBoardCloseLogout/>
      </div>
