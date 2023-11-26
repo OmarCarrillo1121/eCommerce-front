@@ -9,19 +9,23 @@ import { useScroll } from "../../../util/hook/landing/useScroll";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../config/firebase-config";
 import { authUser } from "../../../redux/actions.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
+import useLocalStorageCleaner from "../../../util/hook/clearLocalstorage/useLocalStorageClear.js";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-
   const dispatch = useDispatch();
+  const clearLocalStorage = useLocalStorageCleaner("authUserInfo");
 
-  const logout = () => {
-    signOut(auth);
-    dispatch(authUser({}));
+  const logout = async () => {
+    await signOut(auth);
+    dispatch(authUser(null));
+    clearLocalStorage();
   };
+
+  //const isLoggedin = useSelector((state) => state.auth.loggedin);
 
   return (
     <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
@@ -37,7 +41,7 @@ const NavBar = () => {
         />
         <img src={shopIcon} alt="shop" onClick={() => navigate("/login")} />
         <img src={loginIcon} alt="login" onClick={() => navigate("/login")} />
-        <p onClick={() => logout()}>Logout</p>
+        <button onClick={() => logout()}>Cerrar sesión</button>
       </div>
     </header>
   );

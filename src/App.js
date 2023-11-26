@@ -15,10 +15,20 @@ import Account from "./Views/Dashboard/account";
 import DetailUser from "./Views/Detail/detailUser/DetailUser";
 import Checkout from "./Views/Checkout/checkout";
 import "./App.css";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase-config";
 
 function App() {
   const location = useLocation();
   const { viewportWidth } = useWindow();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
+    });
+  }, []);
+
   return (
     <div className="app">
       {(location.pathname === "/" ||

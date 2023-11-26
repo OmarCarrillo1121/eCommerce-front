@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Style from "./login.module.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useField } from "../../util/hook/form/useField";
 import { useHandle } from "../../util/hook/common/useHandle";
 import Register from "../register/register";
@@ -12,13 +12,13 @@ import Services from "./services/services";
 import { auth } from "../../config/firebase-config";
 import {
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { authUser, saveStateToLocalStorage } from "../../redux/actions.js";
 import { useDispatch } from "react-redux";
+import { useLocalStorage } from "../../util/hook/localStorage/localStorage";
 
 export default function Login() {
   const { handle, handleChange } = useHandle();
@@ -29,12 +29,31 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
+
+  const [storedAuthUserInfo, setStoredAuthUserInfo] = useLocalStorage(
+    "authUserInfo",
+    null
+  );
+
+  // useEffect(() => {
+
+  //   if (storedAuthUserInfo) {
+
+  //     alert('Bienvenido de nuevo, ' + storedAuthUserInfo.email + '!');
+  //   }
+  // }, [storedAuthUserInfo]);
 
   const loginWithGoogle = async () => {
     try {
       const googleProvider = new GoogleAuthProvider();
-      return await signInWithPopup(auth, googleProvider);
+      const userCredentials = await signInWithPopup(auth, googleProvider);
+      const authUserInfo = userCredentials.user; // Accede a la propiedad 'user'
+      // dispatch(authUser(authUserInfo));
+      // dispatch(saveStateToLocalStorage(authUserInfo));
+      // setStoredAuthUserInfo(authUserInfo);
+      alert("¡Logueado con éxito!");
+      navigate("/");
     } catch (error) {
       setError(error.message);
       alert(error.message);
@@ -49,8 +68,8 @@ export default function Login() {
       const userCredentials = await loginWithGoogle();
       console.log(userCredentials);
       const authUserInfo = userCredentials;
-      dispatch(authUser(authUserInfo));
-      dispatch(saveStateToLocalStorage(authUserInfo));
+      // dispatch(authUser(authUserInfo));
+      // dispatch(saveStateToLocalStorage(authUserInfo));
       alert("¡Logueado con exito!");
       navigate("/");
     } catch (error) {
@@ -67,11 +86,11 @@ export default function Login() {
         email.value,
         password.value
       );
-      console.log(userCredentials);
-      const authUserInfo = userCredentials;
+      const authUserInfo = userCredentials.user;
       dispatch(authUser(authUserInfo));
       dispatch(saveStateToLocalStorage(authUserInfo));
-      alert("¡Logueado con exito!");
+      setStoredAuthUserInfo(authUserInfo);
+      alert("¡Logueado con éxito!");
       navigate("/");
     } catch (error) {
       setError(error.message);
