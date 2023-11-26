@@ -7,7 +7,7 @@ const Filters = ({ setFilteredGames }) => {
     return (   
         <div className={Style.filters_container}>
             <FilterBy 
-            defaultName={'Platform'} 
+            defaultName={'Plataforma'} 
             names={platforms}
             setFilters={setFilters} 
             filters={filters}/>
@@ -17,12 +17,12 @@ const Filters = ({ setFilteredGames }) => {
             setFilters={setFilters} 
             filters={filters}/>
             <FilterBy 
-            defaultName={'Genre'} 
+            defaultName={'Genero'} 
             names={genre}
             setFilters={setFilters} 
             filters={filters}/>
             <FilterBy 
-            defaultName={'Sort By'} 
+            defaultName={'ordenar'} 
             names={['range','Price: Low', 'Price: High', 'Alpha: Up', 'Alpha: Down']}
             setFilters={setFilters} 
             filters={filters}

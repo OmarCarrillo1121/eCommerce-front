@@ -44,7 +44,7 @@ import {
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
-  return (dispatch, getState) => {
+  return (getState) => {
     try {
       const state = getState();
       const serializedState = JSON.stringify(state);
@@ -260,9 +260,11 @@ export const updateUser = ({ id, user }) => {
     try {
       await axios.put(`${URL_GAMES}/users/${id}`, user);
 
-      return dispatch({
+      dispatch({
         type: UPDATE_USER,
       });
+      dispatch(saveStateToLocalStorage());
+
     } catch (error) {
       alert(error.message);
     }

@@ -489,10 +489,12 @@ const reducer = (state = initialState, action) => {
     //!FIN EDWARD
 
     case AUTH_USER: {
-      return {
+      const newStateAuthUser = {
         ...state,
         authUser: { ...action.payload },
       };
+      saveStateToLocalStorage(newStateAuthUser);
+      return newStateAuthUser;
     }
 
     case FETCH_REVIEWS_REQUEST:
