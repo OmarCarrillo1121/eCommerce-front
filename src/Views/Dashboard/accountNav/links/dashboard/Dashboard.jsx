@@ -16,33 +16,29 @@ export function Dashboard() {
     setIsActive(true);
   };
 
-  return (
-    <>
-      <div className={style.tablet}>
-        <nav className={style.navbar}>
-          <h2>Admin Dashboard</h2>
-          <div>
-            {components.map((component, index) => {
-              return (
-                <>
-                  <button
-                    key={index}
-                    onClick={() => handleComponentClick(index)}
-                    className={
-                      isActive && componentsIndex === index
-                        ? style.activeButton
-                        : ""
-                    }
-                  >
-                    {componentNames[index]}
-                  </button>
-                </>
-              );
-            })}
-          </div>
-        </nav>
-        {components[componentsIndex]}
-      </div>
-    </>
-  );
+    return (  
+        <>
+            <div className={style.tablet}>
+                <nav className={style.navbar}>
+                    <h1>Admin Dashboard</h1>
+                    <div>
+                        {
+                            components.map((component, index) => {
+                                return (<>
+                                    <button 
+                                        key={index} 
+                                        onClick={() => handleComponentClick(index)}
+                                        className={isActive && componentsIndex === index ? style.activeButton : ''}
+                                    >
+                                        {componentNames[index]}
+                                    </button>
+                                </>)
+                            })
+                        }
+                    </div>
+                </nav>
+                {components[componentsIndex]}
+            </div>
+        </>
+    );
 }

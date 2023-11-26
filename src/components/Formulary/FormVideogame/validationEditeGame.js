@@ -2,13 +2,13 @@ export const validation = (videogame) => {
     const error = {}
 
     /* REGEX */
-    const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,4}$/;
-    const nameRegex = /^(?=(?:\S*\s){0,3})(?=(?:\D*\d){0,4})[A-Za-z0-9\s]*$/;
+    const nameRegexFirst = /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+){0,6}$/;
+    const nameRegex = /^(?=(?:\S*\s){0,6})(?=(?:\D*\d){0,6})[A-Za-z0-9\s]*$/;
     const descriptionRegex = /^[A-Za-z0-9,?*\s]+[A-Za-z0-9]+/;
     const genreRegex = /^[A-Za-z]+$/
     const developerRegex = /^([^A-Za-z]+\s){3,}/;
     const numberRegex = /^[^0-9]+$/    ;
-    const imageRegexUrl = /https?:\/\/[^\s]+\.(png|jpg|gif)/;
+    const imageRegexUrl = /https?:\/\/[^\s]+\.(png|jpg|gif|svg)/;
     const regexUrl = new RegExp(imageRegexUrl)
 
     if (!nameRegexFirst.test(videogame.name)) {
@@ -101,7 +101,7 @@ export const validation = (videogame) => {
 
 
     /* DISCOUNT */
-    if(numberRegex.test(videogame.stock)) {
+    if(numberRegex.test(videogame.discount)) {
         error.discount = "The discount must contain just numbers."
     }
     if(videogame.discount > 60) {

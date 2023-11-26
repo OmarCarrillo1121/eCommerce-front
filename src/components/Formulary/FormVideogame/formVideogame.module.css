@@ -1,22 +1,37 @@
 .container {
     position: absolute;
-    top: 50px;
-    height: 1000px;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(75, 74, 74)
 }
 .form {
-    height: 900px;
-    width: 800px;
-    background-color: rgb(210, 250, 242);
+    height: 95%;
+    width: 95%;
+    background-color: rgb(51, 52, 52);
     display: flex;
     flex-direction: column;
     border-radius: 20px;
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+.form nav {
+    position: relative;
+    height: 8%;
+    background-color: black;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+}
+.form nav h1 {
+    font-size: 25px;
+    padding-left: 3%;
+    color: orangered;
 }
 
 /* LABEL && INPUTS */
@@ -25,26 +40,153 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    height: 52%;
+    width: 100%;
 }
-.containerLabelInput div {
+.nameContainer {
+    position: relative;
+}
+.nameContainer p {
+    position: absolute;
+    bottom: 5%;
+}
+.containerLabelInput label {
+    font-size: 18px;
+}
+.first, 
+.second,
+.third {
     display: flex;
+    width: 100%;
+    height: 100%;
+    padding-left: 15px;
+} 
+.first div:first-child ,
+.second div:first-child {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    gap: 6px;
+    position: relative;
 }
-.containerLabelInput div div{
+.first div:first-child label,
+.second div:first-child label{
+    letter-spacing: 1px;
+}
+.first div:last-child, 
+.second div:last-child {
+    width: 50%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
 }
+.first div:last-child label,
+.second div:last-child label{
+    letter-spacing: 1px;
+}
+.first div:first-child input,
+.second div:first-child input{
+    padding: 7px 5px;
+    width: 95%;
+    font-size: 12px;
+    border-radius: 7px;
+    color: white;
+    border: 1px solid #fff;
+    background: none;
+}
+.first div:last-child input,
+.second div:last-child select{
+    padding: 7px 5px;
+    width: 95%;
+    font-size: 12px;
+    border-radius: 7px;
+    color: white;
+    border: 1px solid #fff;
+    background: none;
+}
+.second div:last-child select option {
+    background: #545353;
+}
+.third .thirdFirst,
+.third .thirdSecond {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.third .thirdFirst {
+    gap: 6px;
+    position: relative;
+}
+.third .thirdFirst label{
+    letter-spacing: 1px;
+}
+.third .thirdFirst textarea {
+    width: 95%;
+    padding: 7px 5px;
+    font-size: 12px;
+    border-radius: 7px;
+    color: white;
+    border: 1px solid #fff;
+    background: none;
+    height: 200px;
+    resize: none;
+}
+
 .containerLabelInput p {
     color: red;
     font-size: 11px;
     letter-spacing: 1px;
+    position: absolute;
+    /* display: none; */
+    bottom: 0;
 }
-
+.thirdSecondPrice, 
+.thirdSecondStock,
+.thirdSecondDiscount {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+.thirdSecondPrice, 
+.thirdSecondStock,
+.thirdSecondDiscount {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.thirdSecondPrice input, 
+.thirdSecondStock select,
+.thirdSecondDiscount select {
+    padding: 5px 4px;
+    width: 95%;
+    font-size: 11px;
+    border-radius: 7px;
+    color: white;
+    border: 1px solid #fff;
+    background: none;
+} 
+.thirdSecondStock select option,
+.thirdSecondDiscount select option {
+    background: #545353;
+}
 /* IMAGE */
 .containerInputImg{
     display: flex;
+}
+.divImage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40%;
+    position: relative;
 }
 .divImage input {
     padding: 8px 15px;
@@ -58,12 +200,67 @@
     width: 600px;
     height: 300px;
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 .img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+.form button{
+    position: absolute;
+    bottom: 4%;
+    right: 4%;
+}
+.nameContainer p {
+    position: absolute;
+    bottom: 15%;
+}
+.developerContainer,
+.genreContainer {
+    position: relative;
+}
+.developerContainer p,
+.genreContainer p {
+    position: absolute;
+    bottom: 15%;
+}
+.imgContainer input[type="file"]{
+    display: none;
+}
+.imgContainer label {
+    position: absolute;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 3px 5px;
+    width: 123px;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    color: #545353;
+    bottom: -11%;
+    left: 0;
+    font-size: 16px;
+    transition: all .3s ease-in-out;
+}
+.imgContainer label:hover {
+    background-color: transparent;
+    color: #fff;
+}
+.imgContainer p {
+    position: absolute;
+    right: 0;
+    color: red;
+    font-size: 13px;
+}
+.btnSubmit {
+    text-align: center;
+    width: 100px;
+    height: 20px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    background-color: transparent;
 }

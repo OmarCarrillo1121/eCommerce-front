@@ -36,7 +36,11 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
-  SET_CURRENT_PAGE
+  SET_CURRENT_PAGE,
+
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -477,5 +481,34 @@ export const authUser = (user) => {
   return {
     type: AUTH_USER,
     payload: user,
+  };
+};
+
+
+const fetchReviewsRequest = () => ({
+  type: FETCH_REVIEWS_REQUEST,
+});
+
+const fetchReviewsSuccess = (reviews) => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  payload: reviews,
+});
+
+const fetchReviewsFailure = (error) => ({
+  type: FETCH_REVIEWS_FAILURE,
+  payload: error,
+});
+
+export const fetchReviews = (gameId) => {
+  return async (dispatch) => {
+    dispatch(fetchReviewsRequest());
+    try {
+      const response = await axios.get(
+        `https://ecomercestorebacken.vercel.app/reviews/videogame/${gameId}`
+      );
+      dispatch(fetchReviewsSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchReviewsFailure(error.message));
+    }
   };
 };

@@ -8,7 +8,7 @@
 }
 .navbar {
     width: 100%;
-    height: 130px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -19,26 +19,7 @@
 .navbar h1 {
     font-size: 30px;
     position: relative;
-    height: 60%;
+    /* height: 60%; */
     display: flex;
     align-items: end;
-}
-.navbar div {
-    position: relative;
-    height: 40%;
-    display: flex;
-    align-items: end;
-    gap: 80px;
-}
-.navbar div button {
-    padding: 0 10px;
-    padding-bottom: 8px;
-    background-color: #fff;
-    border: none;
-    cursor: pointer;
-    border-bottom: 2px solid #fff;
-}
-.activeButton {
-    color: green;
-    border-bottom: 2px solid green !important;
 }

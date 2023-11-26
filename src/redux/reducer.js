@@ -29,7 +29,10 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
-  SET_CURRENT_PAGE
+  SET_CURRENT_PAGE,
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE,
 } from "./action-types";
 
 const initialState = {
@@ -62,6 +65,9 @@ const initialState = {
   enabledBanners: [],
   banner: {},
   loading: true,
+
+  loadingReviews: false,
+  error: null,
 };
 
 const saveStateToLocalStorage = (state, action) => {
@@ -97,16 +103,24 @@ const reducer = (state = initialState, action) => {
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
 
-    case GET_BY_ID_GAMES:
+    case GET_BY_ID_GAMES: {
       const { gamesId } = action.payload;
       const newStateGetByIdGames = {
         ...state,
-        detailGame: { ...action.payload },
+        detailGame: { ...state.detailGame, ...action.payload }, // Combinar detailGame con action.payload
         gamesId,
         loading: false,
       };
+
       saveStateToLocalStorage(newStateGetByIdGames);
-      return newStateGetByIdGames;
+      // console.log("adios", newStateGetByIdGames);
+      // console.log("holadetaiñ", state.detailGame);
+      // Retornar un nuevo estado que incluye la actualización de detailGame
+      return {
+        ...newStateGetByIdGames,
+        // Otros campos globales que puedas tener en tu estado
+      };
+    }
 
     case RESET_DETAIL_GAMES:
       const newStateResetDetailGames = {
@@ -236,14 +250,13 @@ const reducer = (state = initialState, action) => {
       return { ...state };
     }
 
-
     /* GET ALL REVIEWS */
     case GET_ALL_REVIEWS: {
       return {
         ...state,
         reviews: [...action.payload],
-        allReviews: [...action.payload]
-      }
+        allReviews: [...action.payload],
+      };
     }
 
     /* GET DELETED REVIEWS */
@@ -251,8 +264,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         deletedReviews: [...action.payload],
-        reviews: [...action.payload]
-      }
+        reviews: [...action.payload],
+      };
     }
 
     /* GET ENABLED REVIEWS */
@@ -260,28 +273,27 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         enabledReviews: [...action.payload],
-        reviews: [...action.payload]
-      }
+        reviews: [...action.payload],
+      };
     }
 
     /* DELETE REVIEW */
     case DELETE_REVIEW: {
-      return {...state}
+      return { ...state };
     }
 
     /* RESTORE REVIEW */
     case RESTORE_REVIEW: {
-      return {...state}
+      return { ...state };
     }
-
 
     /* GET ALL BANNERS */
     case GET_ALL_BANNERS: {
       return {
         ...state,
         banners: [...action.payload],
-        allBanners: [...action.payload]
-      }
+        allBanners: [...action.payload],
+      };
     }
 
     /* GET DELETED BANNERS */
@@ -289,8 +301,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         deletedBanners: [...action.payload],
-        banners: [...action.payload]
-      }
+        banners: [...action.payload],
+      };
     }
 
     /* GET ENABLED BANNERS */
@@ -298,18 +310,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         enabledBanners: [...action.payload],
-        banners: [...action.payload]
-      }
+        banners: [...action.payload],
+      };
     }
 
     /* DELETE BANNER */
     case DELETE_BANNER: {
-      return {...state}
+      return { ...state };
     }
 
     /* RESTORE BANNER */
     case RESTORE_BANNER: {
-      return {...state}
+      return { ...state };
     }
 
     /* GET USER BY ID */
@@ -358,7 +370,7 @@ const reducer = (state = initialState, action) => {
         }
         const usersFiltered = state.usersNotBanned.filter((user) => {
           if (user.rol === action.payload) {
-            return user
+            return user;
           }
         });
         const usersFilteredNew = state.allUsers.filter(
@@ -421,10 +433,10 @@ const reducer = (state = initialState, action) => {
     /* SET CURRENT PAGE */
     case SET_CURRENT_PAGE: {
       return {
-          ...state,
-          currentPage: action.payload
-      }
-  }
+        ...state,
+        currentPage: action.payload,
+      };
+    }
 
     //!EDWARD
     case ORDER:
@@ -482,6 +494,27 @@ const reducer = (state = initialState, action) => {
         authUser: { ...action.payload },
       };
     }
+
+    case FETCH_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case FETCH_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reviews: action.payload,
+      };
+
+    case FETCH_REVIEWS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return {
