@@ -1,5 +1,4 @@
 import style from '../reviewsTable.module.css';
-import { NavLink } from 'react-router-dom';
 
 function Info ({ review, closeInfo, reviewDelete, reviewRestore }) {
     return (
@@ -12,8 +11,8 @@ function Info ({ review, closeInfo, reviewDelete, reviewRestore }) {
             </div>
             <div className={style.containerInfo}>
                 <div className={style.details}>
-                    <p><span>Contenido:</span>&nbsp;&nbsp;<b>review.content</b></p>
-                    <p><span>Puntuacion:</span>&nbsp;&nbsp;<b>review.rating</b></p>
+                    <p><span>Contenido:</span>&nbsp;&nbsp;<b>{review.content}</b></p>
+                    <p><span>Puntuacion:</span>&nbsp;&nbsp;<b>{review.rating}</b></p>
                 </div>
                 <div className={style.btnStatus}>
                     {

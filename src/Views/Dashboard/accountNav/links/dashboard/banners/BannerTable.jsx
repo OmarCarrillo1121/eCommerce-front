@@ -102,6 +102,7 @@ const BannersTable = () => {
             <th>URL del logotipo</th>
             <th>URL del fondo</th>
             <th>Estado</th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -119,7 +120,7 @@ const BannersTable = () => {
                   <td>{banner.backgroundUrl}</td>
                   <td>{banner.banned ? "Disabled" : "Enabled"}</td>
                   <td>
-                    <button onClick={() => openInfo(banner)}>🛈</button>
+                    <button onClick={() => openInfo(banner)}>⚙️</button>
                   </td>
                 </tr>
               );

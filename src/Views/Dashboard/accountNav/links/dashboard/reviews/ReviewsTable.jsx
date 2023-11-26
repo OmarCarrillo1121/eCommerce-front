@@ -102,7 +102,7 @@ const ReviewsTable = () => {
             <th>ID de juego</th>
             <th>Puntuacion</th>
             <th>Estado</th>
-            <th>Info</th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -120,7 +120,7 @@ const ReviewsTable = () => {
                   <td>{review.rating}</td>
                   <td>{review.banned ? "Disabled" : "Enabled"}</td>
                   <td>
-                    <button onClick={() => openInfo(review)}>🛈</button>
+                    <button onClick={() => openInfo(review)}>⚙️</button>
                   </td>
                 </tr>
               );
