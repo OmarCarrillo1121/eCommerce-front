@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authUser } from "../../redux/actions.js";
+import { authUser, postUser } from "../../redux/actions.js";
 
 export default function Register({ handleChange }) {
   // las variables de useField tienen la propiedad value y onChange, para acceder a sus valores o modificarlos, por ej: emanil.value o userName.onChange
@@ -32,6 +32,13 @@ export default function Register({ handleChange }) {
       console.log(userCredentials);
       const authUserInfo = userCredentials;
       dispatch(authUser(authUserInfo));
+      dispatch(
+        postUser({
+          name: userName.value,
+          email: email.value,
+          password: password.value,
+        })
+      );
       alert("¡Usuario creado con exito!");
       navigate("/");
     } catch (error) {
