@@ -324,7 +324,7 @@ export const getActiveOrders = () => {
 };
 
 
-//❤EDIT ORDERS:
+//❤EditOrders:
 export const editOrders = ({ id, orders }) => {
   return async (dispatch) => {
     try {
@@ -338,7 +338,7 @@ export const editOrders = ({ id, orders }) => {
   };
 };
 
-//❤ORDERS BY ID
+//❤Orders By Id:
 export const getByIdOrders = (id) => {
   return async function (dispatch) {
     try {
