@@ -1,21 +1,43 @@
+import { useState } from 'react';
 import style from './dashboard.module.css'
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../../../../../redux/actions';
 import UserTable from './users/UserTable';
 
 export function Dashboard() {
-    const dispatch = useDispatch()
+    const [componentsIndex, setComponentsIndex] = useState(0)
+    const [isActive, setIsActive] = useState(true);
 
-    useEffect(() => {
-        dispatch(getAllUsers())
-    }, [])
+    const components = [
+        <UserTable/>,
+    ]
+    const componentNames = ["Users", "Banners", "Reviews"]
+
+    const handleComponentClick = (index) => {
+        setComponentsIndex(index)
+        setIsActive(true);
+    } 
 
     return (  
         <>
-            <div className={style.graphics}></div>
             <div className={style.tablet}>
-                <UserTable/>
+                <nav className={style.navbar}>
+                    <h1>Admin Dashboard</h1>
+                    <div>
+                        {
+                            components.map((component, index) => {
+                                return (<>
+                                    <button 
+                                        key={index} 
+                                        onClick={() => handleComponentClick(index)}
+                                        className={isActive && componentsIndex === index ? style.activeButton : ''}
+                                    >
+                                        {componentNames[index]}
+                                    </button>
+                                </>)
+                            })
+                        }
+                    </div>
+                </nav>
+                {components[componentsIndex]}
             </div>
         </>
     );

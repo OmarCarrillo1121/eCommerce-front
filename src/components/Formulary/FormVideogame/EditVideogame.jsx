@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { editVideogame, getByGamesDetail } from "../../../redux/actions";
 import style from "./formVideogame.module.css"
 import { validation } from "./validationEditeGame.js";
@@ -10,10 +10,11 @@ function EditVideogame() {
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
     const { detailGame } = useSelector((state) => state)
-    const [ editedVideogame, setEditedVideogame ] = useState({...detailGame})
+    const [ editedVideogame, setEditedVideogame ] = useState(detailGame)
     const [ image, setImage ] = useState(editedVideogame.image);
     const [ errors, setErrors ] = useState({})
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { id } = useParams()
     const stock = [];
     const discount = [];
@@ -28,8 +29,12 @@ function EditVideogame() {
     }
 
     useEffect(() => {
+        setEditedVideogame((prev) => ({ ...prev, ...detailGame }));
+    }, [detailGame]);
+
+    useEffect(() => {
         dispatch(getByGamesDetail(id))
-    }, [id, dispatch])
+    }, [id])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -79,19 +84,30 @@ function EditVideogame() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        setEditedVideogame({...detailGame})
+        console.log(editedVideogame);
+        
+        dispatch(editVideogame({
+            id, 
+            videogame: editedVideogame
+        }))
         setImage(detailGame.image)
+        setEditedVideogame({...detailGame})
+        console.log(editedVideogame);
 
-        dispatch(editVideogame({id, editedVideogame}))
+        alert('The game has been updated successfully!')
+        navigate('/')
     }
 
 
     return (  
         <div className={style.container}>
             <form className={style.form} onSubmit={handleSubmit}>
+                <nav>
+                    <h1>Form to edit a Videogame</h1>
+                </nav>
                 <div className={style.containerLabelInput}>
-                    <div>
-                        <div>
+                    <div className={style.first}>
+                        <div className={style.nameContainer}>
                             <label htmlFor="name">Name:</label>
                             <input 
                                 type="text" 
@@ -105,7 +121,7 @@ function EditVideogame() {
                                 {errors.name ? errors.name : null}
                             </p>
                         </div>
-                        <div>
+                        <div className={style.developerContainer}>
                             <label htmlFor="developer">Developer:</label>
                             <input
                                 type="text"
@@ -120,8 +136,8 @@ function EditVideogame() {
                             </p>
                         </div>
                     </div>
-                    <div>
-                        <div>
+                    <div className={style.second}>
+                        <div className={style.genreContainer}>
                             <label htmlFor="genre">Genre:</label>
                             <input 
                                 type="text"
@@ -153,8 +169,8 @@ function EditVideogame() {
                             </p>
                         </div>
                     </div> 
-                    <div>
-                        <div>
+                    <div className={style.third}>
+                        <div className={style.thirdFirst}>
                             <label htmlFor="description">Description:</label>
                             <textarea 
                                 name="description"
@@ -167,8 +183,8 @@ function EditVideogame() {
                                 {errors.description ? errors.description : null}
                             </p>
                         </div>
-                        <div>
-                            <div>
+                        <div className={style.thirdSecond}>
+                            <div className={style.thirdSecondPrice}>
                                 <label htmlFor="price">Price in USD:</label>
                                 <input 
                                     type="number"
@@ -181,7 +197,7 @@ function EditVideogame() {
                                     {errors.price ? errors.price : null}
                                 </p>
                             </div>
-                            <div>
+                            <div className={style.thirdSecondStock}> 
                                 <label htmlFor="stock">Stock:</label>
                                 <select name="stock" onChange={handleChange} value={editedVideogame.stock}>
                                     {
@@ -196,7 +212,7 @@ function EditVideogame() {
                                     {errors.stock ? errors.stock : null}
                                 </p>
                             </div>
-                            <div>
+                            <div className={style.thirdSecondDiscount}>
                                 <label htmlFor="discount">Discount:</label>
                                 <select name="discount" onChange={handleChange} value={editedVideogame.discount}>
                                     {
@@ -216,17 +232,16 @@ function EditVideogame() {
                 </div>
                 <div className={style.divImage}>
                     <div className={style.imgContainer}>
-                        <img src={image} alt="" className={style.img}/>
-                    </div>
-                    <div className={style.containerInputImg}>
-                        <input type="file" name="image" onChange={UploadImage}/>
+                    <img src={image || editedVideogame.image} alt={editedVideogame.image} className={style.img} />
+                        <label htmlFor="imageInput">Choose an Image</label>
+                        <input type="file" name="image" id="imageInput" onChange={UploadImage}/>
                         <br/>
                         <p>
                             {errors.image ? errors.image : null}
                         </p>
                     </div>
                 </div>
-                <button type="submit"
+                <button className={style.btnSubmit} type="submit"
                     disabled={Object.keys(errors).length > 0 || 
                         !editedVideogame.name ||
                         !editedVideogame.description ||

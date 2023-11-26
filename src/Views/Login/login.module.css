@@ -1,61 +1,60 @@
 .form {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .form_login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  width: 50%;
+}
+
+.form_img {
+  background: url("../../Assets/img/background/loginPage/login.webp");
+  background-size: cover;
+  width: 50%;
+}
+
+.form_exit_button {
+  position: absolute;
+  color: #eee;
+  font-size: 40px;
+  cursor: pointer;
+  font-family: sans-serif;
+  top: 20px;
+  right: 30px;
+}
+
+.form_exit_button:hover {
+  color: #e6541b;
+}
+
+.form_logo {
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .form_login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #333;
-    width: 50%;
-}
+    width: 100%;
+    height: 100vh;
+  }
 
-.form_img {
-    background: url('../../Assets/img/background/loginPage/login.webp');
-    background-size: cover;
-    width: 50%;
-}
-
-.form_exit_button {
-    position: absolute;
-    color: #eee;
-    font-size: 40px;
-    cursor: pointer;
-    font-family: sans-serif;
-    top: 20px;
-    right: 30px;
-} 
-
-.form_exit_button:hover {
-    color: #E6541B
-}
-
-.form_logo {
-    position: absolute;
-    width: 100px;
-    height: 60px;
-    margin-left: 20px;
-}
-
-@media only screen and (max-width: 1024px) {
-    .form_login {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: #333;
-        width: 100%;
-        height: 100vh;
-    }
-    
-    .form_img {
-        display: none;
-    }
-    
+  .form_img {
+    display: none;
+  }
 }

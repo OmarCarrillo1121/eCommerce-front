@@ -23,18 +23,31 @@ import {
   RESTORE_ORDER,
   GET_ORDER_ACTIVE,
 
+  UPDATE_USER,
+  GET_USER_BY_ID,
+  FILTER_BY_ROL,
+  GET_USER_BY_NAME,
+  AUTH_USER,
+  SET_CURRENT_PAGE,
 } from "./action-types";
 
 const initialState = {
   allGames: [],
   allCopyGames: [],
   detailGame: {},
-  
+
   allUsers: [],
   users: [],
+  usersByName: [],
   usersNotBanned: [],
   bannedUsers: [],
+  adminsFiltered: [],
+  usersFilteredO: [],
   user: {},
+  statusFilter: "all",
+  rolFilter: "All roles",
+  authUser: {},
+  currentPage: 1,
 
   //Orders:
   allOrders: [],
@@ -45,7 +58,6 @@ const initialState = {
 
   loading: true,
 };
-
 
 const saveStateToLocalStorage = (state, action) => {
   try {
@@ -58,20 +70,17 @@ const saveStateToLocalStorage = (state, action) => {
   }
 };
 
-
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_GAMES:
-
-    const newStateGetAllGames = {
-      ...state,
-      allGames: action.payload,
-      allCopyGames: action.payload,
-      loading: false,
-    };
-    saveStateToLocalStorage(newStateGetAllGames);
-    return newStateGetAllGames;
+      const newStateGetAllGames = {
+        ...state,
+        allGames: action.payload,
+        allCopyGames: action.payload,
+        loading: false,
+      };
+      saveStateToLocalStorage(newStateGetAllGames);
+      return newStateGetAllGames;
 
     case GET_BY_NAME_GAMES:
       const newStateGetByNameGames = {
@@ -83,16 +92,24 @@ const reducer = (state = initialState, action) => {
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
 
-    case GET_BY_ID_GAMES:
+    case GET_BY_ID_GAMES: {
       const { gamesId } = action.payload;
       const newStateGetByIdGames = {
         ...state,
-        detailGame: {...action.payload},
+        detailGame: { ...state.detailGame, ...action.payload }, // Combinar detailGame con action.payload
         gamesId,
         loading: false,
       };
+
       saveStateToLocalStorage(newStateGetByIdGames);
-      return newStateGetByIdGames;
+      // console.log("adios", newStateGetByIdGames);
+      // console.log("holadetaiñ", state.detailGame);
+      // Retornar un nuevo estado que incluye la actualización de detailGame
+      return {
+        ...newStateGetByIdGames,
+        // Otros campos globales que puedas tener en tu estado
+      };
+    }
 
     case RESET_DETAIL_GAMES:
       const newStateResetDetailGames = {
@@ -105,14 +122,12 @@ const reducer = (state = initialState, action) => {
 
     /* POST VIDEOGAME */
     case POST_VIDEOGAME: {
-      const newState={
-        ...state 
-
-      }
+      const newState = {
+        ...state,
+      };
       saveStateToLocalStorage(newState, action);
 
       return newState;
-       
     }
 
     /* EDIT VIDEOGAME */
@@ -121,40 +136,221 @@ const reducer = (state = initialState, action) => {
     }
 
     /* GET ALL USERS */
-    case GET_ALL_USERS : {
+    case GET_ALL_USERS: {
+      if (state.rolFilter === "All roles") {
+        return {
+          ...state,
+          users: [...action.payload],
+          allUsers: [...action.payload],
+          statusFilter: "all",
+          currentPage: 1,
+        };
+      }
+
+      const adminsFilteredNew = state.adminsFiltered;
+
       return {
         ...state,
-        users: [...action.payload],
+        users: adminsFilteredNew,
         allUsers: [...action.payload],
-      }
+        statusFilter: "all",
+        currentPage: 1,
+      };
     }
 
     /* GET USERS NOT BANNED */
-    case GET_USERS_NOT_BANNED : {
+    case GET_USERS_NOT_BANNED: {
+      if (state.rolFilter === "All roles") {
+        const newUsers = state.allUsers.filter((user) => {
+          if (!user.banned) {
+            return user;
+          }
+        });
+
+        return {
+          ...state,
+          users: [...newUsers],
+          statusFilter: "active",
+          usersNotBanned: [...newUsers],
+          currentPage: 1,
+        };
+      }
+
+      const newUsers = state.adminsFiltered.filter((user) => {
+        if (!user.banned) {
+          return user;
+        }
+      });
+
       return {
         ...state,
-        users: [...action.payload],
-        usersNotBanned: [...action.payload]
-      }
+        users: [...newUsers],
+        statusFilter: "active",
+        usersNotBanned: [...newUsers],
+        currentPage: 1,
+      };
     }
 
     /* GET BANNED USERS */
-    case GET_USERS_BANNED : {
+    case GET_USERS_BANNED: {
+      if (state.rolFilter === "All roles") {
+        const newUsers = state.allUsers.filter((user) => {
+          if (user.banned) {
+            return user;
+          }
+        });
+
+        return {
+          ...state,
+          users: [...newUsers],
+          bannedUsers: [...newUsers],
+          statusFilter: "banned",
+          currentPage: 1,
+        };
+      }
+
+      const newUsers = state.adminsFiltered.filter((user) => {
+        if (user.banned) {
+          return user;
+        }
+      });
+
       return {
         ...state,
-        bannedUsers: [...action.payload],
-        users: [...action.payload]
-      }
+        users: [...newUsers],
+        bannedUsers: [...newUsers],
+        statusFilter: "banned",
+        currentPage: 1,
+      };
     }
 
     /* BAN USER */
-    case BAN_USER : {
-      return {...state,}
+    case BAN_USER: {
+      return { ...state };
     }
 
     /* UNBAN USER */
-    case UNBAN_USER : {
-      return {...state}
+    case UNBAN_USER: {
+      return { ...state };
+    }
+
+    /* UPDATE USER */
+    case UPDATE_USER: {
+      return { ...state };
+    }
+
+    /* GET USER BY ID */
+    case GET_USER_BY_ID: {
+      return {
+        ...state,
+        user: { ...action.payload },
+      };
+    }
+
+    /* GET USER BY NAME */
+    case GET_USER_BY_NAME: {
+      if (state.rolFilter === "All roles") {
+        return {
+          ...state,
+          users: action.payload,
+          allUsers: action.payload,
+          usersByName: action.payload,
+          statusFilter: "all",
+          currentPage: 1,
+        };
+      }
+
+      const adminsFilteredNew = state.adminsFiltered;
+
+      return {
+        ...state,
+        users: adminsFilteredNew,
+        allUsers: action.payload,
+        usersByName: action.payload,
+        statusFilter: "all",
+        currentPage: 1,
+      };
+    }
+
+    /* FILTER BY ROL */
+    case FILTER_BY_ROL: {
+      if (state.statusFilter === "active") {
+        if (action.payload === "All roles") {
+          return {
+            ...state,
+            users: [...state.usersNotBanned],
+            rolFilter: action.payload,
+            currentPage: 1,
+          };
+        }
+        const usersFiltered = state.usersNotBanned.filter((user) => {
+          if (user.rol === action.payload) {
+            return user;
+          }
+        });
+        const usersFilteredNew = state.allUsers.filter(
+          (user) => user.rol === action.payload
+        );
+        return {
+          ...state,
+          users: [...usersFiltered],
+          adminsFiltered: usersFilteredNew,
+          rolFilter: action.payload,
+          currentPage: 1,
+        };
+      }
+
+      if (state.statusFilter === "banned") {
+        if (action.payload === "All roles") {
+          return {
+            ...state,
+            users: [...state.bannedUsers],
+            rolFilter: action.payload,
+            currentPage: 1,
+          };
+        }
+        const usersFiltered = state.bannedUsers.filter(
+          (user) => user.rol === action.payload
+        );
+        const usersFilteredNew = state.allUsers.filter(
+          (user) => user.rol === action.payload
+        );
+        return {
+          ...state,
+          users: [...usersFiltered],
+          adminsFiltered: usersFilteredNew,
+          rolFilter: action.payload,
+          currentPage: 1,
+        };
+      }
+
+      if (action.payload === "All roles") {
+        return {
+          ...state,
+          users: [...state.allUsers],
+          rolFilter: action.payload,
+          currentPage: 1,
+        };
+      }
+      const usersFiltered = state.allUsers.filter(
+        (user) => user.rol === action.payload
+      );
+
+      return {
+        ...state,
+        users: [...usersFiltered],
+        adminsFiltered: [...usersFiltered],
+        rolFilter: action.payload,
+        currentPage: 1,
+      };
+    }
+
+    /* SET CURRENT PAGE */
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
     }
 /////////////////////////////////////////////////////////
      /* GET ALL ORDERS❤ */
@@ -276,6 +472,15 @@ const reducer = (state = initialState, action) => {
       };
 
     //!FIN EDWARD
+
+    case AUTH_USER: {
+      const newStateAuthUser = {
+        ...state,
+        authUser: { ...action.payload },
+      };
+      saveStateToLocalStorage(newStateAuthUser);
+      return newStateAuthUser;
+    }
 
     default:
       return {
