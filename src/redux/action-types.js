@@ -16,7 +16,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const FILTER_BY_ROL = "FILTER_BY_ROL";
 export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
-
+export const POST_USER = "POST_USER";
 export const AUTH_USER = "AUTH_USER";
 
 //!EDWARD
@@ -26,6 +26,7 @@ export const FILTER_DEVELOPER = "FILTER_DEVELOPER";
 export const FILTER_GENRE = "FILTER_GENRE";
 //!EDWARD
 
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 //❤Orders:
 export const  GET_ORDERS = "GET_ORDERS";
