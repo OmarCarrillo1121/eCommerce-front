@@ -7,33 +7,6 @@ import AccountNav from "../../accountNav";
 import ActiveOrders from "../ActiveOrders/ActiveOrders";
 
 //⭐ORDENES QUE ESTAN CANCELADAS Y QUIERO RESTAURAR:
-
-//const CancelledOrders = () => {
-//    const [cancelledOrders, setCancelledOrders] = useState([]); //⭐
- 
-//   const dispatch = useDispatch();
-
-
-// //codigo que funciona:
-//      useEffect(() => {
-//        dispatch(getOrderCancelled()).then((data) => {
-//          setCancelledOrders(data.payload);
-//         // dispatch(getOrderCancelled());//AGREGADO
-//        });
-//    }, [dispatch]);//cancelledOrders⭐
-
-
-
-//    const handleRestoreOrder = (orderId) => {
-//       dispatch(restoreOrder(orderId));
-//       // Actualiza el estado local después de restaurar la orden
-//      setCancelledOrders(cancelledOrders.filter((id) => id !== orderId));
-//      alert("Orden restaurada con éxito!");
-//     };
-
-
- //❤
-
 const CancelledOrders = () => {
   const dispatch = useDispatch();
   const cancelledOrders = useSelector((state) => state.canceledOrder);
@@ -52,7 +25,7 @@ const CancelledOrders = () => {
      fetchData();
    }, [dispatch]);
 
-  //  useEffect(()=>{
+  //✅ useEffect(()=>{
   //   dispatch(getOrderCancelled());
   //  }, []);
 

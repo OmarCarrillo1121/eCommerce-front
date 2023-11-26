@@ -181,7 +181,6 @@ const reducer = (state = initialState, action) => {
         };
 
     /* Cancelar ordenes❤*/ 
-    // Actualiza el estado local con la orden cancelada
     case CANCELED_ORDER:
     const canceledOrderId = action.payload;
     //agregado
@@ -194,9 +193,9 @@ const reducer = (state = initialState, action) => {
   return {
     ...state,
     orders: updatedOrders,
-    //
+    
     activeOrder: updatedActiveOrderss,
-    //
+    
     canceledOrder: [...state.canceledOrder, canceledOrderId], // Agrega la orden cancelada al estado canceledOrders
   };
 
@@ -205,18 +204,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         canceledOrder: action.payload, // Actualiza el estado canceledOrder con las órdenes canceladas
       };
-///////⭐ EL CASE DE ABAJO ES EL QUE ESTABA USANDO:
-      //  case RESTORE_ORDER:
-      //    console.log("Order restored:", action.payload); // Agrega un log para verificar en la consola
-      //    const restoredOrderId = action.payload.orderId;
-      //    const updatedCanceledOrders = state.canceledOrder.filter(orderId => orderId !== restoredOrderId);
-      //    const updatedActiveOrders = [...state.activeOrder, restoredOrderId];
-      
-      //    return {
-      //      ...state,
-      //      canceledOrder: updatedCanceledOrders,
-      //      activeOrder: updatedActiveOrders,
-      //    };
      
       case RESTORE_ORDER:
         const restoredOrderId = action.payload;
@@ -237,7 +224,7 @@ const reducer = (state = initialState, action) => {
         case GET_ORDER_ACTIVE:
           return {
             ...state,
-            activeOrder: [...action.payload], // Actualiza el estado activeOrders con las órdenes activas
+            activeOrder: [...action.payload],
           };
 
 //////////////////////////////////////////////////////////////////

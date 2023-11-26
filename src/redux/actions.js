@@ -263,7 +263,7 @@ export const canceledOrder = (id) => {
   return async (dispatch) => {
     try {
       await axios.delete(`${URL_GAMES}/orders/cancel/${id}`);
-      dispatch(getActiveOrders()); // Actualiza las órdenes después de la cancelación /getOrders()/
+      dispatch(getActiveOrders());
       dispatch({
         type: CANCELED_ORDER,
         payload: id,
@@ -329,7 +329,6 @@ export const editOrders = ({ id, orders }) => {
   return async (dispatch) => {
     try {
       await axios.put(`${URL_GAMES}/orders/${id}`, orders);
-
       return dispatch({
         type: EDIT_ORDERS,
       });
@@ -344,7 +343,7 @@ export const getByIdOrders = (id) => {
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL_GAMES}/orders/${id}`);
-      console.log(response.data); // Verifica la respuesta del servidor en la consola
+      console.log(response.data);
       return dispatch({
         type: GET_BY_ID_ORDERS,
         payload: response.data,
@@ -354,7 +353,6 @@ export const getByIdOrders = (id) => {
     }
   };
 };
-
  export const resetDetailOrders = () => {
   return { type: RESET_DETAIL_ORDERS, payload: [] };
 };

@@ -16,7 +16,7 @@ import Account from "./Views/Dashboard/account";
 import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
 import DetailOrders from "./Views/Dashboard/accountNav/links/dashboard/DetailOrders/DetailOrdes";
 import CancelledOrders from"./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
-import ActiveOrders from"./Views/Dashboard//accountNav/links/ActiveOrders/ActiveOrders";
+import ActiveOrders from"./Views/Dashboard/accountNav/links/ActiveOrders/ActiveOrders";
 
 import './App.css';
 
