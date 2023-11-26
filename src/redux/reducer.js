@@ -62,6 +62,7 @@ const reducer = (state = initialState, action) => {
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
+        currentPage: 1,
       };
       saveStateToLocalStorage(newStateGetAllGames);
       return newStateGetAllGames;
@@ -72,6 +73,7 @@ const reducer = (state = initialState, action) => {
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
+        currentPage: 1,
       };
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;

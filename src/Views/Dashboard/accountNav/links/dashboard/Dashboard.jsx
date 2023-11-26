@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import style from './dashboard.module.css'
 import UserTable from './users/UserTable';
+import Games from './games/Games';
 
 export function Dashboard() {
     const [componentsIndex, setComponentsIndex] = useState(0)
@@ -8,8 +9,9 @@ export function Dashboard() {
 
     const components = [
         <UserTable/>,
+        <Games/>
     ]
-    const componentNames = ["Users", "Banners", "Reviews"]
+    const componentNames = ["Users","Videogames", "Banners", "Reviews"]
 
     const handleComponentClick = (index) => {
         setComponentsIndex(index)
