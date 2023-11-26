@@ -4,6 +4,7 @@ import Landing from "./Views/Landing/Landing";
 import NavBar from "./components/NavBar/navbar/NavBar";
 import Login from "./Views/Login/login";
 import Register from "./Views/register/register";
+import ResetPassword from "./Views/ResetPassword/resetPassword";
 import Footer from "./Views/footer/footer";
 import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
@@ -16,10 +17,10 @@ import Account from "./Views/Dashboard/account";
 //⭐
 //import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
 import DetailOrders from "./Views/Dashboard/accountNav/links/dashboard/DetailOrders/DetailOrdes";
-import CancelledOrders from"./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
-import ActiveOrders from"./Views/Dashboard/accountNav/links/ActiveOrders/ActiveOrders";
+import CancelledOrders from "./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
+import ActiveOrders from "./Views/Dashboard/accountNav/links/ActiveOrders/ActiveOrders";
 
-import './App.css';
+import "./App.css";
 import DetailUser from "./Views/Detail/detailUser/DetailUser";
 import Checkout from "./Views/Checkout/checkout";
 import "./App.css";
@@ -48,23 +49,22 @@ function App() {
       ) : null}
       {viewportWidth <= 800 && <ResponsiveNav />}
       <Routes>
-        <Route path= "/" element={[
-          <Landing key={1}/>, 
-          <Section key={2}/>]} />
-        <Route path = "/login" element = {<Login/>}/>
-        <Route path="/detail/:id" element={<Detail/>}/>
-        <Route path="/formVideogame" element={<FormVideogame/>}/>
-        <Route path="/editVideogame/:id" element={<EditVideogame/>}/>
-        <Route path="/catalogo" element={<Catalogo/>}/>
-        <Route path="/dashboard/:id" element={<Account/>}/>
-        
-        <Route path="/dashboard/Orders/:id" element={<DetailOrders/>}/> 
-        <Route path="/dashboard/Orders/cancel" element={<CancelledOrders/>}/>
-        <Route path="/dashboard/Orders/active" element={<ActiveOrders/>}/>
-       
+        <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/formVideogame" element={<FormVideogame />} />
+        <Route path="/editVideogame/:id" element={<EditVideogame />} />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/dashboard/:id" element={<Account />} />
+
+        <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
+        <Route path="/dashboard/Orders/cancel" element={<CancelledOrders />} />
+        <Route path="/dashboard/Orders/active" element={<ActiveOrders />} />
+
         <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/formVideogame" element={<FormVideogame />} />
         <Route path="/editVideogame/:id" element={<EditVideogame />} />
