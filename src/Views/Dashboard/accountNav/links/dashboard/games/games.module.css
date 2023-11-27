@@ -9,6 +9,20 @@
     position: relative;
     height: 650px;
 }
+.tabletGames .addGame {
+    position: absolute;
+    right: 1.5%;
+    top: 3%;
+    color: rgba(17, 25, 40);
+    padding: 6px 7px;
+    border-bottom: 1px solid rgba(17, 25, 40);
+    transition: all .3s ease-in-out;
+    border-radius: 5px;
+}
+.tabletGames .addGame:hover {
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+}
 .tabletGames .searchbar {
     margin: 30px 10px;
     margin-bottom: 20px;

@@ -76,6 +76,7 @@ function Games() {
 
     return (<>  
         <div className={style.tabletGames}>
+            <NavLink className={style.addGame} to={'/formVideogame'}>Agrega un Videojuego</NavLink>
             <div className={style.searchbar}>
                 <input  type="text" value={name} onChange={lookAtName} placeholder="Search for a game"/>
                 <button onClick={searchToGame}>🔍︎</button>
