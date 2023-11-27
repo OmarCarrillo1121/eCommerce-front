@@ -236,7 +236,7 @@
     background-color: #fff;
     cursor: pointer;
     padding: 3px 5px;
-    width: 123px;
+    width: 140px;
     border-radius: 3px;
     border: 1px solid #fff;
     color: #545353;
@@ -263,4 +263,18 @@
     color: #fff;
     cursor: pointer;
     background-color: transparent;
+}
+.btnBack {
+    position: absolute;
+    left: 8%;
+    width: 20px;
+    transform: scaleX(-1);
+    background-color: transparent;
+    border: none;
+    font-size: 70px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+.btnBack:hover {
+    font-size: 80px;
 }

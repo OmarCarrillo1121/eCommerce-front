@@ -34,6 +34,11 @@ import {
   AUTH_USER,
   SET_CURRENT_PAGE,
   POST_USER,
+  GET_ALL_BANNED_USERS,
+  GET_ACTIVE_VIDEOGAMES,
+  DELETED_VIDEOGAMES,
+  DELETE_VIDEOGAME,
+  RESTORE_VIDEOGAME,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -97,6 +102,36 @@ export const getByName = (name) => {
   };
 };
 
+export const deleteVideogame = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${URL_GAMES}/videogames/${id}`)
+
+      alert('Juego desabilitado exitosamente!!')
+      return dispatch({
+        type: DELETE_VIDEOGAME
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+export const restoreVideogame = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${URL_GAMES}/videogames/restore/${id}`)
+
+      alert('Juego habilitado exitosamene')
+      return dispatch({
+        type: RESTORE_VIDEOGAME
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
 export const getByGamesDetail = (id) => {
   return async function (dispatch) {
     try {
@@ -140,6 +175,7 @@ export const filterGenre = (parameter) => {
 export const postVideogame = (videogame) => {
   return async (dispatch) => {
     try {
+      console.log(videogame);
       await axios.post(`${URL_GAMES}/videogames`, videogame);
       alert("Videogame created succesfully!");
 
@@ -160,6 +196,7 @@ export const editVideogame = ({ id, videogame }) => {
     try {
       await axios.put(`${URL_GAMES}/videogames/${id}`, videogame);
 
+      alert("Videogame edited successfully");
       return dispatch({
         type: EDIT_VIDEOGAME,
       });
@@ -168,6 +205,38 @@ export const editVideogame = ({ id, videogame }) => {
     }
   };
 };
+
+/* GET ACTIVE VIDEOGAMES */
+export const getActiveGames = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/videogames/all`)
+
+      return dispatch({
+        type:GET_ACTIVE_VIDEOGAMES,
+        payload:response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET DISABLED VIDEOGAMES */
+export const getDisabledGames = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/videogames/disabled`)
+
+      return dispatch({
+        type:DELETED_VIDEOGAMES,
+        payload:response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
 
 /* GET ALL USERS */
 export const getAllUsers = () => {
@@ -200,6 +269,7 @@ export const getUsersNotBanned = () => {
     }
   };
 };
+
 
 /* GET BANNED USERS */
 export const getBannedUsers = () => {
@@ -352,7 +422,7 @@ export const getOrderCancelled = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${URL_GAMES}/orders/cancel`)
-console.log(response.data);
+
       return dispatch({
         type: GET_ORDER_CANCELLED,
         payload: response.data
@@ -385,7 +455,7 @@ export const getActiveOrders = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${URL_GAMES}/orders/active`);
-      console.log(response.data);
+      
       dispatch({
         type: GET_ORDER_ACTIVE,
         payload: response.data,

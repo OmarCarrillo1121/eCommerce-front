@@ -5,6 +5,7 @@ import {
   RESET_DETAIL_GAMES,
   POST_VIDEOGAME,
   EDIT_VIDEOGAME,
+  DELETE_VIDEOGAME,
   ORDER,
   FILTER_PLATFORM,
   FILTER_DEVELOPER,
@@ -30,18 +31,25 @@ import {
   AUTH_USER,
   SET_CURRENT_PAGE,
   POST_USER,
+  GET_ACTIVE_VIDEOGAMES,
+  DELETED_VIDEOGAMES,
+  RESTORE_VIDEOGAME,
 } from "./action-types";
 
 const initialState = {
   allGames: [],
   allCopyGames: [],
   detailGame: {},
+  activeGames: [],
+  disabledGames: [],
 
   allUsers: [],
   users: [],
   usersByName: [],
   usersNotBanned: [],
+  usersNotBannedOfi: [],
   bannedUsers: [],
+  bannedUsersOfi: [],
   adminsFiltered: [],
   usersFilteredO: [],
   user: {},
@@ -79,6 +87,7 @@ const reducer = (state = initialState, action) => {
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
+        currentPage: 1,
       };
       saveStateToLocalStorage(newStateGetAllGames);
       return newStateGetAllGames;
@@ -89,6 +98,7 @@ const reducer = (state = initialState, action) => {
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
+        currentPage: 1,
       };
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
@@ -110,6 +120,20 @@ const reducer = (state = initialState, action) => {
         ...newStateGetByIdGames,
         // Otros campos globales que puedas tener en tu estado
       };
+    }
+
+    case GET_ACTIVE_VIDEOGAMES: {
+      return {
+        ...state,
+        activeGames: [...action.payload]
+      }
+    }
+
+    case DELETED_VIDEOGAMES: {
+      return {
+        ...state,
+        disabledGames: [...action.payload]
+      }
     }
 
     case RESET_DETAIL_GAMES:
@@ -134,6 +158,16 @@ const reducer = (state = initialState, action) => {
     /* EDIT VIDEOGAME */
     case EDIT_VIDEOGAME: {
       return { ...state };
+    }
+
+    /* DELETE VIDEOGAME */
+    case DELETE_VIDEOGAME: {
+      return {...state,}
+    }
+
+    /* RESTORE VIDEOGAME */
+    case RESTORE_VIDEOGAME: {
+      return {...state};
     }
 
     /* GET ALL USERS */
@@ -173,6 +207,7 @@ const reducer = (state = initialState, action) => {
           users: [...newUsers],
           statusFilter: "active",
           usersNotBanned: [...newUsers],
+          usersNotBannedOfi: [...action.payload],
           currentPage: 1,
         };
       }
@@ -205,6 +240,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: [...newUsers],
           bannedUsers: [...newUsers],
+          bannedUsersOfi: [...action.payload],
           statusFilter: "banned",
           currentPage: 1,
         };

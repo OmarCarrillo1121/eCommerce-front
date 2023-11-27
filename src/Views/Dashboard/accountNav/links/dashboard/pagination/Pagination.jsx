@@ -15,19 +15,21 @@ function Pagination(props) {
 
     return (  
         <div className={style.containerPages}>
-            <button 
-                onClick={() => handlePageChange(currentPage - 1)} 
-                disabled={currentPage === 1}
-            >
-                {prev}
-            </button>
-            {totalPages > 1 ? <small>{currentPage} of {totalPages}</small> : null}
-            <button 
-                onClick={() => handlePageChange(currentPage + 1)} 
-                disabled={currentPage === totalPages}
-            >
-                {next}
-            </button>
+            { totalPages > 1 ? <>
+                <button 
+                    onClick={() => handlePageChange(currentPage - 1)} 
+                    disabled={currentPage === 1}
+                >
+                    {prev}
+                </button>
+                <small>{currentPage} of {totalPages}</small>
+                <button 
+                    onClick={() => handlePageChange(currentPage + 1)} 
+                    disabled={currentPage === totalPages}
+                >
+                    {next}
+                </button> </>: null
+            }
         </div>
     );
 }
