@@ -81,6 +81,10 @@ function App() {
         <Route path="/catalogo" element={<Catalogo />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/user/:id" element={<DetailUser />} />
+        <Route path="/checkout" element={<Checkout />} />
         {isAdmin ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />
@@ -103,11 +107,6 @@ function App() {
             <Route path="/dashboard/Orders/active" element={<Error404 />} />
           </>
         )}
-        <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/resetPassword" element={<ResetPassword />} />
-        <Route path="/user/:id" element={<DetailUser />} />
-        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {location.pathname === "/" ||
       location.pathname.includes("/detail") ||
