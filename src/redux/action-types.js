@@ -32,12 +32,12 @@ export const FILTER_GENRE = "FILTER_GENRE";
 
 
 //❤Orders:
-export const  GET_ORDERS = "GET_ORDERS";
+export const GET_ORDERS = "GET_ORDERS";
 export const EDIT_ORDERS = "EDIT_ORDERS";
 export const GET_BY_ID_ORDERS = "GET_BY_ID_ORDERS";
 export const RESET_DETAIL_ORDERS = "RESET_DETAIL_ORDERS";
 export const CANCELED_ORDER = "CANCELED_ORDER";
 export const GET_ORDER_CANCELLED = "GET_ORDER_CANCELLED";
 export const RESTORE_ORDER = "RESTORE_ORDER";
-export const GET_ORDER_ACTIVE = "GET_ORDER_ACTIVE"; 
-export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+export const GET_ORDER_ACTIVE = "GET_ORDER_ACTIVE";
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
