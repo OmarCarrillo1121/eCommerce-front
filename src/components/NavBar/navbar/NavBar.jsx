@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Style from "./NavBar.module.css";
 import Menu from "./menu/menu";
 import logo from "../../../Assets/img/icon/nav/logo.png";
@@ -18,14 +18,31 @@ const NavBar = () => {
   const { scrollY } = useScroll();
   const dispatch = useDispatch();
   const clearLocalStorage = useLocalStorageCleaner("authUserInfo");
+  const [userRol, setUserRol] = useState("");
+
+  const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
+
+  // const userRol = () => {
+  //   if (userInfo) {
+  //     const usrRol = userInfo[0].rol;
+  //     return usrRol;
+  //   }
+  // };
 
   const logout = async () => {
     await signOut(auth);
     dispatch(authUser(null));
     clearLocalStorage();
+    navigate("/");
   };
 
-  //const isLoggedin = useSelector((state) => state.auth.loggedin);
+  useEffect(() => {
+    if (userInfo) {
+      setUserRol(userInfo[0].rol);
+    }
+  }, [userRol]);
+
+  console.log(userRol);
 
   return (
     <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
@@ -40,7 +57,18 @@ const NavBar = () => {
           onClick={() => navigate("/catalogo")}
         />
         <img src={shopIcon} alt="shop" onClick={() => navigate("/login")} />
-        <img src={loginIcon} alt="login" onClick={() => navigate("/login")} />
+        {userInfo ? (
+          <div>
+            <img
+              src={loginIcon}
+              alt="login"
+              onClick={() => navigate("/login")}
+            />
+            <p>{userInfo[0].name}</p>
+          </div>
+        ) : (
+          <p onClick={() => navigate("/login")}> Login </p>
+        )}
         <button onClick={() => logout()}>Cerrar sesión</button>
       </div>
     </header>

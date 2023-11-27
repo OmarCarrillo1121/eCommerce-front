@@ -17,7 +17,6 @@ import {
   GET_USERS_NOT_BANNED,
   BAN_USER,
   UNBAN_USER,
-
   GET_ORDERS,
   GET_BY_ID_ORDERS,
   RESET_DETAIL_ORDERS,
@@ -26,7 +25,6 @@ import {
   GET_ORDER_CANCELLED,
   RESTORE_ORDER,
   GET_ORDER_ACTIVE,
-
   UPDATE_USER,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
@@ -39,6 +37,7 @@ import {
   DELETED_VIDEOGAMES,
   DELETE_VIDEOGAME,
   RESTORE_VIDEOGAME,
+  GET_USER_BY_EMAIL,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -105,32 +104,32 @@ export const getByName = (name) => {
 export const deleteVideogame = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`${URL_GAMES}/videogames/${id}`)
+      await axios.delete(`${URL_GAMES}/videogames/${id}`);
 
-      alert('Juego desabilitado exitosamente!!')
+      alert("Juego desabilitado exitosamente!!");
       return dispatch({
-        type: DELETE_VIDEOGAME
-      })
+        type: DELETE_VIDEOGAME,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 export const restoreVideogame = (id) => {
   return async function (dispatch) {
     try {
-      await axios.put(`${URL_GAMES}/videogames/restore/${id}`)
+      await axios.put(`${URL_GAMES}/videogames/restore/${id}`);
 
-      alert('Juego habilitado exitosamene')
+      alert("Juego habilitado exitosamene");
       return dispatch({
-        type: RESTORE_VIDEOGAME
-      })
+        type: RESTORE_VIDEOGAME,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 export const getByGamesDetail = (id) => {
   return async function (dispatch) {
@@ -210,33 +209,33 @@ export const editVideogame = ({ id, videogame }) => {
 export const getActiveGames = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/videogames/all`)
+      const response = await axios.get(`${URL_GAMES}/videogames/all`);
 
       return dispatch({
-        type:GET_ACTIVE_VIDEOGAMES,
-        payload:response.data
-      })
+        type: GET_ACTIVE_VIDEOGAMES,
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* GET DISABLED VIDEOGAMES */
 export const getDisabledGames = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/videogames/disabled`)
+      const response = await axios.get(`${URL_GAMES}/videogames/disabled`);
 
       return dispatch({
-        type:DELETED_VIDEOGAMES,
-        payload:response.data
-      })
+        type: DELETED_VIDEOGAMES,
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 /* GET ALL USERS */
 export const getAllUsers = () => {
@@ -269,7 +268,6 @@ export const getUsersNotBanned = () => {
     }
   };
 };
-
 
 /* GET BANNED USERS */
 export const getBannedUsers = () => {
@@ -389,17 +387,17 @@ export const setCurrentPage = (pageNum) => {
 export const getOrders = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/orders`)
+      const response = await axios.get(`${URL_GAMES}/orders`);
 
       return dispatch({
         type: GET_ORDERS,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 //❤Canceled Order:
 export const canceledOrder = (id) => {
@@ -421,31 +419,30 @@ export const canceledOrder = (id) => {
 export const getOrderCancelled = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL_GAMES}/orders/cancel`)
+      const response = await axios.get(`${URL_GAMES}/orders/cancel`);
 
       return dispatch({
         type: GET_ORDER_CANCELLED,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
-}
+  };
+};
 
 //❤restore order:
 export const restoreOrder = (id) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(`${URL_GAMES}/orders/restore/${id}`);
-      
+
       dispatch({
         type: RESTORE_ORDER,
-        payload: response.data, 
+        payload: response.data,
       });
     } catch (error) {
       alert(error.message);
-      
     }
   };
 };
@@ -455,7 +452,7 @@ export const getActiveOrders = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${URL_GAMES}/orders/active`);
-      
+
       dispatch({
         type: GET_ORDER_ACTIVE,
         payload: response.data,
@@ -465,7 +462,6 @@ export const getActiveOrders = () => {
     }
   };
 };
-
 
 //❤EditOrders:
 export const editOrders = ({ id, orders }) => {
@@ -496,14 +492,15 @@ export const getByIdOrders = (id) => {
     }
   };
 };
- export const resetDetailOrders = () => {
+export const resetDetailOrders = () => {
   return { type: RESET_DETAIL_ORDERS, payload: [] };
 };
+
 /* AUTH_USER */
-export const authUser = (user) => {
+export const authUser = () => {
   return {
     type: AUTH_USER,
-    payload: user,
+    payload: JSON.parse(localStorage.getItem("authUserInfo")),
   };
 };
 
@@ -518,6 +515,24 @@ export const postUser = (user) => {
 
       return dispatch({
         type: POST_VIDEOGAME,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET_USER_BY_EMAIL */
+export const getUserByEmail = (userEmail) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `${URL_GAMES}/users/search/email?${userEmail}`
+      );
+
+      return dispatch({
+        type: GET_USER_BY_EMAIL,
+        payload: response.data,
       });
     } catch (error) {
       alert(error.message);

@@ -24,11 +24,12 @@ import "./App.css";
 import DetailUser from "./Views/Detail/detailUser/DetailUser";
 import Checkout from "./Views/Checkout/checkout";
 import "./App.css";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase-config";
 import Contact from "./Views/Contact/Contact";
 import AboutUs from "./Views/AboutUs/AboutUs";
+import { authUser } from "./redux/actions";
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,25 @@ function App() {
       console.log(currentUser);
     });
   }, []);
+
+  const [items, setItems] = useState([1, 2, 3]);
+
+  // useEffect(() => {
+  //   localStorage.setItem("items", JSON.stringify(items));
+  // }, [items]);
+
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem("items"));
+  //   if (items) {
+  //     setItems(items);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    authUser();
+  }, []);
+
+  //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
 
   return (
     <div className="app">
@@ -58,11 +78,8 @@ function App() {
         <Route path="/editVideogame/:id" element={<EditVideogame />} />
         <Route path="/catalogo" element={<Catalogo />} />
         <Route path="/dashboard/:id" element={<Account />} />
-<<<<<<< HEAD
-=======
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutUs" element={<AboutUs />} />
->>>>>>> bcf07a2596388416d9638c3b32dbf1e14d453d52
 
         <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
         <Route path="/dashboard/Orders/cancel" element={<CancelledOrders />} />
