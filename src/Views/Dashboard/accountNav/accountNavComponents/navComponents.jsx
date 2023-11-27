@@ -22,7 +22,7 @@ export const Links = ({ url, img, name}) => {
 export const DashboardUserInfo = () => {
     return (
       <div className={Style.dashboard_nav_user}>
-        <img src={userFirsIcon} alt="user" width={80}/>
+        <img src={userFirsIcon} alt="user" width={70}/>
         <div className={Style.dashboard_nav_user_info}>
          <h2>UserName</h2>
          <h2>email@gmail.com</h2>

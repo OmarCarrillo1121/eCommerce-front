@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGames, getByName, setCurrentPage } from "../../../../../../redux/actions";
+import { NavLink } from 'react-router-dom'
+import { deleteVideogame, getActiveGames, getAllGames, getByName, restoreVideogame, setCurrentPage } from "../../../../../../redux/actions";
 import style from './games.module.css'
 import Pagination from "../pagination/Pagination";
 
 function Games() {
-    const { allGames, currentPage } = useSelector((state) => state)
+    const { activeGames, currentPage } = useSelector((state) => state)
     const dispatch = useDispatch()
     const [ time, setTime ] = useState(false)
     const [ name, setName ] = useState("")
-
+    const [ editGame, setEditGame] = useState({})
 
     const gamesPerPage = 10;
-    const totalGames = allGames.length
+    const totalGames = activeGames.length
 
     const firstIndex = gamesPerPage * (currentPage - 1)
     const lastIndex = firstIndex + gamesPerPage
 
-    let currentPageData = allGames.slice(firstIndex, lastIndex)
+    let currentPageData = activeGames.slice(firstIndex, lastIndex)
 
 
     const onPageChange  = (pageNum) => {
@@ -37,35 +38,40 @@ function Games() {
         e.preventDefault()
 
         dispatch(getByName(name))
-        setTime(true)
-
-        // if (rolSelect.value !== "All roles") {
-        //     rolSelect.value = "All roles";
-        // }
-
-        // if (statusSelect.value !== "All users") {
-        //     statusSelect.value = "All users";
-        // }
     }
 
     const showAllGames = (e) => {
         e.preventDefault()
 
         setName("")
-        // if (rolSelect.value !== "All roles") {
-        //     rolSelect.value = "All roles";
-        // }
-
-        // if (statusSelect.value !== "All users") {
-        //     statusSelect.value = "All users";
-        // }
-
         dispatch(getAllGames())
+    }
+
+    const openOptions = (game) => {
+        setEditGame(game)
+        setTime(true)
+    }
+
+    const closeEditor = (e) => {
+        e.preventDefault()
         setTime(false)
+        setEditGame({})
+    }
+
+    const disableGame = (id) => {
+        dispatch(deleteVideogame(id))
+        setTime(false)
+        setEditGame({})
+    }
+
+    const restoreGame = (id) => {
+        dispatch(restoreVideogame(id))
+        setTime(false)
+        setEditGame({})
     }
 
     useEffect(()=> {
-        dispatch(getAllGames())
+        dispatch(getActiveGames())
     }, [])
 
     return (<>  
@@ -96,7 +102,7 @@ function Games() {
 
                         return (
                             <tr className={`${style.row} ${rowClass}`} key={game.id}>
-                                <td><button>⁝</button></td>
+                                <td><button onClick={() => openOptions(game)}>⁝</button></td>
                                 <td>{game.id}</td>
                                 <td>{game.name}</td>
                                 <td>{game.genre}</td>
@@ -108,7 +114,6 @@ function Games() {
                             </tr>
                         )
                     }): null 
-                    // <NotUser/>
                 }
                 </tbody>
             </table>
@@ -122,12 +127,37 @@ function Games() {
                 <p><b>Didn't find what are looking for?</b> Some games may be hidden because of the filters you've selected.</p>
                 <button className={style.showGames} onClick={showAllGames}>Show all games</button>
                 {
-                    allGames.length !== 1 
-                    ? <small>{allGames.length} games found</small>
-                    : <small>{allGames.length} game found</small>
+                    activeGames.length !== 1 
+                    ? <small>{activeGames.length} games found</small>
+                    : <small>{activeGames.length} game found</small>
                 }
             </div>
         </div>
+        {
+            time ? <div className={style.overlay}>
+                <div className={style.openEditor}>
+                    <div className={style.containerEditGame}>
+                        <button className={style.btnCloseEditor} onClick={closeEditor}>X</button>
+                        <hr />
+                        <div className={style.editContainer}>
+                            <p>Dale click al botón de abajo para editar el videojuego</p>
+                            <NavLink to={`/editVideogame/${editGame.id}`} className={style.btnEdit}>
+                                Editar videojuego
+                            </NavLink>
+                        </div>
+                        <div className={style.deleteContainer}>
+                            <p>¿Quieres {editGame.deleted === true ? 'habilitar' : 'desabilitar'} el videojuego?</p>
+                            {
+                                editGame.deleted 
+                                ? <button className={style.btnDelete} onClick={() => restoreGame(editGame.id)}>Habilitar</button>
+                                : <button className={style.btnDelete} onClick={() => disableGame(editGame.id)}>Desabilitar</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            : null
+        }
     </>);
 }
 

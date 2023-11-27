@@ -28,6 +28,8 @@
     position: relative;
     display: flex;
     align-items: end;
+    color: black;
+    font-weight: 100;
 }
 .insights {
     display: flex;

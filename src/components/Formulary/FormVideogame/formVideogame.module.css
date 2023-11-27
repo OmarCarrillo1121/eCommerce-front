@@ -273,4 +273,8 @@
     border: none;
     font-size: 70px;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+.btnBack:hover {
+    font-size: 80px;
 }
