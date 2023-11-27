@@ -20,7 +20,7 @@ export const validation = (videogame) => {
     if(videogame.name && videogame.name.length < 5) {
         error.name = "Name must be at least 5 characters."
     }
-    if(videogame.name && videogame.name.length === 0) {
+    if(videogame.name && videogame.name.length <= 0) {
         error.name = "Name field can't be empty."
     }
     
