@@ -10,7 +10,7 @@ function EditVideogame() {
         "PC", "PlayStation", "Xbox One", "Nintendo Switch"
     ]) 
     const { detailGame } = useSelector((state) => state)
-    const [ editedVideogame, setEditedVideogame ] = useState(detailGame)
+    const [ editedVideogame, setEditedVideogame ] = useState({})
     const [ image, setImage ] = useState(editedVideogame.image);
     const [ errors, setErrors ] = useState({})
     const dispatch = useDispatch()
