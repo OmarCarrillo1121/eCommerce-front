@@ -24,7 +24,7 @@ function EditVideogame() {
         stock.push(i)
     }
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 61; i++) {
         discount.push(i)
     }
 
@@ -81,10 +81,14 @@ function EditVideogame() {
         })
     }
 
-    const handleSubmit = (e) => {
+    const backDashboard = (e) => {
         e.preventDefault()
 
-        console.log(editedVideogame);
+        navigate('/dashboard/dashboard')
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
         
         dispatch(editVideogame({
             id, 
@@ -92,10 +96,8 @@ function EditVideogame() {
         }))
         setImage(detailGame.image)
         setEditedVideogame({...detailGame})
-        console.log(editedVideogame);
 
-        alert('The game has been updated successfully!')
-        navigate('/')
+        navigate('/dashboard/dashboard')
     }
 
 
@@ -253,6 +255,7 @@ function EditVideogame() {
                         !editedVideogame.stock  
                         ? true : false}
                 >Submit</button>
+                <button className={style.btnBack} onClick={backDashboard}>➯</button>
             </form>
         </div>
     );

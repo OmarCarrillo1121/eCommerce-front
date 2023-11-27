@@ -264,3 +264,13 @@
     cursor: pointer;
     background-color: transparent;
 }
+.btnBack {
+    position: absolute;
+    left: 8%;
+    width: 20px;
+    transform: scaleX(-1);
+    background-color: transparent;
+    border: none;
+    font-size: 70px;
+    cursor: pointer;
+}
