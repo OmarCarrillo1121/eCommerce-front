@@ -4,6 +4,7 @@ import Landing from "./Views/Landing/Landing";
 import NavBar from "./components/NavBar/navbar/NavBar";
 import Login from "./Views/Login/login";
 import Register from "./Views/register/register";
+import ResetPassword from "./Views/ResetPassword/resetPassword";
 import Footer from "./Views/footer/footer";
 import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
@@ -12,6 +13,7 @@ import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import Account from "./Views/Dashboard/account";
+import Error404 from "./Views/Error404/Error404";
 
 //⭐
 //import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
@@ -23,11 +25,12 @@ import "./App.css";
 import DetailUser from "./Views/Detail/detailUser/DetailUser";
 import Checkout from "./Views/Checkout/checkout";
 import "./App.css";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase-config";
 import Contact from "./Views/Contact/Contact";
 import AboutUs from "./Views/AboutUs/AboutUs";
+import { authUser } from "./redux/actions";
 
 function App() {
   const location = useLocation();
@@ -38,6 +41,28 @@ function App() {
       console.log(currentUser);
     });
   }, []);
+
+  const [items, setItems] = useState([1, 2, 3]);
+
+  const [isAdmin, setIsAdmin] = useState(true);
+
+  // useEffect(() => {
+  //   localStorage.setItem("items", JSON.stringify(items));
+  // }, [items]);
+
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem("items"));
+  //   if (items) {
+  //     setItems(items);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
+    authUser(authUserFromLS);
+  }, []);
+
+  //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
 
   return (
     <div className="app">
@@ -53,25 +78,34 @@ function App() {
         <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/formVideogame" element={<FormVideogame />} />
-        <Route path="/editVideogame/:id" element={<EditVideogame />} />
         <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/dashboard/:id" element={<Account />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutUs" element={<AboutUs />} />
-
-        <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
-        <Route path="/dashboard/Orders/cancel" element={<CancelledOrders />} />
-        <Route path="/dashboard/Orders/active" element={<ActiveOrders />} />
-
+        {isAdmin ? (
+          <>
+            <Route path="/dashboard/:id" element={<Account />} />
+            <Route path="/formVideogame" element={<FormVideogame />} />
+            <Route path="/editVideogame/:id" element={<EditVideogame />} />
+            <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
+            <Route
+              path="/dashboard/Orders/cancel"
+              element={<CancelledOrders />}
+            />
+            <Route path="/dashboard/Orders/active" element={<ActiveOrders />} />
+          </>
+        ) : (
+          <>
+            <Route path="/dashboard/:id" element={<Error404 />} />
+            <Route path="/formVideogame" element={<Error404 />} />
+            <Route path="/editVideogame/:id" element={<Error404 />} />
+            <Route path="/dashboard/Orders/:id" element={<Error404 />} />
+            <Route path="/dashboard/Orders/cancel" element={<Error404 />} />
+            <Route path="/dashboard/Orders/active" element={<Error404 />} />
+          </>
+        )}
         <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/formVideogame" element={<FormVideogame />} />
-        <Route path="/editVideogame/:id" element={<EditVideogame />} />
-        <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/dashboard/:id" element={<Account />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/user/:id" element={<DetailUser />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>

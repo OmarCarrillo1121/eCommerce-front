@@ -20,6 +20,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const FILTER_BY_ROL = "FILTER_BY_ROL";
 export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
+export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const POST_USER = "POST_USER";
 export const AUTH_USER = "AUTH_USER";
 
@@ -29,7 +30,6 @@ export const FILTER_PLATFORM = "FILTER_PLATFORM";
 export const FILTER_DEVELOPER = "FILTER_DEVELOPER";
 export const FILTER_GENRE = "FILTER_GENRE";
 //!EDWARD
-
 
 //❤Orders:
 export const GET_ORDERS = "GET_ORDERS";
