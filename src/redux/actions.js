@@ -140,6 +140,7 @@ export const filterGenre = (parameter) => {
 export const postVideogame = (videogame) => {
   return async (dispatch) => {
     try {
+      console.log(videogame);
       await axios.post(`${URL_GAMES}/videogames`, videogame);
       alert("Videogame created succesfully!");
 
@@ -160,6 +161,7 @@ export const editVideogame = ({ id, videogame }) => {
     try {
       await axios.put(`${URL_GAMES}/videogames/${id}`, videogame);
 
+      alert("Videogame edited successfully");
       return dispatch({
         type: EDIT_VIDEOGAME,
       });

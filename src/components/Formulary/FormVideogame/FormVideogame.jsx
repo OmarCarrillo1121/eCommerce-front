@@ -3,6 +3,7 @@ import template from '../../../Assets/img/background/bgVideogameForm.jpg'
 import { useState } from "react";
 import { validation } from './validation.js'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 import { postVideogame } from "../../../redux/actions.js";
 
 function FormVideogame() {
@@ -25,6 +26,7 @@ function FormVideogame() {
     const [ loading, setLoading ] = useState(false);
     const [ errors, setErrors ] = useState({})
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const stock = [];
     const discount = [];
 
@@ -32,7 +34,7 @@ function FormVideogame() {
         stock.push(i)
     }
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 61; i++) {
         discount.push(i)
     }
 
@@ -82,10 +84,19 @@ function FormVideogame() {
         })
     }
 
+    const backDashboard = (e) => {
+        e.preventDefault()
+
+        navigate('/dashboard/dashboard')
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(newVideogame);
 
+        console.log(newVideogame);
+        dispatch(postVideogame({
+            videogame: newVideogame
+        }))
         setNewVideogame({
             name: "",
             description: "",
@@ -100,8 +111,8 @@ function FormVideogame() {
         })
         setLoading(false)
         setImage("")
+        navigate('/dashboard/dashboard')
         
-        dispatch(postVideogame(newVideogame))
     }
 
    
@@ -266,6 +277,7 @@ function FormVideogame() {
                         !newVideogame.stock  
                         ? true : false}
                 >Submit</button>
+                <button className={style.btnBack} onClick={backDashboard}>➯</button>
             </form>
         </div>
     );
