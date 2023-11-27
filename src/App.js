@@ -13,6 +13,7 @@ import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
 import ResponsiveNav from "./components/NavBar/responsiveNav/resposiveNav";
 import Account from "./Views/Dashboard/account";
+import Error404 from "./Views/Error404/Error404";
 
 //⭐
 //import Orders from "./Views/Dashboard/accountNav/links/ordersDash/ordersDash";
@@ -43,6 +44,8 @@ function App() {
 
   const [items, setItems] = useState([1, 2, 3]);
 
+  const [isAdmin, setIsAdmin] = useState(true);
+
   // useEffect(() => {
   //   localStorage.setItem("items", JSON.stringify(items));
   // }, [items]);
@@ -55,7 +58,8 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    authUser();
+    const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
+    authUser(authUserFromLS);
   }, []);
 
   //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
@@ -74,26 +78,34 @@ function App() {
         <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/formVideogame" element={<FormVideogame />} />
-        <Route path="/editVideogame/:id" element={<EditVideogame />} />
         <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/dashboard/:id" element={<Account />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutUs" element={<AboutUs />} />
-
-        <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
-        <Route path="/dashboard/Orders/cancel" element={<CancelledOrders />} />
-        <Route path="/dashboard/Orders/active" element={<ActiveOrders />} />
-
+        {isAdmin ? (
+          <>
+            <Route path="/dashboard/:id" element={<Account />} />
+            <Route path="/formVideogame" element={<FormVideogame />} />
+            <Route path="/editVideogame/:id" element={<EditVideogame />} />
+            <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
+            <Route
+              path="/dashboard/Orders/cancel"
+              element={<CancelledOrders />}
+            />
+            <Route path="/dashboard/Orders/active" element={<ActiveOrders />} />
+          </>
+        ) : (
+          <>
+            <Route path="/dashboard/:id" element={<Error404 />} />
+            <Route path="/formVideogame" element={<Error404 />} />
+            <Route path="/editVideogame/:id" element={<Error404 />} />
+            <Route path="/dashboard/Orders/:id" element={<Error404 />} />
+            <Route path="/dashboard/Orders/cancel" element={<Error404 />} />
+            <Route path="/dashboard/Orders/active" element={<Error404 />} />
+          </>
+        )}
         <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/formVideogame" element={<FormVideogame />} />
-        <Route path="/editVideogame/:id" element={<EditVideogame />} />
-        <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/dashboard/:id" element={<Account />} />
         <Route path="/user/:id" element={<DetailUser />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>

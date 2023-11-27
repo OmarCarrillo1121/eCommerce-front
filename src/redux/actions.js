@@ -497,10 +497,10 @@ export const resetDetailOrders = () => {
 };
 
 /* AUTH_USER */
-export const authUser = () => {
+export const authUser = (user) => {
   return {
     type: AUTH_USER,
-    payload: JSON.parse(localStorage.getItem("authUserInfo")),
+    payload: user,
   };
 };
 
@@ -527,7 +527,7 @@ export const getUserByEmail = (userEmail) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${URL_GAMES}/users/search/email?${userEmail}`
+        `${URL_GAMES}/users/search/email?email=${userEmail}`
       );
 
       return dispatch({
