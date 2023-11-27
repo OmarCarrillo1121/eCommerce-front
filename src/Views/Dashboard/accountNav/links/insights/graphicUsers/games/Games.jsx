@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import style from '../users/users.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { getActiveOrders, getBannedUsers, getOrderCancelled, getUsersNotBanned } from '../../../../../../../redux/actions';
+import { getActiveGames, getDisabledGames } from '../../../../../../../redux/actions';
 import {
     Chart as ChartJS,
     BarElement,
@@ -21,9 +21,9 @@ ChartJS.register(
     Legend
 )
 
-function Orders({ orders }) {
+function Games({ games }) {
     const dispatch = useDispatch()
-    const { canceledOrder, activeOrder } = useSelector((state) => state)
+    const { activeGames, disabledGames } = useSelector((state) => state)
 
 
     const data = {
@@ -31,22 +31,22 @@ function Orders({ orders }) {
                 ['Actualmente'],
         datasets: [
             {
-                label: 'Todas las ordenes',
-                data: [orders.length],
+                label: 'Todos los videojuegos',
+                data: [activeGames.length],
                 backgroundColor: 'aqua',
                 borderColor: 'black',
                 borderWidth: 1
             },
             {
-                label: 'Ordenes activas',
-                data: [activeOrder.length],
+                label: 'Juegos habilitados',
+                data: [games.length],
                 backgroundColor: 'blue',
                 borderColor: 'black',
                 borderWidth: 1
             },
             {
-                label: 'Ordenes desabilitadas',
-                data: [canceledOrder.length],
+                label: 'Juegos desabilitados',
+                data: [disabledGames.length],
                 backgroundColor: 'purple',
                 borderColor: 'black',
                 borderWidth: 1
@@ -57,8 +57,8 @@ function Orders({ orders }) {
     const options = {}
 
     useEffect(() => {
-        dispatch(getOrderCancelled())	
-        dispatch(getActiveOrders())
+        dispatch(getActiveGames())
+        dispatch(getDisabledGames())
     }, [])
 
     return (
@@ -75,4 +75,4 @@ function Orders({ orders }) {
   );
 }
 
-export default Orders;
+export default Games;

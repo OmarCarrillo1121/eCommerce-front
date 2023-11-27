@@ -93,7 +93,7 @@ function FormVideogame() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log(newVideogame);
+        // console.log(newVideogame);
         dispatch(postVideogame({
             videogame: newVideogame
         }))
