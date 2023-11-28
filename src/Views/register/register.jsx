@@ -7,14 +7,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authUser } from "../../redux/actions.js";
+import { postUser } from "../../redux/actions.js";
 
 export default function Register({ handleChange }) {
   // las variables de useField tienen la propiedad value y onChange, para acceder a sus valores o modificarlos, por ej: emanil.value o userName.onChange
   const userName = useField({ type: "user" });
   const email = useField({ type: "email" });
   const password = useField({ type: "password" });
-  const adress = useField({ type: "adress" });
+  //const adress = useField({ type: "adress" });
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -24,16 +24,16 @@ export default function Register({ handleChange }) {
     e.preventDefault();
     setError("");
     try {
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email.value,
-        password.value
+      await createUserWithEmailAndPassword(auth, email.value, password.value);
+      dispatch(
+        postUser({
+          name: userName.value,
+          email: email.value,
+          password: password.value,
+        })
       );
-      console.log(userCredentials);
-      const authUserInfo = userCredentials;
-      dispatch(authUser(authUserInfo));
-      alert("¡Usuario creado con exito!");
-      navigate("/");
+      alert("¡Usuario creado con exito, ahora podés iniciar sesión!");
+      navigate("/login");
     } catch (error) {
       setError(error.message);
       alert(error.message);
@@ -42,7 +42,7 @@ export default function Register({ handleChange }) {
 
   return (
     <div className={Style.form_register}>
-      <h1>Register</h1>
+      <h1>Registrate</h1>
       <div className={Style.form_register_inp}>
         <Input userInfo={userName} name={"Username"} width={500} />
         <Input userInfo={email} name={"Email"} width={500} />

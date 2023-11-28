@@ -5,6 +5,7 @@ import {
   RESET_DETAIL_GAMES,
   POST_VIDEOGAME,
   EDIT_VIDEOGAME,
+  DELETE_VIDEOGAME,
   ORDER,
   FILTER_PLATFORM,
   FILTER_DEVELOPER,
@@ -22,7 +23,6 @@ import {
   GET_ORDER_CANCELLED,
   RESTORE_ORDER,
   GET_ORDER_ACTIVE,
-
   UPDATE_USER,
   GET_ALL_REVIEWS,
   GET_DELETED_REVIEWS,
@@ -42,18 +42,27 @@ import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_USER,
+  GET_ACTIVE_VIDEOGAMES,
+  DELETED_VIDEOGAMES,
+  RESTORE_VIDEOGAME,
+  GET_USER_BY_EMAIL,
 } from "./action-types";
 
 const initialState = {
   allGames: [],
   allCopyGames: [],
   detailGame: {},
+  activeGames: [],
+  disabledGames: [],
 
   allUsers: [],
   users: [],
   usersByName: [],
   usersNotBanned: [],
+  usersNotBannedOfi: [],
   bannedUsers: [],
+  bannedUsersOfi: [],
   adminsFiltered: [],
   usersFilteredO: [],
   user: {},
@@ -105,6 +114,7 @@ const reducer = (state = initialState, action) => {
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
+        currentPage: 1,
       };
       saveStateToLocalStorage(newStateGetAllGames);
       return newStateGetAllGames;
@@ -115,6 +125,7 @@ const reducer = (state = initialState, action) => {
         allGames: action.payload,
         allCopyGames: action.payload,
         loading: false,
+        currentPage: 1,
       };
       saveStateToLocalStorage(newStateGetByNameGames);
       return newStateGetByNameGames;
@@ -135,6 +146,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...newStateGetByIdGames,
         // Otros campos globales que puedas tener en tu estado
+      };
+    }
+
+    case GET_ACTIVE_VIDEOGAMES: {
+      return {
+        ...state,
+        activeGames: [...action.payload],
+      };
+    }
+
+    case DELETED_VIDEOGAMES: {
+      return {
+        ...state,
+        disabledGames: [...action.payload],
       };
     }
 
@@ -159,6 +184,16 @@ const reducer = (state = initialState, action) => {
 
     /* EDIT VIDEOGAME */
     case EDIT_VIDEOGAME: {
+      return { ...state };
+    }
+
+    /* DELETE VIDEOGAME */
+    case DELETE_VIDEOGAME: {
+      return { ...state };
+    }
+
+    /* RESTORE VIDEOGAME */
+    case RESTORE_VIDEOGAME: {
       return { ...state };
     }
 
@@ -199,6 +234,7 @@ const reducer = (state = initialState, action) => {
           users: [...newUsers],
           statusFilter: "active",
           usersNotBanned: [...newUsers],
+          usersNotBannedOfi: [...action.payload],
           currentPage: 1,
         };
       }
@@ -231,6 +267,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           users: [...newUsers],
           bannedUsers: [...newUsers],
+          bannedUsersOfi: [...action.payload],
           statusFilter: "banned",
           currentPage: 1,
         };
@@ -453,76 +490,80 @@ const reducer = (state = initialState, action) => {
         currentPage: action.payload,
       };
     }
-/////////////////////////////////////////////////////////
-     /* GET ALL ORDERS❤ */
-     case GET_ORDERS : {
+    /////////////////////////////////////////////////////////
+    /* GET ALL ORDERS❤ */
+    case GET_ORDERS: {
       return {
         ...state,
         orders: [...action.payload],
         allOrders: [...action.payload],
-      }
+      };
     }
 
     /*GET ORDERS BY ID❤ */
     case GET_BY_ID_ORDERS:
-  let payloadObject = typeof action.payload === 'object' ? action.payload : {};
-  return {
-    ...state,
-    detailOrders: { ...payloadObject }, // Convertir detailOrders en un objeto
-  };
+      let payloadObject =
+        typeof action.payload === "object" ? action.payload : {};
+      return {
+        ...state,
+        detailOrders: { ...payloadObject }, // Convertir detailOrders en un objeto
+      };
     case RESET_DETAIL_ORDERS:
-        return {
-          ...state,
-          detailOrders: [...action.payload],
-        };
+      return {
+        ...state,
+        detailOrders: [...action.payload],
+      };
 
-    /* Cancelar ordenes❤*/ 
+    /* Cancelar ordenes❤*/
     case CANCELED_ORDER:
-    const canceledOrderId = action.payload;
-    //agregado
-    const updatedActiveOrderss = state.activeOrder.filter(orderId => orderId !== canceledOrderId);
-    
-    const updatedOrders = state?.orders?.map((order) =>
-    order.id === canceledOrderId ? { ...order, cancelled: true } : order
-  );
+      const canceledOrderId = action.payload;
+      //agregado
+      const updatedActiveOrderss = state.activeOrder.filter(
+        (orderId) => orderId !== canceledOrderId
+      );
 
-  return {
-    ...state,
-    orders: updatedOrders,
-    
-    activeOrder: updatedActiveOrderss,
-    
-    canceledOrder: [...state.canceledOrder, canceledOrderId], // Agrega la orden cancelada al estado canceledOrders
-  };
+      const updatedOrders = state?.orders?.map((order) =>
+        order.id === canceledOrderId ? { ...order, cancelled: true } : order
+      );
 
-  case GET_ORDER_CANCELLED:
+      return {
+        ...state,
+        orders: updatedOrders,
+
+        activeOrder: updatedActiveOrderss,
+
+        canceledOrder: [...state.canceledOrder, canceledOrderId], // Agrega la orden cancelada al estado canceledOrders
+      };
+
+    case GET_ORDER_CANCELLED:
       return {
         ...state,
         canceledOrder: action.payload, // Actualiza el estado canceledOrder con las órdenes canceladas
       };
-     
-      case RESTORE_ORDER:
-        const restoredOrderId = action.payload;
-      
-        // Filtra la orden restaurada de canceledOrder
-        const updatedCanceledOrders = state.canceledOrder.filter(orderId => orderId !== restoredOrderId);
-        const updated = state?.orders?.map((order) =>
+
+    case RESTORE_ORDER:
+      const restoredOrderId = action.payload;
+
+      // Filtra la orden restaurada de canceledOrder
+      const updatedCanceledOrders = state.canceledOrder.filter(
+        (orderId) => orderId !== restoredOrderId
+      );
+      const updated = state?.orders?.map((order) =>
         order.id === restoredOrderId ? { ...order, cancelled: false } : order
       );
-        return {
-          ...state,
-          orders: updated,
-          canceledOrder: [...updatedCanceledOrders], // Agrega la orden cancelada al estado canceledOrders
-          activeOrder:[...state.activeOrder, restoredOrderId],
-          
-        };
-        
-        case GET_ORDER_ACTIVE:
-          return {
-            ...state,
-            activeOrder: [...action.payload],
-          };
-//////////////////////////////////////////////////////////////////
+      return {
+        ...state,
+        orders: updated,
+        canceledOrder: [...updatedCanceledOrders], // Agrega la orden cancelada al estado canceledOrders
+        activeOrder: [...state.activeOrder, restoredOrderId],
+      };
+
+    case GET_ORDER_ACTIVE:
+      return {
+        ...state,
+        activeOrder: [...action.payload],
+      };
+    //////////////////////////////////////////////////////////////////
 
     //!EDWARD
     case ORDER:
@@ -575,12 +616,24 @@ const reducer = (state = initialState, action) => {
     //!FIN EDWARD
 
     case AUTH_USER: {
-      const newStateAuthUser = {
+      return {
         ...state,
         authUser: { ...action.payload },
       };
-      saveStateToLocalStorage(newStateAuthUser);
-      return newStateAuthUser;
+    }
+
+    case POST_USER: {
+      const newState = {
+        ...state,
+      };
+      return newState;
+    }
+
+    case GET_USER_BY_EMAIL: {
+      return {
+        ...state,
+        user: [...action.payload],
+      };
     }
 
     case FETCH_REVIEWS_REQUEST:
