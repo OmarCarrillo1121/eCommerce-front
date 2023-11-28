@@ -72,7 +72,7 @@ function Games() {
 
     useEffect(()=> {
         dispatch(getActiveGames())
-    }, [])
+    }, [activeGames])
 
     return (<>  
         <div className={style.tabletGames}>

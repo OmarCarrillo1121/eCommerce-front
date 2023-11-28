@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import style from '../users/users.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { getActiveGames, getDisabledGames } from '../../../../../../../redux/actions';
+import { getActiveGames, getAllGames, getDisabledGames } from '../../../../../../../redux/actions';
 import {
     Chart as ChartJS,
     BarElement,
@@ -23,7 +23,7 @@ ChartJS.register(
 
 function Games({ games }) {
     const dispatch = useDispatch()
-    const { activeGames, disabledGames } = useSelector((state) => state)
+    const { allGames, disabledGames } = useSelector((state) => state)
 
 
     const data = {
@@ -32,14 +32,14 @@ function Games({ games }) {
         datasets: [
             {
                 label: 'Todos los videojuegos',
-                data: [activeGames.length],
+                data: [games.length],
                 backgroundColor: 'aqua',
                 borderColor: 'black',
                 borderWidth: 1
             },
             {
                 label: 'Juegos habilitados',
-                data: [games.length],
+                data: [allGames.length],
                 backgroundColor: 'blue',
                 borderColor: 'black',
                 borderWidth: 1
@@ -57,7 +57,7 @@ function Games({ games }) {
     const options = {}
 
     useEffect(() => {
-        dispatch(getActiveGames())
+        dispatch(getAllGames())
         dispatch(getDisabledGames())
     }, [])
 

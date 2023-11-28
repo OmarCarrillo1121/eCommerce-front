@@ -8,6 +8,7 @@ import ResetPassword from "./Views/ResetPassword/resetPassword";
 import Footer from "./Views/footer/footer";
 import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
+import BannerCreate from "./Views/Dashboard/accountNav/links/dashboard/banners/bannerCreate/BannerCreate";
 import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
@@ -31,6 +32,11 @@ import { auth } from "./config/firebase-config";
 import Contact from "./Views/Contact/Contact";
 import AboutUs from "./Views/AboutUs/AboutUs";
 import { authUser } from "./redux/actions";
+import Carrito from "./components/Carrito/Carrito";
+import SuccessBuy from "./components/SuccessBuy/SuccessBuy";
+import FailureBuy from "./components/FailureBuy/FailureBuy";
+
+
 
 function App() {
   const location = useLocation();
@@ -85,10 +91,17 @@ function App() {
         <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/user/:id" element={<DetailUser />} />
         <Route path="/checkout" element={<Checkout />} />
+        {/* //!Edward */}
+
+        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/successes" element={<SuccessBuy />} />
+        <Route path="/failures" element={<FailureBuy />} />
+        {/* //!Edward */}
         {isAdmin ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />
             <Route path="/formVideogame" element={<FormVideogame />} />
+            <Route path="/createBanner" element={<BannerCreate />} />
             <Route path="/editVideogame/:id" element={<EditVideogame />} />
             <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
             <Route

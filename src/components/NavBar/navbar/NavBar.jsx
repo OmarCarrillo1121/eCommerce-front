@@ -6,7 +6,7 @@ import loginIcon from "../../../Assets/img/icon/nav/logout.png";
 import shopIcon from "../../../Assets/img/icon/nav/shop.png";
 import categoryIcon from "../../../Assets/img/icon/menu/categoria.png";
 import { useScroll } from "../../../util/hook/landing/useScroll";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../config/firebase-config";
 import { authUser } from "../../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +56,9 @@ const NavBar = () => {
           alt="category"
           onClick={() => navigate("/catalogo")}
         />
-        <img src={shopIcon} alt="shop" onClick={() => navigate("/login")} />
+        <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
+        {/* //!EDWARD */}
+
         {userInfo ? (
           <div>
             <img
