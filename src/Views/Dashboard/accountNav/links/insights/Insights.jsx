@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import Users from './graphicUsers/users/Users';
 import style from './insights.module.css';
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllGames, getAllUsers, getOrders } from '../../../../../redux/actions';
+import { getActiveGames, getAllBanners, getAllGames, getAllReviews, getAllUsers, getOrders } from '../../../../../redux/actions';
 import Games from './graphicUsers/games/Games';
 import Orders from './graphicUsers/orders/Orders';
+import Banners from './graphicUsers/banners/Banners';
+import Reviews from './graphicUsers/reviews/Reviews';
 
 function Insights() {
-    const { allUsers, allGames, allOrders } = useSelector((state) => state)
+    const { allUsers, activeGames, allOrders, allBanners, allReviews } = useSelector((state) => state)
     const dispatch = useDispatch()
 
     const [componentsIndex, setComponentsIndex] = useState(0)
@@ -16,21 +18,23 @@ function Insights() {
     const components = [
         <Users users={allUsers}/>,
         <Orders orders={allOrders}/>,
-        <Games games={allGames}/>,
+        <Banners banners={allBanners}/>,
+        <Reviews reviews={allReviews}/>,
+        <Games games={activeGames}/>,
     ]
     const componentsNames = [
         allUsers,
         allOrders,
-        allGames,
-        "Reviews",
-        "Banners",
+        allBanners,
+        allReviews,
+        activeGames,
     ]
     const componentDescription = [
         "Total users",
         "Total orders",
-        "Total videogames",
+        "Total banners",
         "Total reviews",
-        "Active banners",
+        "Total videogames",
     ]
 
     const handleComponentClick = (index) => {
@@ -40,8 +44,10 @@ function Insights() {
 
     useEffect(() => {
         dispatch(getAllUsers())
-        dispatch(getAllGames())
         dispatch(getOrders())
+        dispatch(getAllBanners())
+        dispatch(getAllReviews())
+        dispatch(getActiveGames())
     }, [])
 
     return (  

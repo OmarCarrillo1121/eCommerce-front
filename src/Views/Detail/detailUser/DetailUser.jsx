@@ -5,12 +5,14 @@ import { useParams } from "react-router-dom";
 import style from './detailUser.module.css'
 import img from '../../../Assets/img/icon/dashboard/usuario.png'
 import AsideUser from "./AsideUser/AsideUser";
+import { validation } from './validation.js';
 
 function DetailUser() {
     const dispatch = useDispatch()
     const { id } = useParams()
     const { user } = useSelector((state) => state)
     const [ newUser, setNewUser ] = useState({})
+    const [ errors, setErrors ] = useState({})
 
     const [ imgTime, setImgTime ] = useState(false)
     const [ newImg, setNewImg ] = useState("")
@@ -30,6 +32,7 @@ function DetailUser() {
         setNewImg(user.image)
         setImgTime(false)
         setNewUser("")
+        setErrors({})
     }
 
     const uploadImg = async(e) => {
@@ -49,6 +52,10 @@ function DetailUser() {
         const file = await res.json()
 
         setNewImg(file.secure_url)
+        setErrors(validation({
+            ...newUser,
+            image: file.secure_url
+        }))
         setNewUser({
             ...newUser,
             image: file.secure_url
@@ -77,11 +84,16 @@ function DetailUser() {
 
         setInfoTime(false)
         setNewUser("")
+        setErrors({})
     }
 
     const handleChangeInfo = (e) => {
         const { name, value } = e.target
 
+        setErrors(validation({
+            ...newUser,
+            [name]: value
+        }))
         setNewUser({
             ...newUser,
             [name]: value
@@ -101,7 +113,7 @@ function DetailUser() {
 
     useEffect(() => {
         dispatch(getUserById(id))
-    }, [])
+    }, [user])
 
     return (<>  
         <div className={style.bigContainer}>
@@ -110,7 +122,6 @@ function DetailUser() {
             />
             <main className={style.main}>
                 <nav>
-                    {/* <p>carrito de compras</p> */}
                     <div>
                         {
                             user.image === "" 
@@ -175,7 +186,7 @@ function DetailUser() {
                                     <div className={style.containerPassword}>
                                         <h4>Password</h4>
                                         <div className={style.containerData}>
-                                            <b>{user.password}</b>
+                                            <b className={style.password}>{user.password}</b>
                                         </div>
                                     </div>
                                 </div>
@@ -227,6 +238,7 @@ function DetailUser() {
                         <input type="file" name="image" id="fileInput" onChange={uploadImg}/>
                         <label for="fileInput" className={style.custom_img_upload}>+</label>
                         <button className={style.updateImg} onClick={updateImg}>Update Image</button>
+                        <p className={style.errorImg}>{errors.image ? errors.image : null}</p>
                     </div>
                 </div>
             </div> 
@@ -236,17 +248,20 @@ function DetailUser() {
                 <div className={style.openInfo}>
                     <div className={style.infoContainer}>
                         <button onClick={closeEditUser}>X</button>
-                        <div>
+                        <div className={style.containerLabel}>
                             <label htmlFor="name">Full Name</label>
                             <input type="text" name="name" placeholder="Change your name" value={newUser.name} onChange={handleChangeInfo}/>
+                            <p className={style.error}>{errors.name ? errors.name : null}</p>
                         </div>
-                        <div>
+                        <div className={style.containerLabel}>
                             <label htmlFor="email">Email</label>
                             <input type="email" name="email" placeholder="Change your email" value={newUser.email} onChange={handleChangeInfo}/>
+                            <p className={style.error}>{errors.email ? errors.email : null}</p>
                         </div>
-                        <div>
+                        <div className={style.containerLabel}>
                             <label htmlFor="address">Address</label>
                             <input type="text" name="address" placeholder="Change your address" value={newUser.address} onChange={handleChangeInfo}/>
+                            <p className={style.error}>{errors.address ? errors.address : null}</p>
                         </div>
                         <button className={style.updateUser} onClick={submitChangeInfo}>Update User</button>
                     </div>
