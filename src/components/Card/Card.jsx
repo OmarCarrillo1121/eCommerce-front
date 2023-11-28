@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import style from "./card.module.css";
+import style from "./Card.module.css";
 
 function Card({ game }) {
   const { id, name, image, price } = game;
