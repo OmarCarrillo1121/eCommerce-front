@@ -36,8 +36,6 @@ import Carrito from "./components/Carrito/Carrito";
 import SuccessBuy from "./components/SuccessBuy/SuccessBuy";
 import FailureBuy from "./components/FailureBuy/FailureBuy";
 
-
-
 function App() {
   const location = useLocation();
   const { viewportWidth } = useWindow();
