@@ -12,7 +12,6 @@ import { authUser } from "../../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import useLocalStorageCleaner from "../../../util/hook/clearLocalstorage/useLocalStorageClear.js";
-import { UserMenu } from "../UserMenu/UserMenu.jsx";
 
 const NavBar = () => {
   const navigate = useNavigate();
