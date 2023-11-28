@@ -11,11 +11,11 @@ export function Dashboard() {
 
     const components = [
         <UserTable/>,
-        <Games/>,
         <BannersTable/>,
-        <ReviewsTable />
+        <ReviewsTable />,
+        <Games/>,
     ]
-    const componentNames = ["Users","Videogames", "Banners", "Reviews"]
+    const componentNames = ["Users","Banners", "Reviews", "Videogames"]
 
   const handleComponentClick = (index) => {
     setComponentsIndex(index);
