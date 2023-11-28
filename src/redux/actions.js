@@ -26,11 +26,32 @@ import {
   RESTORE_ORDER,
   GET_ORDER_ACTIVE,
   UPDATE_USER,
+
+  GET_ALL_REVIEWS,
+  GET_DELETED_REVIEWS,
+  GET_ENABLED_REVIEWS,
+  // GET_REVIEWS_OF_GAME,
+  // GET_REVIEWS_OF_USER,
+  DELETE_REVIEW,
+  RESTORE_REVIEW,
+
+  GET_ALL_BANNERS,
+  DELETE_BANNER,
+  RESTORE_BANNER,
+  GET_DELETED_BANNERS,
+  GET_ENABLED_BANNERS,
+  POST_BANNER_REQUEST,
+  POST_BANNER_SUCCESS,
+  POST_BANNER_FAILURE,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   AUTH_USER,
   SET_CURRENT_PAGE,
+
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE,
   POST_USER,
   GET_ALL_BANNED_USERS,
   GET_ACTIVE_VIDEOGAMES,
@@ -38,6 +59,9 @@ import {
   DELETE_VIDEOGAME,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  SET_SHOPPING_CART,
+  ADD_REJECTED_PURCHASE,
+  ADD_SUCCESSFUL_PURCHASE,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -321,6 +345,7 @@ export const updateUser = ({ id, user }) => {
     try {
       await axios.put(`${URL_GAMES}/users/${id}`, user);
 
+      alert('Usuario editado con éxito')
       dispatch({
         type: UPDATE_USER,
       });
@@ -331,7 +356,189 @@ export const updateUser = ({ id, user }) => {
   };
 };
 
-/* GET USER BY ID */
+/* GET ALL REVIEWS */
+export const getAllReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/all`)
+
+      return dispatch({
+        type: GET_ALL_REVIEWS,
+        payload: response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET DELETED REVIEWS */
+export const getDeletedReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/disabled`)
+
+      return dispatch({
+        type: GET_DELETED_REVIEWS,
+        payload: response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET ENABLED REVIEWS */
+export const getEnabledReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/enabled`)
+
+      return dispatch({
+        type: GET_ENABLED_REVIEWS,
+        payload: response.data
+      })
+    } catch (error) {
+      alert (error.message)
+    }
+  }
+}
+
+/* DELETE REVIEWS */
+export const deleteReview = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${URL_GAMES}/reviews/ban/${id}`)
+
+      return dispatch({
+        type: DELETE_REVIEW
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* RESTORE REVIEW */
+export const restoreReview = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/reviews/unban/${id}`)
+
+      return dispatch({
+        type: RESTORE_REVIEW
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET ALL BANNERS */
+export const getAllBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/all`)
+
+      return dispatch({
+        type: GET_ALL_BANNERS,
+        payload: response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+/* POST BANNER */
+const postBannerRequest = () => ({
+  type: POST_BANNER_REQUEST,
+});
+
+const postBannerSuccess = (data) => ({
+  type: POST_BANNER_SUCCESS,
+  payload: data,
+});
+
+const postBannerFailure = (error) => ({
+  type: POST_BANNER_FAILURE,
+  payload: error,
+});
+
+export const postBanner = (bannerData) => {
+  return async (dispatch) => {
+    dispatch(postBannerRequest());
+
+    try {
+      const response = await axios.post(`${URL_GAMES}/banners`, bannerData);
+      dispatch(postBannerSuccess(response.data));
+    } catch (error) {
+      dispatch(postBannerFailure(error.message));
+    }
+  };
+};
+
+/* DELETE BANNER */
+export const deleteBanner = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${URL_GAMES}/banners/ban/${id}`)
+
+      return dispatch({
+        type: DELETE_BANNER
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* RESTORE BANNER */
+export const restoreBanner = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/banners/unban/${id}`)
+
+      return dispatch({
+        type: RESTORE_BANNER
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET DELETED BANNERS */
+export const getDeletedBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/deleted`)
+
+      return dispatch({
+        type: GET_DELETED_BANNERS,
+        payload: response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+/* GET ENABLED BANNERS */
+export const getEnabledBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/enabled`)
+
+      return dispatch({
+        type: GET_ENABLED_BANNERS,
+        payload: response.data
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
 export const getUserById = (id) => {
   return async (dispatch) => {
     try {
@@ -504,6 +711,34 @@ export const authUser = (user) => {
   };
 };
 
+
+const fetchReviewsRequest = () => ({
+  type: FETCH_REVIEWS_REQUEST,
+});
+
+const fetchReviewsSuccess = (reviews) => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  payload: reviews,
+});
+
+const fetchReviewsFailure = (error) => ({
+  type: FETCH_REVIEWS_FAILURE,
+  payload: error,
+});
+
+export const fetchReviews = (gameId) => {
+  return async (dispatch) => {
+    dispatch(fetchReviewsRequest());
+    try {
+      const response = await axios.get(
+        `https://ecomercestorebacken.vercel.app/reviews/videogame/${gameId}`
+      );
+      dispatch(fetchReviewsSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchReviewsFailure(error.message));
+    }
+  };
+};
 /* POST_USER */
 export const postUser = (user) => {
   return async (dispatch) => {
@@ -539,3 +774,20 @@ export const getUserByEmail = (userEmail) => {
     }
   };
 };
+//!Edward
+
+
+
+export const setShoppingCart =(games)=>{
+    return { type: SET_SHOPPING_CART, payload: games };
+}
+export const addRejectedPurchase = (rejectedPurchase) => {
+    //console.log('actions',rejectedPurchase)
+    return { type: ADD_REJECTED_PURCHASE, payload: rejectedPurchase };
+};
+
+export const addSuccessfulPurchase = (successfulPurchase) => {
+    //console.log('actions', successfulPurchase);
+    return { type: ADD_SUCCESSFUL_PURCHASE, payload: successfulPurchase };
+};
+//!Edward
