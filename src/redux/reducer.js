@@ -24,19 +24,11 @@ import {
   RESTORE_ORDER,
   GET_ORDER_ACTIVE,
   UPDATE_USER,
-  GET_USER_BY_ID,
-  FILTER_BY_ROL,
-  GET_USER_BY_NAME,
-  AUTH_USER,
-  SET_CURRENT_PAGE,
-  POST_USER,
-  GET_ACTIVE_VIDEOGAMES,
-  DELETED_VIDEOGAMES,
-  RESTORE_VIDEOGAME,
-  GET_USER_BY_EMAIL,
-  ADD_SUCCESSFUL_PURCHASE,
-  ADD_REJECTED_PURCHASE,
-  SET_SHOPPING_CART,
+  GET_ALL_REVIEWS,
+  GET_DELETED_REVIEWS,
+  GET_ENABLED_REVIEWS,
+  DELETE_REVIEW,
+  RESTORE_REVIEW,
   GET_ALL_BANNERS,
   DELETE_BANNER,
   RESTORE_BANNER,
@@ -45,15 +37,23 @@ import {
   POST_BANNER_REQUEST,
   POST_BANNER_SUCCESS,
   POST_BANNER_FAILURE,
-  GET_ALL_REVIEWS,
-  GET_DELETED_REVIEWS,
-  GET_ENABLED_REVIEWS,
-  DELETE_REVIEW,
-  RESTORE_REVIEW,
-  GET_REVIEWS_OF_GAME,
+  GET_USER_BY_ID,
+  FILTER_BY_ROL,
+  GET_USER_BY_NAME,
+  AUTH_USER,
+  SET_CURRENT_PAGE,
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
-  FETCH_REVIEWS_FAILURE
+  FETCH_REVIEWS_FAILURE,
+  POST_USER,
+  GET_ACTIVE_VIDEOGAMES,
+  DELETED_VIDEOGAMES,
+  RESTORE_VIDEOGAME,
+  GET_USER_BY_EMAIL,
+  ADD_SUCCESSFUL_PURCHASE,
+  ADD_REJECTED_PURCHASE,
+  SET_SHOPPING_CART,
+  GET_REVIEWS_OF_GAME,
 } from "./action-types";
 
 const initialState = {
@@ -101,13 +101,13 @@ const initialState = {
   canceledOrder: [],
   activeOrder: [],
 
-  //! Carrito-Edward
-  shoppingCart: [], //Acá traigo todos los productos que voy a comprar
-  //! Historial de Compras:
-  shopping: {
-    approved: [],
-    rejected: [],
-  },
+    //! Carrito-Edward
+    shoppingCart: [], //Acá traigo todos los productos que voy a comprar
+    //! Historial de Compras:
+    shopping: {
+        approved: [],
+        rejected: [],
+    },
 
   loading: true,
 
@@ -340,6 +340,99 @@ const reducer = (state = initialState, action) => {
 
     /* UPDATE USER */
     case UPDATE_USER: {
+      return { ...state };
+    }
+
+    /* GET ALL REVIEWS */
+    case GET_ALL_REVIEWS: {
+      return {
+        ...state,
+        reviews: [...action.payload],
+        allReviews: [...action.payload],
+      };
+    }
+
+    /* GET DELETED REVIEWS */
+    case GET_DELETED_REVIEWS: {
+      return {
+        ...state,
+        deletedReviews: [...action.payload],
+        reviews: [...action.payload],
+      };
+    }
+
+    /* GET ENABLED REVIEWS */
+    case GET_ENABLED_REVIEWS: {
+      return {
+        ...state,
+        enabledReviews: [...action.payload],
+        reviews: [...action.payload],
+      };
+    }
+
+    /* DELETE REVIEW */
+    case DELETE_REVIEW: {
+      return { ...state };
+    }
+
+    /* RESTORE REVIEW */
+    case RESTORE_REVIEW: {
+      return { ...state };
+    }
+
+    /* GET ALL BANNERS */
+    case GET_ALL_BANNERS: {
+      return {
+        ...state,
+        banners: [...action.payload],
+        allBanners: [...action.payload],
+      };
+    }
+
+    /* GET DELETED BANNERS */
+    case GET_DELETED_BANNERS: {
+      return {
+        ...state,
+        deletedBanners: [...action.payload],
+        banners: [...action.payload],
+      };
+    }
+
+    /* GET ENABLED BANNERS */
+    case GET_ENABLED_BANNERS: {
+      return {
+        ...state,
+        enabledBanners: [...action.payload],
+        banners: [...action.payload],
+      };
+    }
+    /* POST BANNER */
+    case POST_BANNER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case POST_BANNER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        banner: action.payload,
+      };
+    case POST_BANNER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    /* DELETE BANNER */
+    case DELETE_BANNER: {
+      return { ...state };
+    }
+
+    /* RESTORE BANNER */
+    case RESTORE_BANNER: {
       return { ...state };
     }
 

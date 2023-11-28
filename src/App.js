@@ -8,6 +8,7 @@ import ResetPassword from "./Views/ResetPassword/resetPassword";
 import Footer from "./Views/footer/footer";
 import Section from "./Views/section/section";
 import Detail from "./Views/Detail/Detail";
+import BannerCreate from "./Views/Dashboard/accountNav/links/dashboard/banners/bannerCreate/BannerCreate";
 import FormVideogame from "./components/Formulary/FormVideogame/FormVideogame";
 import EditVideogame from "./components/Formulary/FormVideogame/EditVideogame";
 import Catalogo from "./components/Catalogo/Catalogo";
@@ -76,7 +77,7 @@ function App() {
         location.pathname === "/catalogo" ||
         location.pathname === "/detail/:id") &&
       viewportWidth >= 800 ? (
-        "nav"// <NavBar />
+        <NavBar />
       ) : null}
       {viewportWidth <= 800 && <ResponsiveNav />}
       <Routes>
@@ -100,6 +101,7 @@ function App() {
           <>
             <Route path="/dashboard/:id" element={<Account />} />
             <Route path="/formVideogame" element={<FormVideogame />} />
+            <Route path="/createBanner" element={<BannerCreate />} />
             <Route path="/editVideogame/:id" element={<EditVideogame />} />
             <Route path="/dashboard/Orders/:id" element={<DetailOrders />} />
             <Route
