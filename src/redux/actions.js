@@ -40,6 +40,9 @@ import {
   RESTORE_BANNER,
   GET_DELETED_BANNERS,
   GET_ENABLED_BANNERS,
+  POST_BANNER_REQUEST,
+  POST_BANNER_SUCCESS,
+  POST_BANNER_FAILURE,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
@@ -442,6 +445,33 @@ export const getAllBanners = () => {
     }
   }
 }
+/* POST BANNER */
+const postBannerRequest = () => ({
+  type: POST_BANNER_REQUEST,
+});
+
+const postBannerSuccess = (data) => ({
+  type: POST_BANNER_SUCCESS,
+  payload: data,
+});
+
+const postBannerFailure = (error) => ({
+  type: POST_BANNER_FAILURE,
+  payload: error,
+});
+
+export const postBanner = (bannerData) => {
+  return async (dispatch) => {
+    dispatch(postBannerRequest());
+
+    try {
+      const response = await axios.post(`${URL_GAMES}/banners`, bannerData);
+      dispatch(postBannerSuccess(response.data));
+    } catch (error) {
+      dispatch(postBannerFailure(error.message));
+    }
+  };
+};
 
 /* DELETE BANNER */
 export const deleteBanner = (id) => {

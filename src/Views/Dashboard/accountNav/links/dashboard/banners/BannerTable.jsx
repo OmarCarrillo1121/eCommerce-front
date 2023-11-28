@@ -13,6 +13,7 @@ import NotBanners from "./notBanners/NotBanners";
 import Select from "./selects/Select";
 import Info from "./info/Info";
 import Pagination from "../pagination/Pagination";
+import { NavLink } from 'react-router-dom'
 
 const BannersTable = () => {
   const { banners, currentPage } = useSelector((state) => state);
@@ -92,6 +93,7 @@ const BannersTable = () => {
 
   return (
     <div className={style.tabletBanners}>
+      <NavLink className={style.addGame} to={'/createBanner'}>Agrega un Banner</NavLink>
       <Select filter={filterStatus} handleChange={handleChange} />
       <table>
         <thead>

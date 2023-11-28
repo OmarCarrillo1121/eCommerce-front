@@ -3,9 +3,6 @@ import style from "./dashboard.module.css";
 import UserTable from "./users/UserTable";
 import ReviewsTable from "./reviews/ReviewsTable";
 import BannersTable from "./banners/BannerTable";
-import { useState } from 'react';
-import style from './dashboard.module.css'
-import UserTable from './users/UserTable';
 import Games from './games/Games';
 
 export function Dashboard() {

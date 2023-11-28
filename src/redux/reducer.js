@@ -34,6 +34,9 @@ import {
   RESTORE_BANNER,
   GET_DELETED_BANNERS,
   GET_ENABLED_BANNERS,
+  POST_BANNER_REQUEST,
+  POST_BANNER_SUCCESS,
+  POST_BANNER_FAILURE,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
@@ -366,6 +369,25 @@ const reducer = (state = initialState, action) => {
         banners: [...action.payload],
       };
     }
+    /* POST BANNER */
+    case POST_BANNER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case POST_BANNER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        banner: action.payload,
+      };
+    case POST_BANNER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
     /* DELETE BANNER */
     case DELETE_BANNER: {
