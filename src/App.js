@@ -95,7 +95,6 @@ function App() {
         <Route path="/successes" element={<SuccessBuy />} />
         <Route path="/failures" element={<FailureBuy />} />
         {/* //!Edward */}
-        
         {isAdmin ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />
