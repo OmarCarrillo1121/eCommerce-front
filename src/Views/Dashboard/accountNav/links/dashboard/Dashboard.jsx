@@ -1,22 +1,26 @@
-import { useState } from 'react';
-import style from './dashboard.module.css'
-import UserTable from './users/UserTable';
+import { useState } from "react";
+import style from "./dashboard.module.css";
+import UserTable from "./users/UserTable";
+import ReviewsTable from "./reviews/ReviewsTable";
+import BannersTable from "./banners/BannerTable";
 import Games from './games/Games';
 
 export function Dashboard() {
-    const [componentsIndex, setComponentsIndex] = useState(0)
-    const [isActive, setIsActive] = useState(true);
+  const [componentsIndex, setComponentsIndex] = useState(0);
+  const [isActive, setIsActive] = useState(true);
 
     const components = [
         <UserTable/>,
-        <Games/>
+        <Games/>,
+        <BannersTable/>,
+        <ReviewsTable />
     ]
     const componentNames = ["Users","Videogames", "Banners", "Reviews"]
 
-    const handleComponentClick = (index) => {
-        setComponentsIndex(index)
-        setIsActive(true);
-    } 
+  const handleComponentClick = (index) => {
+    setComponentsIndex(index);
+    setIsActive(true);
+  };
 
     return (  
         <>
@@ -44,4 +48,3 @@ export function Dashboard() {
         </>
     );
 }
-
