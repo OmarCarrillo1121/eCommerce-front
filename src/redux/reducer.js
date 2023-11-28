@@ -34,6 +34,9 @@ import {
   DELETED_VIDEOGAMES,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  ADD_SUCCESSFUL_PURCHASE,
+  ADD_REJECTED_PURCHASE,
+  SET_SHOPPING_CART,
 } from "./action-types";
 
 const initialState = {
@@ -64,6 +67,14 @@ const initialState = {
   detailOrders: {},
   canceledOrder: [],
   activeOrder: [],
+
+    //! Carrito-Edward
+    shoppingCart: [], //Acá traigo todos los productos que voy a comprar
+    //! Historial de Compras:
+    shopping: {
+        approved: [],
+        rejected: [],
+    },
 
   loading: true,
 };
@@ -534,6 +545,58 @@ const reducer = (state = initialState, action) => {
         user: [...action.payload],
       };
     }
+
+            //!Edward
+            case SET_SHOPPING_CART:
+              //console.log('Reducer:', action.payload)
+              return {
+                  ...state,
+                  shoppingCart: action.payload,
+              };
+              case ADD_REJECTED_PURCHASE:
+                  const newRejectedPurchase = action.payload;
+              
+                      // Verificar si preferenceId ya existe en el arreglo rejected
+                      const isUniqueRejected = state.shopping.rejected.every(
+                      (purchase) => purchase.preferenceId !== newRejectedPurchase.preferenceId
+                      );
+              
+                      if (isUniqueRejected) {
+                      return {
+                          ...state,
+                          shopping: {
+                          ...state.shopping,
+                          rejected: [...state.shopping.rejected, newRejectedPurchase],
+                          },
+                      };
+                      } else {
+                      console.log('PreferenceId duplicado, no se agrega al historial de compras rechazadas.');
+                      return state;
+              }
+              case ADD_SUCCESSFUL_PURCHASE:
+              const newSuccessfulPurchase = action.payload;
+      
+              // Verificar si preferenceId ya existe en el arreglo approved
+              const isUniqueApproved = state.shopping.approved.every(
+                  (purchase) =>
+                  purchase.preferenceId !== newSuccessfulPurchase.preferenceId
+              );
+      
+              if (isUniqueApproved) {
+                  return {
+                  ...state,
+                  shopping: {
+                      ...state.shopping,
+                      approved: [...state.shopping.approved, newSuccessfulPurchase],
+                  },
+                  };
+              } else {
+                  console.log(
+                  "PreferenceId duplicado, no se agrega al historial de compras aprobadas."
+                  );
+                  return state;
+              }
+              //!Edward
 
     default:
       return {
