@@ -19,8 +19,35 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const clearLocalStorage = useLocalStorageCleaner("authUserInfo");
   const [userRol, setUserRol] = useState("");
+  const [userData, setUserData] = useState("");
 
   const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
+
+  const isLogged = () => {
+    if (userInfo) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const isAdmin = () => {
+    if (userInfo) {
+      if (userInfo[0].rol === "admin") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+  const userId = () => {
+    if (userInfo) {
+      return userInfo[0].id;
+    } else {
+      return false;
+    }
+  };
 
   // const userRol = () => {
   //   if (userInfo) {
@@ -39,10 +66,12 @@ const NavBar = () => {
   useEffect(() => {
     if (userInfo) {
       setUserRol(userInfo[0].rol);
+      setUserData(userInfo[0]);
     }
   }, [userRol]);
 
-  console.log(userRol);
+  //console.log(userRol);
+  console.log(userData);
 
   return (
     <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
@@ -58,20 +87,65 @@ const NavBar = () => {
         />
         <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
         {/* //!EDWARD */}
-
-        {userInfo ? (
-          <div>
-            <img
-              src={loginIcon}
-              alt="login"
-              onClick={() => navigate("/login")}
-            />
+        {isLogged() ? (
+          <div className={Style.nav_icon}>
             <p>{userInfo[0].name}</p>
+            {isAdmin() ? (
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate("/dashboard/dashboard")}
+              >
+                Dashboard
+              </button>
+            ) : (
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate("/user/:1")}
+              >
+                Mi Perfil
+              </button>
+            )}
+
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => logout()}
+            >
+              Cerrar sesión
+            </button>
           </div>
         ) : (
-          <p onClick={() => navigate("/login")}> Login </p>
+          <div>
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => navigate("/login")}
+            >
+              {" "}
+              Iniciar sesión{" "}
+            </button>
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => navigate("/register")}
+            >
+              {" "}
+              Registrarse{" "}
+            </button>
+          </div>
         )}
-        <button onClick={() => logout()}>Cerrar sesión</button>
       </div>
     </header>
   );
