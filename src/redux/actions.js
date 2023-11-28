@@ -38,6 +38,27 @@ import {
   DELETE_VIDEOGAME,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  SET_SHOPPING_CART,
+  ADD_REJECTED_PURCHASE,
+  ADD_SUCCESSFUL_PURCHASE,
+  GET_ALL_REVIEWS,
+  GET_DELETED_REVIEWS,
+  GET_ENABLED_REVIEWS,
+  GET_REVIEWS_OF_GAME,
+  GET_ALL_BANNERS,
+  DELETE_BANNER,
+  RESTORE_BANNER,
+  GET_DELETED_BANNERS,
+  GET_ENABLED_BANNERS,
+  POST_BANNER_REQUEST,
+  POST_BANNER_SUCCESS,
+  POST_BANNER_FAILURE,
+  // GET_REVIEWS_OF_USER,
+  DELETE_REVIEW,
+  RESTORE_REVIEW,
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -536,6 +557,237 @@ export const getUserByEmail = (userEmail) => {
       });
     } catch (error) {
       alert(error.message);
+    }
+  };
+};
+//!Edward
+
+export const setShoppingCart = (games) => {
+  return { type: SET_SHOPPING_CART, payload: games };
+};
+export const addRejectedPurchase = (rejectedPurchase) => {
+  //console.log('actions',rejectedPurchase)
+  return { type: ADD_REJECTED_PURCHASE, payload: rejectedPurchase };
+};
+
+export const addSuccessfulPurchase = (successfulPurchase) => {
+  //console.log('actions', successfulPurchase);
+  return { type: ADD_SUCCESSFUL_PURCHASE, payload: successfulPurchase };
+};
+//!Edward
+
+/* GET ALL REVIEWS */
+export const getAllReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/all`);
+
+      return dispatch({
+        type: GET_ALL_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET DELETED REVIEWS */
+export const getDeletedReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/disabled`);
+
+      return dispatch({
+        type: GET_DELETED_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET ENABLED REVIEWS */
+export const getEnabledReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/enabled`);
+
+      return dispatch({
+        type: GET_ENABLED_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* DELETE REVIEWS */
+export const deleteReview = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${URL_GAMES}/reviews/ban/${id}`);
+
+      return dispatch({
+        type: DELETE_REVIEW,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* RESTORE REVIEW */
+export const restoreReview = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/reviews/unban/${id}`);
+
+      return dispatch({
+        type: RESTORE_REVIEW,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET GAME REVIEWS */
+export const getGameReviews = (videogameId) => {
+  return async function (dispatch) {
+    try {
+      dispatch(loading(true));
+      const response = await axios(`${URL_GAMES}/reviews/${videogameId}`);
+      return dispatch({
+        type: GET_REVIEWS_OF_GAME,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error" + error.message);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+};
+
+export const fetchReviewsRequest = () => ({
+  type: FETCH_REVIEWS_REQUEST,
+});
+
+export const fetchReviewsSuccess = (reviews) => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  payload: reviews,
+});
+
+export const fetchReviewsFailure = (error) => ({
+  type: FETCH_REVIEWS_FAILURE,
+  payload: error,
+});
+
+/* GET ALL BANNERS */
+export const getAllBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/all`);
+
+      return dispatch({
+        type: GET_ALL_BANNERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* DELETE BANNER */
+export const deleteBanner = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${URL_GAMES}/banners/ban/${id}`);
+
+      return dispatch({
+        type: DELETE_BANNER,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* RESTORE BANNER */
+export const restoreBanner = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/banners/unban/${id}`);
+
+      return dispatch({
+        type: RESTORE_BANNER,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET DELETED BANNERS */
+export const getDeletedBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/deleted`);
+
+      return dispatch({
+        type: GET_DELETED_BANNERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET ENABLED BANNERS */
+export const getEnabledBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/enabled`);
+
+      return dispatch({
+        type: GET_ENABLED_BANNERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* POST BANNER */
+const postBannerRequest = () => ({
+  type: POST_BANNER_REQUEST,
+});
+
+const postBannerSuccess = (data) => ({
+  type: POST_BANNER_SUCCESS,
+  payload: data,
+});
+
+const postBannerFailure = (error) => ({
+  type: POST_BANNER_FAILURE,
+  payload: error,
+});
+
+export const postBanner = (bannerData) => {
+  return async (dispatch) => {
+    dispatch(postBannerRequest());
+
+    try {
+      const response = await axios.post(`${URL_GAMES}/banners`, bannerData);
+      dispatch(postBannerSuccess(response.data));
+    } catch (error) {
+      dispatch(postBannerFailure(error.message));
     }
   };
 };

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import style from './dashboard.module.css'
 import UserTable from './users/UserTable';
 import Games from './games/Games';
+import BannersTable from "./banners/BannerTable";
+import ReviewsTable from './reviews/ReviewsTable';
 
 export function Dashboard() {
     const [componentsIndex, setComponentsIndex] = useState(0)
@@ -9,7 +11,9 @@ export function Dashboard() {
 
     const components = [
         <UserTable/>,
-        <Games/>
+        <Games/>,
+        <BannersTable/>,
+        <ReviewsTable />
     ]
     const componentNames = ["Users","Videogames", "Banners", "Reviews"]
 
