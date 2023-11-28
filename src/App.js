@@ -95,7 +95,7 @@ function App() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/successes" element={<SuccessBuy />} />
         <Route path="/failures" element={<FailureBuy />} />
-        {/* //!Edward  */}
+        {/* //!Edward */}
         {isAdmin ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />
