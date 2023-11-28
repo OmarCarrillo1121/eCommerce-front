@@ -59,6 +59,9 @@ import {
   DELETE_VIDEOGAME,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  SET_SHOPPING_CART,
+  ADD_REJECTED_PURCHASE,
+  ADD_SUCCESSFUL_PURCHASE,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -771,3 +774,20 @@ export const getUserByEmail = (userEmail) => {
     }
   };
 };
+//!Edward
+
+
+
+export const setShoppingCart =(games)=>{
+    return { type: SET_SHOPPING_CART, payload: games };
+}
+export const addRejectedPurchase = (rejectedPurchase) => {
+    //console.log('actions',rejectedPurchase)
+    return { type: ADD_REJECTED_PURCHASE, payload: rejectedPurchase };
+};
+
+export const addSuccessfulPurchase = (successfulPurchase) => {
+    //console.log('actions', successfulPurchase);
+    return { type: ADD_SUCCESSFUL_PURCHASE, payload: successfulPurchase };
+};
+//!Edward

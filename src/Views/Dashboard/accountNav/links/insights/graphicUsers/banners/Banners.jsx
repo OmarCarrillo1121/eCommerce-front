@@ -54,7 +54,7 @@ function Banners({ banners }) {
         ]
     }
 
-    const options = {}
+    const options = { }
 
     useEffect(() => {
         dispatch(getEnabledBanners())
