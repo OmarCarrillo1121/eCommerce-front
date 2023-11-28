@@ -65,11 +65,11 @@ const NavBar = () => {
               onClick={() => navigate("/login")}
             />
             <p>{userInfo[0].name}</p>
+            <button onClick={() => logout()}>Cerrar sesión</button>
           </div>
         ) : (
           <p onClick={() => navigate("/login")}> Login </p>
         )}
-        <button onClick={() => logout()}>Cerrar sesión</button>
       </div>
     </header>
   );

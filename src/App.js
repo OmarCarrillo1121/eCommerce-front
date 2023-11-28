@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
+      alert(currentUser);
     });
   }, []);
 
