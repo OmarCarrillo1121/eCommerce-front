@@ -7,7 +7,7 @@ import Games from './graphicUsers/games/Games';
 import Orders from './graphicUsers/orders/Orders';
 
 function Insights() {
-    const { allUsers, allGames, allOrders } = useSelector((state) => state)
+    const { allUsers, activeGames, allOrders } = useSelector((state) => state)
     const dispatch = useDispatch()
 
     const [componentsIndex, setComponentsIndex] = useState(0)
@@ -16,12 +16,12 @@ function Insights() {
     const components = [
         <Users users={allUsers}/>,
         <Orders orders={allOrders}/>,
-        <Games games={allGames}/>,
+        <Games games={activeGames}/>,
     ]
     const componentsNames = [
         allUsers,
         allOrders,
-        allGames,
+        activeGames,
         "Reviews",
         "Banners",
     ]

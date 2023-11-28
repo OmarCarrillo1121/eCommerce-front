@@ -23,7 +23,7 @@ ChartJS.register(
 
 function Games({ games }) {
     const dispatch = useDispatch()
-    const { activeGames, disabledGames } = useSelector((state) => state)
+    const { allGames, disabledGames } = useSelector((state) => state)
 
 
     const data = {
@@ -31,15 +31,15 @@ function Games({ games }) {
                 ['Actualmente'],
         datasets: [
             {
-                label: 'Todos los videojuegos',
-                data: [activeGames.length],
+                label: 'Juegos habilitados',
+                data: [games.length],
                 backgroundColor: 'aqua',
                 borderColor: 'black',
                 borderWidth: 1
             },
             {
-                label: 'Juegos habilitados',
-                data: [games.length],
+                label: 'Todos los videojuegos',
+                data: [allGames.length],
                 backgroundColor: 'blue',
                 borderColor: 'black',
                 borderWidth: 1

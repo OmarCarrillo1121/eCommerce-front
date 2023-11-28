@@ -321,6 +321,7 @@ export const updateUser = ({ id, user }) => {
     try {
       await axios.put(`${URL_GAMES}/users/${id}`, user);
 
+      alert('Usuario editado con éxito')
       dispatch({
         type: UPDATE_USER,
       });
