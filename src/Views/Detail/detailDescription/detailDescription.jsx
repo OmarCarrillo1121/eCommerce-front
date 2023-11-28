@@ -16,4 +16,4 @@ const DetailDescription = ({ games }) => {
     )
   }
 
-export default DetailDescription
+export default DetailDescription;

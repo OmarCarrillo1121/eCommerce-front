@@ -20,7 +20,7 @@ export const validation = (videogame) => {
     if(videogame.name && videogame.name.length < 5) {
         error.name = "Name must be at least 5 characters."
     }
-    if(videogame.name.length === 0) {
+    if(videogame.name && videogame.name.length <= 0) {
         error.name = "Name field can't be empty."
     }
     
@@ -34,7 +34,7 @@ export const validation = (videogame) => {
     if(videogame.description && videogame.description.length < 50 && videogame.description.length > 0) {
         error.description = "The description field must be at least 50 characters long."
     }
-    if(videogame.description.length === 0) {
+    if(videogame.description && videogame.description.length === 0) {
         error.description = "The description field can't be empty."
     }
 
@@ -45,7 +45,7 @@ export const validation = (videogame) => {
     if(videogame.developer && videogame.developer.length > 20) {
         error.developer = "Developer's name must be less than 20 characters."
     }
-    if(videogame.developer.length === 0) {
+    if(videogame.developer && videogame.developer.length === 0) {
         error.developer = "Developer's name field can't be empty."
     }
     
@@ -59,7 +59,7 @@ export const validation = (videogame) => {
     if(videogame.genre && !genreRegex.test(videogame.genre)) {
         error.genre = "Genre contains invalid characters."   
     }
-    if(videogame.genre.length === 0) {
+    if(videogame.genre && videogame.genre.length === 0) {
         error.genre = "Genre field can't be empty."
     }
     if(videogame.genre && videogame.genre.length > 20) {
@@ -67,7 +67,7 @@ export const validation = (videogame) => {
     }
     
     /* PLATFORM */
-    if(videogame.platform.length === 0) {
+    if(videogame.platform && videogame.platform.length === 0) {
         error.platform = "Must select one platform."
     }
     
@@ -81,7 +81,7 @@ export const validation = (videogame) => {
     if(videogame.price && videogame.price > 1000){
         error.price = "The value cannot be greater than 1000."
     }
-    if(videogame.price.length === 0) {
+    if(videogame.price && videogame.price.length === 0) {
         error.price = "Price must be a number."
     }
 
@@ -94,6 +94,9 @@ export const validation = (videogame) => {
     }
     if(videogame.stock && videogame.stock > 500) {
         error.stock = "There can't be more than 500 products for sale"
+    }
+    if(videogame.stock && videogame.stock.length === 0) {
+        error.stock = "Stock field can't be empty."
     }
 
 

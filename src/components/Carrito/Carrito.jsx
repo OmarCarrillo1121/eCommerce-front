@@ -1,12 +1,10 @@
-// Carrito.jsx
 
-
-import axios from 'axios';
 import styles from './Carrito.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector,  } from "react-redux";//useDispatch
 import { Link } from 'react-router-dom';
-import { setShoppingCart } from '../../redux/actions';
+import { setShoppingCart, buyGames } from '../../redux/actions';
+import { useLocalStorage } from "../../util/hook/localStorage/localStorage";
 
 const Carrito = () => {
     //!Este carrito lo voy a llamar desde el reducer
@@ -14,29 +12,12 @@ const Carrito = () => {
     const compras = useSelector(state => state.shopping)
     console.log(shoppingCart)
     console.log('COMPRAS',compras)
-    const dispatch = useDispatch();//setCart
+    const dispatch = useDispatch();
     
-    const [carrito, setCarrito] = useState([...shoppingCart]);
+    const [carrito, setCarrito] = useLocalStorage("carrito", []);
         
     
-    //!Para enviar al back el pedido:
-    //!!!!Pasar esto a las ACTIONS
 
-    const buyGames = async (productos) => {
-        try {
-            console.log(productos)
-            const response = await axios.post(
-                "http://localhost:4000/Mercado_pago",
-                productos
-            );
-    
-            // Realiza la redirección al enlace de pago
-            window.location.href = response.data;
-        } catch (error) {
-            console.error("Error al procesar el pago:", error.message);
-            // Puedes manejar el error según tus necesidades
-        }
-    };
 
     const renderizarProductos = () => {
         return carrito.map((producto) => (
@@ -106,9 +87,9 @@ const Carrito = () => {
       };
     //!ACTUALIZA ESTADO DEL CARRITO
     useEffect(() => {
-            dispatch(setShoppingCart(carrito))
-            console.log("Carrito actualizado:", carrito);
-        }, [dispatch,carrito]);
+        setCarrito(carrito);
+    }, [carrito]);
+
 
 
     return (

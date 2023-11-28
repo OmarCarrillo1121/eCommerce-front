@@ -1,50 +1,48 @@
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
+.card {
+    position: relative;
+    transform: scale(1);
+    transition: transform 150ms ease-in-out;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card_game {
+    width: 340px;
+    height: 220px;
+    cursor: pointer;
+    border-radius: 14px;
+    margin-top: 30px;
 }
 
-.cardContainer {
-    background-color: white;
-    font-family: sans-serif;
-    width: 231px;
-    height: 282.8px;
-    border-radius: 8px;
+.card_game img {
+    border-radius: 12px;
+    position: relative;
 }
 
-.cardImg {
-    width: 231px;
-    height: 282.8px;
-    padding: 10px;
+.descuento {
+    position: absolute;
+    background-color: #E6541B;
+    left: -5px;
+    bottom: 0;
+    font-size: 15px;
+    padding: 8px;
+    color: #fff;
+    -webkit-clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    border-radius: 10px;
 }
-
-.cardContainer:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    animation: bounce 0.8s 1; 
-}
-
-.cardText {
-    padding: 10px;
+.card_price {
     display: flex;
-    flex-direction: column;
+    margin-top: 20px;
+    justify-content: space-between;
     align-items: center;
-    background-color: white;
-    border-radius: 8px;
+    color: #eee;
+    margin-bottom: 30px;
+    font-family: sans-serif;
+    font-size: 12px;
 }
 
-.cardTextName {
-    color: #333;
-    font-size: 18px;
-}
-
-.cardTextPrice {
-    color: #ff5722;
-    font-size: 16px;
-    font-weight: bold;
+.card_name {
+    text-wrap: wrap;
+    text-align: left;
 }

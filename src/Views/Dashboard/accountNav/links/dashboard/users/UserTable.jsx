@@ -156,7 +156,7 @@ const UserTable = () => {
 
     useEffect(() => {         
         dispatch(getAllUsers())
-    }, [users])
+    }, [])
 
     return (<>
     <div className={style.tabletUsers}>

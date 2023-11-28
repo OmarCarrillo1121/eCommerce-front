@@ -1,47 +1,50 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import Style from "./Card.module.css"
 import { motion } from "framer-motion";
 import Discount from "../Discount/Discount"
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setShoppingCart } from "../../redux/actions";
+import { setShoppingCart  } from "../../redux/actions"
 
 function Card ({ game }){
+    const {id, name, image, price, discount } = game;
+    // Edward
+    const dispatch = useDispatch();
+    //console.log('currentCart',currentCart);
+    const [carrito, setCarrito] = useState([]);
+    
+    console.log('Car',carrito);
 
-  const currentCart = useSelector((state) => state.shoppingCart);
-  const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setShoppingCart(carrito))
+        console.log("Carrito actualizado:", carrito);
+    }, [carrito,dispatch]);
 
-  useEffect(() => {
-    // Se actualiza directamente el carrito global sin utilizar un estado local
-    dispatch(setShoppingCart(currentCart));
-    console.log("Carrito actualizado:", currentCart);
-  }, [currentCart, dispatch]);
+    const agregarAlCarrito = (game) => {
+      // Buscamos si el juego ya está en el carrito por su id
+      
+      const juegoExistente = carrito.find((item) => item.id === game.id);
 
-  
-  const agregarAlCarrito = (game) => {
-    const juegoExistente = currentCart.find((item) => item.id === game.id);
-    if (!game.stock) return alert("No hay suficiente stock disponible");
-    if (juegoExistente) {
+      if (juegoExistente) {
+      // Si el juego ya está en el carrito, verificamos el stock antes de aumentar la cantidad
       if (juegoExistente.quantity < game.stock) {
-        const nuevoCarrito = currentCart.map((item) =>
+          const nuevoCarrito = carrito.map((item) =>
           item.id === game.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-        // Se actualiza directamente el carrito global
-        dispatch(setShoppingCart(nuevoCarrito));
-        alert("Se agregó el juego al carrito exitosamente");
+          );
+          setCarrito(nuevoCarrito);
+          alert("Se agregó el juego al carrito exitosamente");
       } else {
-        alert("No hay suficiente stock disponible");
+          alert("No hay suficiente stock disponible");
       }
-    } else {
+      } else {
+      // Si el juego no está en el carrito, lo agregamos con cantidad 1
       const juegoConCantidad = { ...game, quantity: 1 };
-      // Se actualiza directamente el carrito global
-      dispatch(setShoppingCart([...currentCart, juegoConCantidad]));
+      setCarrito([...carrito, juegoConCantidad]);
       alert("Se agregó el juego al carrito exitosamente");
-    }
-  }
+      }
+  };
 
 
-    const {id, name, image, price, discount } = game
     return(
         <motion.figure className={Style.carta} key={id}
           layout
@@ -60,19 +63,18 @@ function Card ({ game }){
             <div className={Style.card_price}>
                 <h2 className={Style.card_name}>{name}</h2>
            
-                <Discount price ={price} porcentaje= {discount} />
-                {/* //!Edward */}
-                <p>Stock: {game.stock}</p>
-                <p>
-                Seleccionados:{" "}
-                {currentCart.find((element) => element.id === game.id)?.quantity || 0}
-                </p>
-                {/* //!Bloquear boton si no hay stock */}
-                <button onClick={() => agregarAlCarrito(game)}>Agregar al Carrito</button> 
-                {/* //!Edward */}
+                <Discount price ={price} porcentaje= {discount} />  
+            </div>
+            <div>
+            <p>
+                quantity:{" "}
+                {carrito.find((element) => element.id === game.id)?.quantity || 0}
+            </p>
+            
+            <button onClick={() => agregarAlCarrito(game)}> Agregar al Carrito </button>
             </div>
         </motion.figure>
     )
 }
 
-export default Card;
+export default Card

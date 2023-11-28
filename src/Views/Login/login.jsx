@@ -26,8 +26,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
-  const URL_GAMES = "https://ecomercestorebacken.vercel.app";
-  // const URL_GAMES = "http://localhost:3001";
+  //const URL_GAMES = "https://ecomercestorebacken.vercel.app";
+  const URL_GAMES = "http://localhost:3001";
 
   const [storedAuthUserInfo, setStoredAuthUserInfo] = useLocalStorage(
     "authUserInfo",

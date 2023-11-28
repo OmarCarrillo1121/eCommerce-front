@@ -37,10 +37,17 @@
   }
   
   .descuento {
-    font-size: 1.2rem;
-    color: red;
-    margin-bottom: 5px;
-  }
+    position: absolute;
+    background-color: #E6541B;
+    left: -5px;
+    bottom: 0;
+    font-size: 15px;
+    padding: 8px;
+    color: #fff;
+    -webkit-clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    border-radius: 10px;
+}
   
   .ahorro {
     font-size: 0.8rem;
