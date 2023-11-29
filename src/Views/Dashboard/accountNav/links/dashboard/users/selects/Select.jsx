@@ -6,17 +6,17 @@ function Select({filterRol, handleChange}) {
             <div>
                 <b>Rol: </b>
                 <select id="rolSelect" onChange={filterRol}>
-                    <option value="All roles">All</option>
-                    <option value="admin">Admins</option>
-                    <option value="user">Users</option>
+                    <option value="All roles">Todos</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">Usuario</option>
                 </select>
             </div>
             <div>
-                <b>Status: </b>
+                <b>Estado: </b>
                 <select id="statusSelect" onChange={handleChange}>
-                    <option value="All users">All</option>
-                    <option value="Users not Banned">Active</option>
-                    <option value="Users Banned">Banned</option>
+                    <option value="All users">Todos</option>
+                    <option value="Users not Banned">Activo</option>
+                    <option value="Users Banned">Baneado</option>
                 </select>
             </div>
         </div>

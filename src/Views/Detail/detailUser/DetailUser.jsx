@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getByGamesDetail, getByName, getOrderByIdUser, getReviewsByUser, getUserById, updateUser } from "../../../redux/actions";
+import { getOrderByIdUser, getReviewsByUser, getUserById, updateUser } from "../../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom";
 import style from './detailUser.module.css'
@@ -18,6 +18,10 @@ function DetailUser() {
     const [ newImg, setNewImg ] = useState("")
     const [ infoTime, setInfoTime ] = useState(false)
     const [ orderTime, setorderTime] = useState(false)
+    const [ order, setOrder ] = useState({})
+    let productsIndex = 0;
+    let productsRendered = 0
+    const [ showAllOrders, setShowAllOrders] = useState(false)
     /* UPDATE IMAGE FUNCTIONS */
 
     const openEditImgUser = (user) => {
@@ -110,6 +114,49 @@ function DetailUser() {
         setInfoTime(false)
     }
 
+    const openInfoGame = (order) => {
+        setOrder(order)
+        setorderTime(true)
+    }
+
+    const closeInfoGame = () => {
+        setorderTime(false)
+        setOrder({})
+    }
+
+    const changeDate = (date) => {
+        let fecha = new Date(date);
+
+        // Restar 3 horas a la fecha
+        fecha.setUTCHours(fecha.getUTCHours() - 3);
+
+        // Obtener los componentes de la fecha después de restar 3 horas
+        let dia = fecha.getUTCDate();
+        let mes = fecha.getUTCMonth() + 1; // Los meses van de 0 a 11
+        let anio = fecha.getUTCFullYear();
+        let horas = fecha.getUTCHours();
+        let minutos = fecha.getUTCMinutes();
+        let segundos = fecha.getUTCSeconds();
+
+        // Agregar ceros a la izquierda si es necesario
+        dia = dia < 10 ? "0" + dia : dia;
+        mes = mes < 10 ? "0" + mes : mes;
+        horas = horas < 10 ? "0" + horas : horas;
+        minutos = minutos < 10 ? "0" + minutos : minutos;
+        segundos = segundos < 10 ? "0" + segundos : segundos;
+
+        // Formatear la fecha como desees
+        let fechaFormateada = " " + dia + "-" + mes + "-" + anio + " a las " + horas + ":" + minutos + ":" + segundos;
+        return fechaFormateada
+    }
+
+    const openAllOrders = () => {
+        setShowAllOrders(true)
+    }
+
+    const closeAllOrders = () => {
+        setShowAllOrders(false)
+    }
 
     useEffect(() => {
         dispatch(getUserById(id))
@@ -216,26 +263,46 @@ function DetailUser() {
                                             <h4>Compras realizadas</h4>
                                             <div className={style.orders}>
                                                 {
-                                                    ordersUser && ordersUser.length > 0 
+                                                    ordersUser.length > 0 
                                                     ? <div className={style.containerOrders}>
-                                                        {
-                                                            ordersUser.map((order) => {
-                                                                order.products && order.products.length > 0 
-                                                                ? order.products.map((product) => {
-                                                                    return(<div>
-                                                                        <p>{product.name}</p>
-                                                                        <small>{product.price}</small>
-                                                                        <button>🛈</button>
-                                                                    </div>)
-                                                                }) : null
-                                                            })
-                                                        }
+                                                        <table>
+                                                            <thead>
+                                                                <tr className={style.rowHead}>
+                                                                    <th>Id Orden</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Monto total</th>
+                                                                    <th>Info Orden</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {   
+                                                                    ordersUser.map((order) => {
+                                                                        productsIndex = productsIndex + order.products.length
+                                                                        return order.products.map((product) => {
+                                                                            if (productsRendered >= 4) {
+                                                                                return null; // No renderizar más allá del límite
+                                                                            }
+                                                                            productsRendered++;
+                                                                            return(<tr className={style.product}>
+                                                                                <td>{order.id}</td>
+                                                                                <td>{product.name}</td>
+                                                                                <td>{product.price}</td>
+                                                                                <td><button onClick={() => openInfoGame(order)}>🛈</button></td>
+                                                                            </tr>)
+                                                                        })
+                                                                    })
+                                                                }
+                                                            </tbody>
+                                                        </table>
                                                     </div> 
                                                     : <div className={style.noOrders}>
                                                         <p>Este usuario no ha realizado ninguna compra.</p>
                                                     </div> 
                                                 }
                                             </div>
+                                            {
+                                                productsIndex > 4 ? <button className={style.verMas} onClick={openAllOrders}>Ver Todos</button> : null
+                                            }
                                         </div>
                                     : null
                                 }
@@ -246,8 +313,78 @@ function DetailUser() {
             </main>
         </div>
         {
+            showAllOrders && <div className={style.overlay}>
+                <div className={style.containerBigTable}>
+                    <button onClick={closeAllOrders}>X</button>
+                    <div className={style.containerMegaTable}>
+                        <table>
+                            <thead>
+                                <tr className={style.rowHead2}>
+                                    <th>Id Orden</th>
+                                    <th>Nombre</th>
+                                    <th>Monto total</th>
+                                    <th>Info Orden</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {   
+                                ordersUser.map((order) => {
+                                    return order.products.map((product) => {
+                                        return(<tr className={style.megatableProduct}>
+                                            <td>{order.id}</td>
+                                            <td>{product.name}</td>
+                                            <td>{product.price}</td>
+                                            <td className={style.tdLast} onClick={()=> openInfoGame(order)}>🛈</td>
+                                        </tr>)
+                                    })
+                                })
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        {
             orderTime && <div className={style.overlay}>
+                <div className={style.containerOrder}>
+                    <button className={style.closeInfoOrder} onClick={closeInfoGame}>X</button>
+                    <div className={style.containerText}>
+                        <h2>{order.products.length > 1 ? 'Compras realizadas': 'Compra realizada'}</h2>
+                        <b>Id: {order.id}</b>
+                    </div>
+                    <div className={style.productsContainer}>
+                        <div className={style.containerProductMax}>
+                            {
+                                order.products.map((product) => {
+                                    let amount = (product.discount/100) * product.price
+                                    let totalAmount = product.price - amount
 
+                                    return (<div className={style.cardProduct}>
+                                        <img src={product.image} alt={product.name} />
+                                        <span className={style.productDiscount}>-{product.discount}%</span>
+                                        <div className={style.containerproductxxx}>
+                                            <span className={style.productName}>{product.name}</span>
+                                            <div className={style.precio}>
+                                                <p>Precio $:</p>
+                                                <div className={style.priceAmount}>
+                                                    <span className={style.productPrice}>Antes: ${product.price}</span>
+                                                    <span className={style.productAmount}>Ahora: ${totalAmount}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>)
+                                })
+                            }
+                        </div>
+                        <p className={style.dateOrder}> La compra se realizó el 
+                            {
+                                changeDate(order.date)
+                            }
+                        </p>
+                        <small className={style.amountOrder}>Monto total de la compra: <b>{order.amount}</b></small>
+                    </div>
+                    </div>
             </div>
         }
         {
@@ -264,7 +401,7 @@ function DetailUser() {
                         </div>
                         <input type="file" name="image" id="fileInput" onChange={uploadImg}/>
                         <label for="fileInput" className={style.custom_img_upload}>+</label>
-                        <button className={style.updateImg} onClick={updateImg}>Update Image</button>
+                        <button className={style.updateImg} onClick={updateImg}>Actualizar Imagen</button>
                         <p className={style.errorImg}>{errors.image ? errors.image : null}</p>
                     </div>
                 </div>
@@ -276,21 +413,21 @@ function DetailUser() {
                     <div className={style.infoContainer}>
                         <button onClick={closeEditUser}>X</button>
                         <div className={style.containerLabel}>
-                            <label htmlFor="name">Full Name</label>
-                            <input type="text" name="name" placeholder="Change your name" value={newUser.name} onChange={handleChangeInfo}/>
+                            <label htmlFor="name">Name y/o Apellidos</label>
+                            <input type="text" name="name" placeholder="Cambia tu nombre" value={newUser.name} onChange={handleChangeInfo}/>
                             <p className={style.error}>{errors.name ? errors.name : null}</p>
                         </div>
                         <div className={style.containerLabel}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" placeholder="Change your email" value={newUser.email} onChange={handleChangeInfo}/>
+                            <input type="email" name="email" placeholder="Cambia tu email" value={newUser.email} onChange={handleChangeInfo}/>
                             <p className={style.error}>{errors.email ? errors.email : null}</p>
                         </div>
                         <div className={style.containerLabel}>
-                            <label htmlFor="address">Address</label>
-                            <input type="text" name="address" placeholder="Change your address" value={newUser.address} onChange={handleChangeInfo}/>
+                            <label htmlFor="address">Dirección</label>
+                            <input type="text" name="address" placeholder="Cambia tu dirección" value={newUser.address} onChange={handleChangeInfo}/>
                             <p className={style.error}>{errors.address ? errors.address : null}</p>
                         </div>
-                        <button className={style.updateUser} onClick={submitChangeInfo}>Update User</button>
+                        <button className={style.updateUser} onClick={submitChangeInfo}>Actualizar datos</button>
                     </div>
                 </div>
             </div>
