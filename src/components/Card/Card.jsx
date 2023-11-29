@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Style from "./Card.module.css"
@@ -75,6 +76,29 @@ function Card ({ game }){
             </div>
         </motion.figure>
     )
+=======
+import Style from "./Card.module.css";
+import { motion } from "framer-motion";
+import Discount from "../Discount/Discount";
+
+function Card({ game }) {
+
+  const { id, name, image, price, discount } = game;
+  return (
+    <motion.div className={Style.cardContainer}>
+    <Link to={`/detail/${id}`}>
+      <div className={Style.card}>
+        <img className={Style.card_game} src={image} alt={name} />
+        <span className={Style.descuento}>-{discount}%</span>
+      </div>
+    </Link>
+    <div className={Style.card_price}>
+      <h2 className={Style.card_name}>{name}</h2>
+      <Discount price={price} porcentaje={discount} />
+    </div>
+  </motion.div>
+  );
+>>>>>>> c656e8912fe7acca488a130d4c4fdc15b136f926
 }
 
 export default Card

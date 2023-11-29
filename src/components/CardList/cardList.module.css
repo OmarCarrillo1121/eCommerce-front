@@ -1,7 +1,16 @@
 .cardList {
     display: grid;
+<<<<<<< HEAD
     gap: 1rem;
     grid-auto-rows: 22rem;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+=======
+>>>>>>> c656e8912fe7acca488a130d4c4fdc15b136f926
     place-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
 }
+
