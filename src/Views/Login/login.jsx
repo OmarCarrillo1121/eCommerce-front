@@ -12,7 +12,7 @@ import Middle from "./middle/middle";
 import Services from "./services/services";
 import { auth } from "../../config/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { authUser, saveStateToLocalStorage } from "../../redux/actions.js";
+import { authUserData, saveStateToLocalStorage } from "../../redux/actions.js";
 import { useDispatch } from "react-redux";
 import { useLocalStorage } from "../../util/hook/localStorage/localStorage";
 
@@ -49,12 +49,13 @@ export default function Login() {
           `${URL_GAMES}/users/search/email?email=${userEmail}`
         );
         const userInfo = userData.data;
-        // dispatch(authUser(userInfo));
+        dispatch(authUserData(userInfo[0]));
         // dispatch(saveStateToLocalStorage(userInfo));
         // setStoredAuthUserInfo(userInfo);
-        localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
+        //localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
         alert("¡Logueado con éxito!");
         navigate("/");
+        navigate(0);
       }
     } catch (error) {
       setError(error.message);
