@@ -4,9 +4,11 @@ import {
   fetchReviewsRequest,
   fetchReviewsSuccess,
   fetchReviewsFailure,
+  postReview,
 } from "../../../redux/actions";
 import styles from "./reviewSection.module.css";
 import { FaStar } from "react-icons/fa";
+import ReviewForm from "./reviewForm/ReviewForm";
 
 const ReviewsSection = ({
   gameId,
@@ -16,6 +18,7 @@ const ReviewsSection = ({
   fetchReviewsRequest,
   fetchReviewsSuccess,
   fetchReviewsFailure,
+  postReview,
 }) => {
   useEffect(() => {
     fetchReviewsRequest();
@@ -44,6 +47,7 @@ const ReviewsSection = ({
   return (
       <div className={styles.reviewSection}>
         <h2>Reseñas</h2>
+        <ReviewForm gameId={gameId} />
         {reviews.map((review) => (
           <div key={review.id} className={styles.review}>
             <div className={styles.rating}>

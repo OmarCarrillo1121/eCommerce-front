@@ -48,6 +48,9 @@ import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_REVIEW_REQUEST,
+  POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE,
 
   //BANNERS
   GET_ALL_BANNERS,
@@ -471,6 +474,47 @@ export const fetchReviewsFailure = (error) => ({
   type: FETCH_REVIEWS_FAILURE,
   payload: error,
 });
+
+// Acción para crear una nueva review
+export const postReviewRequest = () => ({
+  type: POST_REVIEW_REQUEST,
+});
+
+export const postReviewSuccess = (review) => ({
+  type: POST_REVIEW_SUCCESS,
+  payload: review,
+});
+
+export const postReviewFailure = (error) => ({
+  type: POST_REVIEW_FAILURE,
+  payload: error,
+});
+
+// Función asincrónica para manejar la creación de la review
+export const postReview = (newReview) => async (dispatch) => {
+  try {
+    dispatch(postReviewRequest());
+
+    // Realiza la llamada a la API para crear la review
+    const response = await fetch('https://ecomercestorebacken.vercel.app/reviews/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newReview),
+    });
+
+    if (!response.ok) {
+      throw new Error('No se pudo crear la review');
+    }
+
+    const data = await response.json();
+
+    dispatch(postReviewSuccess(data));
+  } catch (error) {
+    dispatch(postReviewFailure(error));
+  }
+};
 
 /* GET ALL BANNERS */
 export const getAllBanners = () => {
