@@ -53,6 +53,9 @@ import {
   ADD_SUCCESSFUL_PURCHASE,
   ADD_REJECTED_PURCHASE,
   SET_SHOPPING_CART,
+  GET_ODERS_BY_ID_USER,
+  GET_ORDERS_BY_ID_USER,
+  GET_REVIEWS_BY_USER,
 } from "./action-types";
 
 const initialState = {
@@ -82,6 +85,7 @@ const initialState = {
   deletedReviews: [],
   enabledReviews: [],
   review: {},
+  reviewsByUser: [],
 
   allBanners: [],
   banners: [],
@@ -94,6 +98,7 @@ const initialState = {
   detailOrders: {},
   canceledOrder: [],
   activeOrder: [],
+  ordersUser: [],
 
     //! Carrito-Edward
     shoppingCart: [], //Acá traigo todos los productos que voy a comprar
@@ -596,6 +601,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeOrder: [...action.payload],
       };
+
+    case GET_ORDERS_BY_ID_USER: {
+      return {
+        ...state,
+        ordersUser: action.payload
+      }
+    }
+
+    case GET_REVIEWS_BY_USER: {
+      return {
+        ...state,
+        reviewsByUser: action.payload
+      }
+    }
     //////////////////////////////////////////////////////////////////
 
     //!EDWARD
