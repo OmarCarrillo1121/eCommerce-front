@@ -52,6 +52,9 @@ import {
   DELETED_VIDEOGAMES,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  GET_ORDERS_BY_USER,
+  GET_REVIEWS_BY_USER,
+  RESET_DETAIL_REVIEWS_USER,
   ADD_SUCCESSFUL_PURCHASE,
   ADD_REJECTED_PURCHASE,
   SET_SHOPPING_CART,
@@ -83,6 +86,7 @@ const initialState = {
   user: null,
   statusFilter: "all",
   rolFilter: "All roles",
+  reviewsByUser: [],
   authUser: null,
   currentPage: 1,
 
@@ -109,8 +113,8 @@ const initialState = {
   detailOrders: {},
   canceledOrder: [],
   activeOrder: [],
+  orderUser: [],
   ordersUser: [],
-
   //! Carrito-Edward
   shoppingCart: [], //Acá traigo todos los productos que voy a comprar
   //! Historial de Compras:
@@ -582,6 +586,19 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case GET_REVIEWS_BY_USER: {
+      return {
+        ...state,
+        reviewsByUser: action.payload
+      }
+    }
+    case RESET_DETAIL_REVIEWS_USER:{
+      return {
+        ...state,
+        reviewsByUser:[...action.payload],
+      }
+    }
+      
     /* GET ALL REVIEWS */
     case GET_ALL_REVIEWS: {
       return {
@@ -693,6 +710,18 @@ const reducer = (state = initialState, action) => {
         allOrders: [...action.payload],
       };
     }
+
+    case GET_ORDERS_BY_USER: {
+      return {
+        ...state,
+        orderUser: [...action.payload],
+      }
+     }
+        case RESET_DETAIL_ORDERS:
+            return {
+              ...state,
+              orderUser: [...action.payload],
+            };
 
     /*GET ORDERS BY ID❤ */
     case GET_BY_ID_ORDERS:
