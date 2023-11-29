@@ -24,7 +24,7 @@ const Carrito = () => {
     try {
       console.log(productos);
       const response = await axios.post(
-        "http://localhost:3001/MercadoPago",
+        "https://ecomercestorebacken.vercel.app/MercadoPago",
         productos
       );
 
