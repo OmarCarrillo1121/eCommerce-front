@@ -35,15 +35,19 @@ import { authUserData } from "./redux/actions";
 import Carrito from "./components/Carrito/Carrito";
 import SuccessBuy from "./components/SuccessBuy/SuccessBuy";
 import FailureBuy from "./components/FailureBuy/FailureBuy";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { viewportWidth } = useWindow();
 
   const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
 
   const [isAdmin, setIsAdmin] = useState(true);
   const [isLogged, setIsLogged] = useState(true);
+  const [userSaved, setUserSaved] = useState("");
+  const { user } = useSelector((state) => state);
 
   // useEffect(() => {
   //   localStorage.setItem("items", JSON.stringify(items));
@@ -56,10 +60,12 @@ function App() {
   //   }
   // }, []);
 
-  useEffect(() => {
-    const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
-    authUserData(authUserFromLS);
-  }, []);
+  // useEffect(() => {
+  //   const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
+  //   if (authUserFromLS) {
+  //     dispatch(authUserData(authUserFromLS[0]));
+  //   }
+  // }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -77,6 +83,8 @@ function App() {
   //   }
   // }, []);
   //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
+
+  console.log(user);
 
   return (
     <div className="app">
