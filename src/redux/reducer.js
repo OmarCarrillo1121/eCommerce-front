@@ -53,9 +53,9 @@ import {
   ADD_SUCCESSFUL_PURCHASE,
   ADD_REJECTED_PURCHASE,
   SET_SHOPPING_CART,
-  GET_ODERS_BY_ID_USER,
   GET_ORDERS_BY_ID_USER,
   GET_REVIEWS_BY_USER,
+  GET_REVIEWS_OF_GAME,
 } from "./action-types";
 
 const initialState = {
@@ -86,12 +86,17 @@ const initialState = {
   enabledReviews: [],
   review: {},
   reviewsByUser: [],
+  game: {
+    reviews: [], // Inicialmente, la lista de reviews está vacía.
+  },
 
   allBanners: [],
   banners: [],
   deletedBanners: [],
   enabledBanners: [],
   banner: {},
+  bannerCreated: null,
+
   //Orders:
   allOrders: [],
   orders: [],
@@ -111,7 +116,7 @@ const initialState = {
   loading: true,
 
   loadingReviews: false,
-  error: null,
+  errorReviews: null,
 };
 
 const saveStateToLocalStorage = (state, action) => {
@@ -127,6 +132,26 @@ const saveStateToLocalStorage = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case FETCH_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loadingReviews: true,
+        errorReviews: null,
+      };
+    case FETCH_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        loadingReviews: false,
+        reviews: action.payload,
+      };
+    case FETCH_REVIEWS_FAILURE:
+      return {
+        ...state,
+        loadingReviews: false,
+        errorReviews: action.payload,
+      };
+
     case GET_ALL_GAMES:
       const newStateGetAllGames = {
         ...state,
@@ -528,6 +553,109 @@ const reducer = (state = initialState, action) => {
         currentPage: action.payload,
       };
     }
+
+    /* GET ALL REVIEWS */
+    case GET_ALL_REVIEWS: {
+      return {
+        ...state,
+        reviews: [...action.payload],
+        allReviews: [...action.payload],
+      };
+    }
+
+    /* GET DELETED REVIEWS */
+    case GET_DELETED_REVIEWS: {
+      return {
+        ...state,
+        deletedReviews: [...action.payload],
+        reviews: [...action.payload],
+      };
+    }
+
+    /* GET ENABLED REVIEWS */
+    case GET_ENABLED_REVIEWS: {
+      return {
+        ...state,
+        enabledReviews: [...action.payload],
+        reviews: [...action.payload],
+      };
+    }
+
+    /* DELETE REVIEW */
+    case DELETE_REVIEW: {
+      return { ...state };
+    }
+
+    /* RESTORE REVIEW */
+    case RESTORE_REVIEW: {
+      return { ...state };
+    }
+
+    case GET_REVIEWS_OF_GAME:
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          reviews: action.payload, // Asigna las reviews del juego al estado.
+        },
+      };
+
+    /* GET ALL BANNERS */
+    case GET_ALL_BANNERS: {
+      return {
+        ...state,
+        banners: [...action.payload],
+        allBanners: [...action.payload],
+      };
+    }
+
+    /* GET DELETED BANNERS */
+    case GET_DELETED_BANNERS: {
+      return {
+        ...state,
+        deletedBanners: [...action.payload],
+        banners: [...action.payload],
+      };
+    }
+
+    /* GET ENABLED BANNERS */
+    case GET_ENABLED_BANNERS: {
+      return {
+        ...state,
+        enabledBanners: [...action.payload],
+        banners: [...action.payload],
+      };
+    }
+
+    /* DELETE BANNER */
+    case DELETE_BANNER: {
+      return { ...state };
+    }
+
+    /* RESTORE BANNER */
+    case RESTORE_BANNER: {
+      return { ...state };
+    }
+
+    /* POST BANNER */
+    case POST_BANNER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case POST_BANNER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        banner: action.payload,
+      };
+    case POST_BANNER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     /////////////////////////////////////////////////////////
     /* GET ALL ORDERS❤ */
     case GET_ORDERS: {
@@ -688,77 +816,59 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case FETCH_REVIEWS_REQUEST:
+    //!Edward
+    case SET_SHOPPING_CART:
+      //console.log('Reducer:', action.payload)
       return {
         ...state,
-        loading: true,
-        error: null,
+        shoppingCart: action.payload,
       };
+    case ADD_REJECTED_PURCHASE:
+      const newRejectedPurchase = action.payload;
 
-    case FETCH_REVIEWS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        reviews: action.payload,
-      };
+      // Verificar si preferenceId ya existe en el arreglo rejected
+      const isUniqueRejected = state.shopping.rejected.every(
+        (purchase) => purchase.preferenceId !== newRejectedPurchase.preferenceId
+      );
 
-    case FETCH_REVIEWS_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-            //!Edward
-            case SET_SHOPPING_CART:
-              //console.log('Reducer:', action.payload)
-              return {
-                  ...state,
-                  shoppingCart: action.payload,
-              };
-              case ADD_REJECTED_PURCHASE:
-                  const newRejectedPurchase = action.payload;
-              
-                      // Verificar si preferenceId ya existe en el arreglo rejected
-                      const isUniqueRejected = state.shopping.rejected.every(
-                      (purchase) => purchase.preferenceId !== newRejectedPurchase.preferenceId
-                      );
-              
-                      if (isUniqueRejected) {
-                      return {
-                          ...state,
-                          shopping: {
-                          ...state.shopping,
-                          rejected: [...state.shopping.rejected, newRejectedPurchase],
-                          },
-                      };
-                      } else {
-                      console.log('PreferenceId duplicado, no se agrega al historial de compras rechazadas.');
-                      return state;
-              }
-              case ADD_SUCCESSFUL_PURCHASE:
-              const newSuccessfulPurchase = action.payload;
-      
-              // Verificar si preferenceId ya existe en el arreglo approved
-              const isUniqueApproved = state.shopping.approved.every(
-                  (purchase) =>
-                  purchase.preferenceId !== newSuccessfulPurchase.preferenceId
-              );
-      
-              if (isUniqueApproved) {
-                  return {
-                  ...state,
-                  shopping: {
-                      ...state.shopping,
-                      approved: [...state.shopping.approved, newSuccessfulPurchase],
-                  },
-                  };
-              } else {
-                  console.log(
-                  "PreferenceId duplicado, no se agrega al historial de compras aprobadas."
-                  );
-                  return state;
-              }
-              //!Edward
+      if (isUniqueRejected) {
+        return {
+          ...state,
+          shopping: {
+            ...state.shopping,
+            rejected: [...state.shopping.rejected, newRejectedPurchase],
+          },
+        };
+      } else {
+        console.log(
+          "PreferenceId duplicado, no se agrega al historial de compras rechazadas."
+        );
+        return state;
+      }
+    case ADD_SUCCESSFUL_PURCHASE:
+      const newSuccessfulPurchase = action.payload;
+
+      // Verificar si preferenceId ya existe en el arreglo approved
+      const isUniqueApproved = state.shopping.approved.every(
+        (purchase) =>
+          purchase.preferenceId !== newSuccessfulPurchase.preferenceId
+      );
+
+      if (isUniqueApproved) {
+        return {
+          ...state,
+          shopping: {
+            ...state.shopping,
+            approved: [...state.shopping.approved, newSuccessfulPurchase],
+          },
+        };
+      } else {
+        console.log(
+          "PreferenceId duplicado, no se agrega al historial de compras aprobadas."
+        );
+        return state;
+      }
+    //!Edward
 
     default:
       return {

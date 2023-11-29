@@ -10,13 +10,14 @@ import { validation } from './validation.js';
 function DetailUser() {
     const dispatch = useDispatch()
     const { id } = useParams()
-    const { user, ordersUser, reviewsByUser, detailGame } = useSelector((state) => state)
+    const { user, ordersUser, reviewsByUser} = useSelector((state) => state)
     const [ newUser, setNewUser ] = useState({})
     const [ errors, setErrors ] = useState({})
 
     const [ imgTime, setImgTime ] = useState(false)
     const [ newImg, setNewImg ] = useState("")
     const [ infoTime, setInfoTime ] = useState(false)
+    const [ orderTime, setorderTime] = useState(false)
     /* UPDATE IMAGE FUNCTIONS */
 
     const openEditImgUser = (user) => {
@@ -170,13 +171,6 @@ function DetailUser() {
                                     {
                                         reviewsByUser && reviewsByUser.length > 0
                                         ? <div className={style.reviews}>
-                                            {/* {
-                                                reviewsByUser.map((reviews) => {
-                                                    return (<>
-                                                        <small>{reviews.rating}</small>
-                                                    </>)
-                                                })
-                                            } */}
                                             <p>Este usuario ha hecho {reviewsByUser.length} reseñas sobre nuestros videojuegos</p>
                                         </div> 
                                         : <p>Este usuario no ha realizado reseñas.</p>
@@ -222,7 +216,21 @@ function DetailUser() {
                                             <h4>Compras realizadas</h4>
                                             <div className={style.orders}>
                                                 {
-                                                    user.orders ? "ok" 
+                                                    ordersUser && ordersUser.length > 0 
+                                                    ? <div className={style.containerOrders}>
+                                                        {
+                                                            ordersUser.map((order) => {
+                                                                order.products && order.products.length > 0 
+                                                                ? order.products.map((product) => {
+                                                                    return(<div>
+                                                                        <p>{product.name}</p>
+                                                                        <small>{product.price}</small>
+                                                                        <button>🛈</button>
+                                                                    </div>)
+                                                                }) : null
+                                                            })
+                                                        }
+                                                    </div> 
                                                     : <div className={style.noOrders}>
                                                         <p>Este usuario no ha realizado ninguna compra.</p>
                                                     </div> 
@@ -237,6 +245,11 @@ function DetailUser() {
                 </div>
             </main>
         </div>
+        {
+            orderTime && <div className={style.overlay}>
+
+            </div>
+        }
         {
             imgTime && <div className={style.overlay}>
                 <div className={style.openImg}>

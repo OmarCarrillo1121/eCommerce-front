@@ -510,3 +510,19 @@
     left: 23%;
     color: red;
 }
+.partLeftSecond p {
+    color: black;
+    font-size: 12px;
+    text-align: start;
+}
+.noOrders p {
+    font-size: 15px;
+    color: black;
+}
+.subtitles p {
+    font-size: 30px;
+    text-align: start;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+}

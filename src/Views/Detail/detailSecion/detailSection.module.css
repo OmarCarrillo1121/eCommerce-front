@@ -1,15 +1,14 @@
-
 .detail_main {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     flex-wrap: wrap;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
 }
 
 .detail_img{
-    width: 600px;
-    height: 350px;
+    width: 330px;
+    height: 404px;
     border-radius: 12px;
     object-fit: fill;
 }
@@ -24,7 +23,7 @@
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
     align-items: center;
-    padding: 40px;
+    padding: 20px;
     gap: 20px;
 }
 

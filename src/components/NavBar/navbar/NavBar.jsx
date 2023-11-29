@@ -88,22 +88,62 @@ const NavBar = () => {
         <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
         {/* //!EDWARD */}
         {isLogged() ? (
-          <div>
+          <div className={Style.nav_icon}>
             <p>{userInfo[0].name}</p>
             {isAdmin() ? (
-              <button onClick={() => navigate("/dashboard/dashboard")}>
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate("/dashboard/dashboard")}
+              >
                 Dashboard
               </button>
             ) : (
-              <button onClick={() => navigate("/user/:1")}>Mi Perfil</button>
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate("/user/:1")}
+              >
+                Mi Perfil
+              </button>
             )}
 
-            <button onClick={() => logout()}>Cerrar sesión</button>
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => logout()}
+            >
+              Cerrar sesión
+            </button>
           </div>
         ) : (
           <div>
-            <button onClick={() => navigate("/login")}> Login </button>
-            <button onClick={() => navigate("/register")}> Register </button>
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => navigate("/login")}
+            >
+              {" "}
+              Iniciar sesión{" "}
+            </button>
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => navigate("/register")}
+            >
+              {" "}
+              Registrarse{" "}
+            </button>
           </div>
         )}
       </div>
