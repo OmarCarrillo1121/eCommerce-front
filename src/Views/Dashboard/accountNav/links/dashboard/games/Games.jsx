@@ -36,7 +36,6 @@ function Games() {
 
     const searchToGame = (e) => {
         e.preventDefault()
-
         dispatch(getByName(name))
     }
 
@@ -72,13 +71,13 @@ function Games() {
 
     useEffect(()=> {
         dispatch(getActiveGames())
-    }, [activeGames])
+    }, [])
 
     return (<>  
         <div className={style.tabletGames}>
             <NavLink className={style.addGame} to={'/formVideogame'}>Agrega un Videojuego</NavLink>
             <div className={style.searchbar}>
-                <input  type="text" value={name} onChange={lookAtName} placeholder="Search for a game"/>
+                <input  type="text" value={name} onChange={lookAtName} placeholder="Busca un nombre"/>
                 <button onClick={searchToGame}>🔍︎</button>
             </div>
             <table>
@@ -86,13 +85,13 @@ function Games() {
                     <tr className={style.row}>
                         <th></th>
                         <th>Id</th>
-                        <th>Name</th>
-                        <th>Genre</th>
-                        <th>Developer</th>
-                        <th>Platform</th>
-                        <th>Price</th>
+                        <th>Nombre</th>
+                        <th>Género</th>
+                        <th>Desarrollador</th>
+                        <th>Plataforma</th>
+                        <th>Precio</th>
                         <th>Stock</th>
-                        <th>Discount</th>
+                        <th>Descuento</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,12 +124,13 @@ function Games() {
                 onPageChange={onPageChange}
             />
             <div className={style.containerMessage}>
-                <p><b>Didn't find what are looking for?</b> Some games may be hidden because of the filters you've selected.</p>
-                <button className={style.showGames} onClick={showAllGames}>Show all games</button>
+                <p><b>¿No encontraste lo que buscabas?</b> Es posible que algunos videojuegos
+          estén ocultas debido a los filtros que has seleccionado.</p>
+                <button className={style.showGames} onClick={showAllGames}>Mostrar todos los videojuegos</button>
                 {
                     activeGames.length !== 1 
-                    ? <small>{activeGames.length} games found</small>
-                    : <small>{activeGames.length} game found</small>
+                    ? <small>{activeGames.length} videojuegos encontrados</small>
+                    : <small>{activeGames.length} videojuego encontrado</small>
                 }
             </div>
         </div>

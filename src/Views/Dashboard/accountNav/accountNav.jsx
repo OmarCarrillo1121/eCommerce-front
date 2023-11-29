@@ -20,9 +20,9 @@ const AccountNav = () => {
        {/*<Links url={'dashboard'} img={dashIcon} name={'DashBoard'}/>*/}
        {/*<Links url={'settings'} img={settingIcon} name={'Settings'}/>*/}
        <Links url={'dashboard'} img={userIcon} name={'DashBoard'}/>
-       <Links url={'Orders/active'} img={shops} name={'Orders'}/>
+       <Links url={'Orders/active'} img={shops} name={'Ordenes'}/>
        {/*<Links url={'shops'} img={shops} name={'Shops'}/>*/}
-       <Links url={'insights'} img={dashIcon} name={'Insights'}/>
+       <Links url={'insights'} img={dashIcon} name={'Estadísticas'}/>
        <DashBoardCloseLogout/>
      </div>
     </nav>
