@@ -39,6 +39,27 @@
             preferenceId,
             shoppingCart,
             })
+            //!Despachar  una petición donde se envíe el carrito y el ID del usuario
+            
+            // const ROUTEPOSTORDERS =['http://localhost:3001/orders',"https://ecomercestorebacken.vercel.app/orders"];
+            // const postOrders = async (shopping) => {//!Shopping debe tener id y el carrito, el carrito debe traer solo los IDs de los productos
+            
+            //     try {
+            //         console.log(shopping)
+            //         const response = await axios.post(
+            //             ROUTEBACKMP[0],
+            //             shopping
+            //         );
+            
+            //         // Realiza la redirección al enlace de pago
+            //         window.location.href = response.data;
+            //     } catch (error) {
+            //         console.error("Error al procesar el pago:", error.message);
+            //         // Puedes manejar el error según tus necesidades
+            //     }
+            // };
+        
+
         );
         
     }, [dispatch, collectionStatus, merchantOrderId, paymentId, preferenceId, searchParams, shoppingCart, status]);
@@ -63,7 +84,10 @@
             <span>merchantOrderId: </span>
             {searchParams.get('merchant_order_id')} <br />
             <span>preferenceId: </span>
-            {searchParams.get('preference_id')}
+            {searchParams.get('preference_id')}<br />
+            <span>shoppingCart: </span>
+            {shoppingCart}<br />
+            
         </p>
         </div>
     );

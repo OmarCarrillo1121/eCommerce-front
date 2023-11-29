@@ -21,12 +21,12 @@ const Carrito = () => {
     
     //!Para enviar al back el pedido:
     //!!!!Pasar esto a las ACTIONS
-
+    const ROUTEBACKMP =['http://localhost:3001/MercadoPago',"https://ecomercestorebacken.vercel.app/MercadoPago"];
     const buyGames = async (productos) => {
         try {
             console.log(productos)
             const response = await axios.post(
-                "http://localhost:4000/Mercado_pago",
+                ROUTEBACKMP[0],
                 productos
             );
     
