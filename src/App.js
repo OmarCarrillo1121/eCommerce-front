@@ -31,7 +31,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase-config";
 import Contact from "./Views/Contact/Contact";
 import AboutUs from "./Views/AboutUs/AboutUs";
-import { authUser } from "./redux/actions";
+import { authUserData } from "./redux/actions";
 import Carrito from "./components/Carrito/Carrito";
 import SuccessBuy from "./components/SuccessBuy/SuccessBuy";
 import FailureBuy from "./components/FailureBuy/FailureBuy";
@@ -40,15 +40,10 @@ function App() {
   const location = useLocation();
   const { viewportWidth } = useWindow();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
-    });
-  }, []);
-
-  const [items, setItems] = useState([1, 2, 3]);
+  const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
 
   const [isAdmin, setIsAdmin] = useState(true);
+  const [isLogged, setIsLogged] = useState(true);
 
   // useEffect(() => {
   //   localStorage.setItem("items", JSON.stringify(items));
@@ -63,9 +58,24 @@ function App() {
 
   useEffect(() => {
     const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
-    authUser(authUserFromLS);
+    authUserData(authUserFromLS);
   }, []);
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     if (userInfo.rol === "admin") {
+  //       localStorage.setItem("isAdmin", JSON.stringify(true));
+  //     } else {
+  //       localStorage.setItem("isAdmin", JSON.stringify(false));
+  //     }
+  //   }
+  // }, []);
   //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
 
   return (
@@ -95,6 +105,8 @@ function App() {
         <Route path="/successes" element={<SuccessBuy />} />
         <Route path="/failures" element={<FailureBuy />} />
         {/* //!Edward */}
+        {isLogged ? <></> : <></>}
+
         {isAdmin ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />

@@ -43,8 +43,28 @@ const Services = () => {
     const userEmail = userCredentials.user.email;
     const response = await searchUserByMail(userEmail);
     if (response === "failure") {
-      console.log("Todo mal");
+      const postedUserInfo = {
+        name: userCredentials.user.displayName,
+        email: userCredentials.user.email,
+        password: userCredentials.user.uid,
+        image: userCredentials.user.photoURL,
+        google: true,
+      };
+      await axios
+        .post(`${URL_GAMES}/users`, postedUserInfo)
+        .then((res) =>
+          localStorage.setItem("authUserInfo", JSON.stringify(res.data))
+        );
+      alert("¡Inicio de sesión exitoso!");
+      navigate("/");
     } else {
+      // const userInfo = response.data;
+      // dispatch(authUser(userInfo));
+      // dispatch(saveStateToLocalStorage(userInfo));
+      // setStoredAuthUserInfo(userInfo);
+      // alert("¡Logueado con éxito!");
+      // console.log("Secret");
+      // navigate("/");
       const userInfo = response.data;
       // dispatch(authUser(userInfo));
       // dispatch(saveStateToLocalStorage(userInfo));
@@ -123,6 +143,7 @@ const Services = () => {
     //   setError(error.message);
     //   alert(error.message);
     // }
+    return "success";
   };
 
   return (

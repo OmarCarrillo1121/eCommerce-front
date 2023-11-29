@@ -17,22 +17,22 @@ function Info({user, closeInfo, unbanToUser, banToUser, viewMore}){
                     </div>
                     <div className={style.containerInfo}>
                         <div className={style.details}>
-                            <p><span>Role:</span>&nbsp;&nbsp;<b>{user.rol}</b></p>
+                            <p><span>Role</span>&nbsp;&nbsp;<b>{user.rol}</b></p>
                             <p><span>Email:</span>&nbsp;&nbsp;<b>{user.email}</b></p>
-                            <p><span>Address:</span>&nbsp;&nbsp;<b>{user.address}</b></p>
+                            <p><span>Dirección:</span>&nbsp;&nbsp;<b>{user.address}</b></p>
                         </div>
                         <div className={style.btnStatus}>
                             {
                                 user.banned 
-                                ?   <button onClick={() => unbanToUser(user.id)}>UnBan</button>
-                                :   <button onClick={() => banToUser(user.id)}>Ban</button>
+                                ?   <button onClick={() => unbanToUser(user.id)}>Desbanear</button>
+                                :   <button onClick={() => banToUser(user.id)}>Banear</button>
                             }
                         </div>
                         <div className={style.containerBtn}>
                             <div className={`${style.btn} ${style.btn2}`} id="button-2">
                                 <div className={style.slideBtn}></div>
                                 <NavLink className={style.view} to={`/user/${user.id}`}>
-                                    View more <small>{viewMore}</small>
+                                    Ver más <small>{viewMore}</small>
                                 </NavLink>
                             </div>
                         </div>

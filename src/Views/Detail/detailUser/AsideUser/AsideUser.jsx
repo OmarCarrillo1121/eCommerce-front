@@ -7,8 +7,12 @@ function AsideUser({user}) {
     return (<>  
         <aside className={style.aside}>
             <div>
+                <img src={dashIcon} alt="dashboard" />
+                <NavLink className={style.catalogo} to={'/dashboard/dashboard'}>Dashboard</NavLink>
+            </div>
+            <div>
                 <img src={homeIcon} alt="home" />
-                <NavLink className={style.catalogo} to={'/'}>Home</NavLink>
+                <NavLink className={style.catalogo} to={'/catalogo'}>Catalogo</NavLink>
             </div>
         </aside>
     </>);

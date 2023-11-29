@@ -6,12 +6,12 @@ function Rol({user, closeEditRol, changeRol, updatedUser}) {
                 <div className={style.editRol}>
                     <div className={style.containerEditUser}>
                         <button onClick={closeEditRol}>X</button>
-                        <strong>Do you want to change the role of {user.name}?</strong>
+                        <strong>¿Quieres cambiar el rol {user.name}?</strong>
                         <select name="rol" onChange={changeRol} value={user.rol}>
-                            <option value="admin">admin</option>
-                            <option value="user">user</option>
+                            <option value="admin">Administrador</option>
+                            <option value="user">Usuario</option>
                         </select>
-                        <button onClick={updatedUser} className={style.updateBtn}>Save</button>
+                        <button onClick={updatedUser} className={style.updateBtn}>Guardar</button>
                     </div>
                 </div> 
         </div>
