@@ -1,5 +1,6 @@
 export const LOADING = "LOADING";
-export const URL_GAMES = "https://ecomercestorebacken.vercel.app";
+//export const URL_GAMES = "https://ecomercestorebacken.vercel.app";
+export const URL_GAMES = "http://localhost:3001";
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_BY_NAME_GAMES = "GET_BY_NAME_GAMES";
 export const GET_BY_ID_GAMES = "GET_BY_ID_GAMES";
@@ -40,4 +41,9 @@ export const CANCELED_ORDER = "CANCELED_ORDER";
 export const GET_ORDER_CANCELLED = "GET_ORDER_CANCELLED";
 export const RESTORE_ORDER = "RESTORE_ORDER";
 export const GET_ORDER_ACTIVE = "GET_ORDER_ACTIVE";
+export const GET_ORDERS_BY_USER ="GET_ORDERS_BY_USER";
+
+export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER";
+export const RESET_DETAIL_REVIEWS_USER = "RESET_DETAIL_REVIEWS_USER";
+
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";

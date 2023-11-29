@@ -21,6 +21,8 @@ import DetailOrders from "./Views/Dashboard/accountNav/links/dashboard/DetailOrd
 import CancelledOrders from "./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
 import ActiveOrders from "./Views/Dashboard/accountNav/links/ActiveOrders/ActiveOrders";
 
+import MyProfile from "./Views/MyProfile/MyProfile";
+
 import "./App.css";
 import DetailUser from "./Views/Detail/detailUser/DetailUser";
 import Checkout from "./Views/Checkout/checkout";
@@ -31,6 +33,7 @@ import { auth } from "./config/firebase-config";
 import Contact from "./Views/Contact/Contact";
 import AboutUs from "./Views/AboutUs/AboutUs";
 import { authUser } from "./redux/actions";
+
 
 function App() {
   const location = useLocation();
@@ -83,6 +86,9 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/register" element={<Register />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/myProfile/:id" element={<MyProfile/>}/>
+        
+
         <Route path="/user/:id" element={<DetailUser />} />
         <Route path="/checkout" element={<Checkout />} />
         {isAdmin ? (

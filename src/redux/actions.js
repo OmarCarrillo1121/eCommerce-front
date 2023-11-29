@@ -38,6 +38,9 @@ import {
   DELETE_VIDEOGAME,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  GET_ORDERS_BY_USER,
+  GET_REVIEWS_BY_USER,
+  RESET_DETAIL_REVIEWS_USER,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -495,6 +498,41 @@ export const getByIdOrders = (id) => {
 export const resetDetailOrders = () => {
   return { type: RESET_DETAIL_ORDERS, payload: [] };
 };
+
+//👀👀👀
+export const getOrdersByUserId = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL_GAMES}/orders/user/${id}`);
+      console.log(response.data);
+      return dispatch({
+        type: GET_ORDERS_BY_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+};
+
+/*❤GET REVIEWS BY USER */
+export const getReviewsByUser = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/user/${id}`)
+      return dispatch({
+        type: GET_REVIEWS_BY_USER,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+export const resetDetailReviewsUser = () => {
+  return { type: RESET_DETAIL_REVIEWS_USER, payload: [] };
+};
+
 
 /* AUTH_USER */
 export const authUser = (user) => {

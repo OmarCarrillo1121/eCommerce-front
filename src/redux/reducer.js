@@ -34,6 +34,9 @@ import {
   DELETED_VIDEOGAMES,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  GET_ORDERS_BY_USER,
+  GET_REVIEWS_BY_USER,
+  RESET_DETAIL_REVIEWS_USER,
 } from "./action-types";
 
 const initialState = {
@@ -56,6 +59,7 @@ const initialState = {
   statusFilter: "all",
   rolFilter: "All roles",
   authUser: {},
+  reviewsByUser: [],
   currentPage: 1,
 
   //Orders:
@@ -64,6 +68,7 @@ const initialState = {
   detailOrders: {},
   canceledOrder: [],
   activeOrder: [],
+  orderUser: [],
 
   loading: true,
 };
@@ -389,6 +394,20 @@ const reducer = (state = initialState, action) => {
         currentPage: action.payload,
       };
     }
+
+    case GET_REVIEWS_BY_USER: {
+      return {
+        ...state,
+        reviewsByUser: action.payload
+      }
+    }
+    case RESET_DETAIL_REVIEWS_USER:{
+      return {
+        ...state,
+        reviewsByUser:[...action.payload],
+      }
+    }
+
     /////////////////////////////////////////////////////////
     /* GET ALL ORDERS❤ */
     case GET_ORDERS: {
@@ -398,6 +417,18 @@ const reducer = (state = initialState, action) => {
         allOrders: [...action.payload],
       };
     }
+
+    case GET_ORDERS_BY_USER: {
+      return {
+        ...state,
+        orderUser: [...action.payload],
+      }
+     }
+        case RESET_DETAIL_ORDERS:
+            return {
+              ...state,
+              orderUser: [...action.payload],
+            };
 
     /*GET ORDERS BY ID❤ */
     case GET_BY_ID_ORDERS:
