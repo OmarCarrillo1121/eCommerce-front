@@ -1,50 +1,49 @@
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
-}
-
 .cardContainer {
-    background-color: white;
-    font-family: sans-serif;
-    width: 231px;
-    height: 282.8px;
+    width: 250px;
+    margin: 20px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-}
-
-.cardImg {
-    width: 231px;
-    height: 282.8px;
+    overflow: hidden;
+    transition: transform 0.3s;
     padding: 10px;
-}
-
-.cardContainer:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    animation: bounce 0.8s 1; 
-}
-
-.cardText {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: white;
-    border-radius: 8px;
-}
-
-.cardTextName {
+  }
+  
+  .cardContainer:hover {
+    transform: scale(1.05);
+  }
+  
+  .card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .descuento {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .card_price {
+    padding: 10px;
+  }
+  
+  .card_name {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .card_price h2 {
+    margin: 0;
     color: #333;
-    font-size: 18px;
-}
-
-.cardTextPrice {
-    color: #ff5722;
-    font-size: 16px;
-    font-weight: bold;
-}
+  }
