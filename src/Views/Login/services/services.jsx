@@ -11,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../../util/hook/localStorage/localStorage.js";
+import { authUserData } from "../../../redux/actions.js";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -50,13 +51,13 @@ const Services = () => {
         image: userCredentials.user.photoURL,
         google: true,
       };
-      await axios
-        .post(`${URL_GAMES}/users`, postedUserInfo)
-        .then((res) =>
-          localStorage.setItem("authUserInfo", JSON.stringify(res.data))
-        );
+      await axios.post(`${URL_GAMES}/users`, postedUserInfo).then(
+        (res) => dispatch(authUserData(res.data))
+        //localStorage.setItem("authUserInfo", JSON.stringify(res.data))
+      );
       alert("¡Inicio de sesión exitoso!");
       navigate("/");
+      navigate(0);
     } else {
       // const userInfo = response.data;
       // dispatch(authUser(userInfo));
@@ -66,12 +67,13 @@ const Services = () => {
       // console.log("Secret");
       // navigate("/");
       const userInfo = response.data;
+      dispatch(authUserData(userInfo[0]));
       // dispatch(authUser(userInfo));
       // dispatch(saveStateToLocalStorage(userInfo));
       // setStoredAuthUserInfo(userInfo);
-      localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
       alert("¡Logueado con éxito!");
       navigate("/");
+      navigate(0);
     }
     return response;
   };

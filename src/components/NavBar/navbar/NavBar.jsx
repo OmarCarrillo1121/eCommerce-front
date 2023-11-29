@@ -18,68 +18,24 @@ const NavBar = () => {
   const { scrollY } = useScroll();
   const dispatch = useDispatch();
   const clearLocalStorage = useLocalStorageCleaner("authUserInfo");
-  const [userRol, setUserRol] = useState("");
   const [userData, setUserData] = useState("");
-
-  const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
-
-  const isLogged = () => {
-    if (userInfo) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const isAdmin = () => {
-    if (userInfo) {
-      if (userInfo.rol === "admin") {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  };
-
-  const userId = () => {
-    if (userInfo) {
-      return userInfo.id;
-    } else {
-      return false;
-    }
-  };
-
-  // const userRol = () => {
-  //   if (userInfo) {
-  //     const usrRol = userInfo[0].rol;
-  //     return usrRol;
-  //   }
-  // };
+  const { user } = useSelector((state) => state);
 
   const logout = async () => {
     await signOut(auth);
     dispatch(authUserData(null));
     clearLocalStorage();
     navigate("/");
+    navigate(0);
   };
 
   useEffect(() => {
-    if (userInfo) {
-      setUserRol(userInfo.rol);
-      setUserData(userInfo);
+    if (user) {
+      setUserData(user);
     }
-  }, []);
+  }, [user]);
 
-  useEffect(() => {
-    if (userInfo) {
-      setUserRol(userInfo.rol);
-      setUserData(userInfo);
-    }
-  }, [userRol]);
-
-  // console.log(userRol);
-  // console.log(userData);
-  // console.log(userInfo);
+  console.log(userData);
 
   return (
     <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
@@ -95,10 +51,10 @@ const NavBar = () => {
         />
         <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
         {/* //!EDWARD */}
-        {isLogged() ? (
+        {userData.rol === "user" ? (
           <div className={Style.nav_icon}>
-            <p className={Style.nav_name}>{userInfo.name}</p>
-            {isAdmin() ? (
+            <p className={Style.nav_name}>{userData.name}</p>
+            {userData.rol === "admin" ? (
               <button
                 className={Style.form_button}
                 style={{
@@ -114,7 +70,7 @@ const NavBar = () => {
                 style={{
                   width: `100px`,
                 }}
-                onClick={() => navigate("/user/:1")}
+                onClick={() => navigate(`/user/`)}
               >
                 Mi Perfil
               </button>

@@ -77,10 +77,10 @@ const initialState = {
   bannedUsersOfi: [],
   adminsFiltered: [],
   usersFilteredO: [],
-  user: {},
+  user: null,
   statusFilter: "all",
   rolFilter: "All roles",
-  authUser: {},
+  authUser: null,
   currentPage: 1,
 
   allReviews: [],
@@ -801,7 +801,8 @@ const reducer = (state = initialState, action) => {
     case AUTH_USER_DATA:
       return {
         ...state,
-        authUser: { ...action.payload },
+        authUser: action.payload,
+        user: action.payload,
       };
 
     case POST_USER: {
