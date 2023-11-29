@@ -19,7 +19,8 @@
     border: none;
     text-align: end;
     padding-right: 2px;
-    width: 40px;
+    width: 140px;
+    padding: 20px 0;
 }
 .tabletReviews .containerSelect select option {
     background-color: #e3dbdb;
@@ -300,4 +301,41 @@
 .containerMessage p {
     color: black;
     font-size: 12px;
+}
+.containerInfo {
+    /* background-color: red; */
+    position: relative;
+}
+.containerInfo small {
+    position: absolute;
+    bottom: 2.5%;
+    font-size: 12px;
+    left: 1%;
+}
+.containerInfo button {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    color: rgba(17, 25, 40);
+    background-color: #fff;
+    padding: 2px 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(17, 25, 40);
+    transition: all .3s ease-in-out;
+}
+.containerInfo button:hover{
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    /* transform: scale(1.1); */
+}
+.details {
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+.details p {
+    font-size: 15px;
+    margin: 0;
 }

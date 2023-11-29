@@ -164,6 +164,8 @@ const reducer = (state = initialState, action) => {
       return newStateGetAllGames;
 
     case GET_BY_NAME_GAMES:
+      state.allGames = action.payload
+
       const newStateGetByNameGames = {
         ...state,
         allGames: action.payload,

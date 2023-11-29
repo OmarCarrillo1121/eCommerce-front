@@ -19,7 +19,8 @@
     border: none;
     text-align: end;
     padding-right: 2px;
-    width: 40px;
+    width: 150px;
+    padding: 20px 0;
 }
 .tabletBanners .containerSelect select option {
     background-color: #e3dbdb;
@@ -300,4 +301,19 @@
 .containerMessage p {
     color: black;
     font-size: 12px;
+}
+.addGame {
+    position: absolute;
+    right: 1.5%;
+    top: 3%;
+    color: rgba(17, 25, 40);
+    padding: 6px 7px;
+    transition: all .3s ease-in-out;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+.addGame:hover {
+    background-color: rgba(17, 25, 40);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    color: #fff;
 }

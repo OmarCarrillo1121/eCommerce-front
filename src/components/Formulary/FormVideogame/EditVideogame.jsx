@@ -20,7 +20,7 @@ function EditVideogame() {
     const discount = [];
 
 
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 0; i < 100; i++) {
         stock.push(i)
     }
 
@@ -96,10 +96,15 @@ function EditVideogame() {
         }))
         setImage(detailGame.image)
         setEditedVideogame({...detailGame})
+        console.log("hola");
 
         navigate('/dashboard/dashboard')
     }
 
+    useEffect(()=> {
+        console.log(errors);
+        console.log(editedVideogame);
+    })
 
     return (  
         <div className={style.container}>
@@ -251,11 +256,10 @@ function EditVideogame() {
                         !editedVideogame.image ||
                         !editedVideogame.developer ||
                         !editedVideogame.platform ||
-                        !editedVideogame.price || 
-                        !editedVideogame.stock  
+                        !editedVideogame.price 
                         ? true : false}
                 >Submit</button>
-                <button className={style.btnBack} onClick={backDashboard}>➯</button>
+                <button className={style.btnBack} onClick={backDashboard} type="button">➯</button>
             </form>
         </div>
     );

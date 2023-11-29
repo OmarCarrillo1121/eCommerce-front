@@ -30,11 +30,11 @@ function Insights() {
         activeGames,
     ]
     const componentDescription = [
-        "Total users",
-        "Total orders",
-        "Total banners",
-        "Total reviews",
-        "Total videogames",
+        "Usuarios totales",
+        "Ordenes totales",
+        "Banners totales",
+        "Reseñas totales",
+        "Videojuegos totales",
     ]
 
     const handleComponentClick = (index) => {
@@ -55,7 +55,7 @@ function Insights() {
             <div className={style.tablet}>
                 <nav className={style.navbar}>
                     <div className={style.title}>
-                        <h1>Insights</h1>
+                        <h1>Estadísticas</h1>
                     </div>
                     <div className={style.insights}>
                         {
