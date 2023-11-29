@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserById, updateUser } from "../../../redux/actions";
+import { getByGamesDetail, getByName, getOrderByIdUser, getReviewsByUser, getUserById, updateUser } from "../../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom";
 import style from './detailUser.module.css'
@@ -10,14 +10,14 @@ import { validation } from './validation.js';
 function DetailUser() {
     const dispatch = useDispatch()
     const { id } = useParams()
-    const { user } = useSelector((state) => state)
+    const { user, ordersUser, reviewsByUser} = useSelector((state) => state)
     const [ newUser, setNewUser ] = useState({})
     const [ errors, setErrors ] = useState({})
 
     const [ imgTime, setImgTime ] = useState(false)
     const [ newImg, setNewImg ] = useState("")
     const [ infoTime, setInfoTime ] = useState(false)
-
+    const [ orderTime, setorderTime] = useState(false)
     /* UPDATE IMAGE FUNCTIONS */
 
     const openEditImgUser = (user) => {
@@ -113,7 +113,9 @@ function DetailUser() {
 
     useEffect(() => {
         dispatch(getUserById(id))
-    }, [user])
+        dispatch(getOrderByIdUser(id))
+        dispatch(getReviewsByUser(id))
+    }, [])
 
     return (<>  
         <div className={style.bigContainer}>
@@ -135,7 +137,7 @@ function DetailUser() {
                     <div className={style.subtitles}>
                         <p>OVERVIEW</p>
                         <h2>
-                            {user.rol === "user" ? "User" : "Admin"} Profile
+                            Perfil del {user.rol === "user" ? "Usuaio" : "Administrador"}
                         </h2>
                     </div>
                     <div className={style.divsInfo}>
@@ -159,32 +161,38 @@ function DetailUser() {
                                 <div>
                                     <h3>{user.name}</h3>
                                     <small>
-                                        {user.rol === 'user' ? "User" : "Admin"}
+                                        {user.rol === 'user' ? "Usuario" : "Administrador"}
                                     </small>
                                 </div>
                             </div>
                             <div className={style.partLeftSecond}>
-                                <h4>Reviews</h4>
+                                <h4>Reseñas</h4>
                                 <div>
-                                    {user.reviews ? <div>reviews</div> : <p>This user has not submitted any reviews</p>}
+                                    {
+                                        reviewsByUser && reviewsByUser.length > 0
+                                        ? <div className={style.reviews}>
+                                            <p>Este usuario ha hecho {reviewsByUser.length} reseñas sobre nuestros videojuegos</p>
+                                        </div> 
+                                        : <p>Este usuario no ha realizado reseñas.</p>
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div className={style.divInfoRight}>
                             <div className={style.titleDetails}>
-                                <h2>Account Details</h2>
+                                <h2>Detalles de la cuenta</h2>
                                 <button onClick={() => openEditUser(user)}>✎</button>
                             </div>
                             <div className={style.details}>
                                 <div className={style.namePassword}>
                                     <div className={style.containerName}>
-                                        <h4>Full Name</h4>
+                                        <h4>Nombre y/o apellidos</h4>
                                         <div className={style.containerData}>
                                             <span>{user.name}</span>
                                         </div>
                                     </div>
                                     <div className={style.containerPassword}>
-                                        <h4>Password</h4>
+                                        <h4>Contraseña</h4>
                                         <div className={style.containerData}>
                                             <b className={style.password}>{user.password}</b>
                                         </div>
@@ -197,7 +205,7 @@ function DetailUser() {
                                     </div>
                                 </div>
                                 <div className={style.containerAddress}>
-                                    <h4>Address</h4>
+                                    <h4>Dirección</h4>
                                     <div className={style.containerData2}>
                                         <span>{user.address}</span>
                                     </div>
@@ -205,12 +213,26 @@ function DetailUser() {
                                 {
                                     user.rol === 'user' 
                                     ?    <div className={style.containerPurchase}>
-                                            <h4>Purchased Products</h4>
+                                            <h4>Compras realizadas</h4>
                                             <div className={style.orders}>
                                                 {
-                                                    user.orders ? "ok" 
+                                                    ordersUser && ordersUser.length > 0 
+                                                    ? <div className={style.containerOrders}>
+                                                        {
+                                                            ordersUser.map((order) => {
+                                                                order.products && order.products.length > 0 
+                                                                ? order.products.map((product) => {
+                                                                    return(<div>
+                                                                        <p>{product.name}</p>
+                                                                        <small>{product.price}</small>
+                                                                        <button>🛈</button>
+                                                                    </div>)
+                                                                }) : null
+                                                            })
+                                                        }
+                                                    </div> 
                                                     : <div className={style.noOrders}>
-                                                        <p>This user has not made any purchases here yet.</p>
+                                                        <p>Este usuario no ha realizado ninguna compra.</p>
                                                     </div> 
                                                 }
                                             </div>
@@ -223,6 +245,11 @@ function DetailUser() {
                 </div>
             </main>
         </div>
+        {
+            orderTime && <div className={style.overlay}>
+
+            </div>
+        }
         {
             imgTime && <div className={style.overlay}>
                 <div className={style.openImg}>

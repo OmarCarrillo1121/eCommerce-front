@@ -200,3 +200,7 @@
     background-color: #fff;
     color: rgba(17, 25, 40);
 }
+.containerMessage p {
+    color: black;
+    font-size: 12px;
+}

@@ -27,6 +27,8 @@ export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const POST_USER = "POST_USER";
 export const AUTH_USER = "AUTH_USER";
 
+export const GET_REVIEWS_BY_USER = "GET_REVIEWS_BY_USER"
+
 //!EDWARD
 export const ORDER = "ORDER";
 export const FILTER_PLATFORM = "FILTER_PLATFORM";
@@ -47,6 +49,7 @@ export const CANCELED_ORDER = "CANCELED_ORDER";
 export const GET_ORDER_CANCELLED = "GET_ORDER_CANCELLED";
 export const RESTORE_ORDER = "RESTORE_ORDER";
 export const GET_ORDER_ACTIVE = "GET_ORDER_ACTIVE";
+export const GET_ORDERS_BY_ID_USER = "GET_ORDERS_BY_ID_USER"
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 //REVIEWS

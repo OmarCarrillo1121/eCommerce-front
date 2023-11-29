@@ -297,3 +297,7 @@
 .btn2:hover .view {
     color: #2D3142;
 }
+.containerMessage p {
+    color: black;
+    font-size: 12px;
+}

@@ -319,3 +319,19 @@
 .btn2:hover .view {
     color: #2D3142;
 }
+.containerMessage p {
+    color: black;
+    font-size: 12px;
+}
+.details {
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.details p {
+    font-size: 13px;
+    color: black;
+    margin: 0;
+}

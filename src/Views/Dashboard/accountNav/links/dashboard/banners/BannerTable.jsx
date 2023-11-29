@@ -11,7 +11,7 @@ import {
 import style from "./bannerTable.module.css";
 import NotBanners from "./notBanners/NotBanners";
 import Select from "./selects/Select";
-import Info from "./Info/Info";
+import Info from "./info/Info"
 import Pagination from "../pagination/Pagination";
 import { NavLink } from 'react-router-dom'
 

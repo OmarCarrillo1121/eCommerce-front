@@ -68,6 +68,8 @@ import {
   SET_SHOPPING_CART,
   ADD_REJECTED_PURCHASE,
   ADD_SUCCESSFUL_PURCHASE,
+  GET_ORDERS_BY_ID_USER,
+  GET_REVIEWS_BY_USER,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -472,6 +474,22 @@ export const fetchReviewsFailure = (error) => ({
   payload: error,
 });
 
+/* GET REVIEWS BY USER */
+export const getReviewsByUser = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/user/${id}`)
+
+      return dispatch({
+        type: GET_REVIEWS_BY_USER,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
 /* GET ALL BANNERS */
 export const getAllBanners = () => {
   return async (dispatch) => {
@@ -727,7 +745,6 @@ export const getByIdOrders = (id) => {
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL_GAMES}/orders/${id}`);
-      console.log(response.data);
       return dispatch({
         type: GET_BY_ID_ORDERS,
         payload: response.data,
@@ -737,6 +754,24 @@ export const getByIdOrders = (id) => {
     }
   };
 };
+
+/* GET ORDERS OF USER BY ID */
+export const getOrderByIdUser = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL_GAMES}/orders/user/${id}`)
+
+      return dispatch({
+        type: GET_ORDERS_BY_ID_USER,
+        payload: response.data
+      })
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
 export const resetDetailOrders = () => {
   return { type: RESET_DETAIL_ORDERS, payload: [] };
 };
