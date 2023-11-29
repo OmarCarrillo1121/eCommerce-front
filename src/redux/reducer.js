@@ -40,7 +40,6 @@ import {
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
-  AUTH_USER,
   SET_CURRENT_PAGE,
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
@@ -56,6 +55,10 @@ import {
   GET_ORDERS_BY_ID_USER,
   GET_REVIEWS_BY_USER,
   GET_REVIEWS_OF_GAME,
+  //AUTH
+  IS_LOGGED,
+  IS_ADMIN,
+  AUTH_USER_DATA,
 } from "./action-types";
 
 const initialState = {
@@ -105,13 +108,13 @@ const initialState = {
   activeOrder: [],
   ordersUser: [],
 
-    //! Carrito-Edward
-    shoppingCart: [], //Acá traigo todos los productos que voy a comprar
-    //! Historial de Compras:
-    shopping: {
-        approved: [],
-        rejected: [],
-    },
+  //! Carrito-Edward
+  shoppingCart: [], //Acá traigo todos los productos que voy a comprar
+  //! Historial de Compras:
+  shopping: {
+    approved: [],
+    rejected: [],
+  },
 
   loading: true,
 
@@ -132,7 +135,6 @@ const saveStateToLocalStorage = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-
     case FETCH_REVIEWS_REQUEST:
       return {
         ...state,
@@ -733,15 +735,15 @@ const reducer = (state = initialState, action) => {
     case GET_ORDERS_BY_ID_USER: {
       return {
         ...state,
-        ordersUser: action.payload
-      }
+        ordersUser: action.payload,
+      };
     }
 
     case GET_REVIEWS_BY_USER: {
       return {
         ...state,
-        reviewsByUser: action.payload
-      }
+        reviewsByUser: action.payload,
+      };
     }
     //////////////////////////////////////////////////////////////////
 
@@ -795,12 +797,12 @@ const reducer = (state = initialState, action) => {
 
     //!FIN EDWARD
 
-    case AUTH_USER: {
+    //AUTH_USER
+    case AUTH_USER_DATA:
       return {
         ...state,
         authUser: { ...action.payload },
       };
-    }
 
     case POST_USER: {
       const newState = {
