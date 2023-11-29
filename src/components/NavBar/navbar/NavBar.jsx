@@ -8,7 +8,7 @@ import categoryIcon from "../../../Assets/img/icon/menu/categoria.png";
 import { useScroll } from "../../../util/hook/landing/useScroll";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../config/firebase-config";
-import { authUser } from "../../../redux/actions.js";
+import { authUserData } from "../../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import useLocalStorageCleaner from "../../../util/hook/clearLocalstorage/useLocalStorageClear.js";
@@ -33,7 +33,7 @@ const NavBar = () => {
 
   const isAdmin = () => {
     if (userInfo) {
-      if (userInfo[0].rol === "admin") {
+      if (userInfo.rol === "admin") {
         return true;
       } else {
         return false;
@@ -43,7 +43,7 @@ const NavBar = () => {
 
   const userId = () => {
     if (userInfo) {
-      return userInfo[0].id;
+      return userInfo.id;
     } else {
       return false;
     }
@@ -58,20 +58,28 @@ const NavBar = () => {
 
   const logout = async () => {
     await signOut(auth);
-    dispatch(authUser(null));
+    dispatch(authUserData(null));
     clearLocalStorage();
     navigate("/");
   };
 
   useEffect(() => {
     if (userInfo) {
-      setUserRol(userInfo[0].rol);
-      setUserData(userInfo[0]);
+      setUserRol(userInfo.rol);
+      setUserData(userInfo);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userInfo) {
+      setUserRol(userInfo.rol);
+      setUserData(userInfo);
     }
   }, [userRol]);
 
-  //console.log(userRol);
-  console.log(userData);
+  // console.log(userRol);
+  // console.log(userData);
+  // console.log(userInfo);
 
   return (
     <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
@@ -89,7 +97,7 @@ const NavBar = () => {
         {/* //!EDWARD */}
         {isLogged() ? (
           <div className={Style.nav_icon}>
-            <p>{userInfo[0].name}</p>
+            <p className={Style.nav_name}>{userInfo.name}</p>
             {isAdmin() ? (
               <button
                 className={Style.form_button}
@@ -134,7 +142,7 @@ const NavBar = () => {
               {" "}
               Iniciar sesión{" "}
             </button>
-            <button
+            {/* <button
               className={Style.form_button}
               style={{
                 width: `100px`,
@@ -143,7 +151,7 @@ const NavBar = () => {
             >
               {" "}
               Registrarse{" "}
-            </button>
+            </button> */}
           </div>
         )}
       </div>
