@@ -64,11 +64,6 @@ import {
   SET_CURRENT_PAGE,
   POST_USER,
   GET_ALL_BANNED_USERS,
-  GET_ACTIVE_VIDEOGAMES,
-  DELETED_VIDEOGAMES,
-  DELETE_VIDEOGAME,
-  RESTORE_VIDEOGAME,
-  GET_USER_BY_EMAIL,
   GET_ORDERS_BY_USER,
   GET_REVIEWS_BY_USER,
   RESET_DETAIL_REVIEWS_USER,
@@ -79,7 +74,6 @@ import {
   ADD_REJECTED_PURCHASE,
   ADD_SUCCESSFUL_PURCHASE,
   GET_ORDERS_BY_ID_USER,
-  GET_REVIEWS_BY_USER,
 
   //AUTH
   IS_LOGGED,
@@ -835,20 +829,6 @@ export const getOrdersByUserId = (id) => {
   };
 };
 
-/*❤GET REVIEWS BY USER */
-export const getReviewsByUser = (id) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`${URL_GAMES}/reviews/user/${id}`)
-      return dispatch({
-        type: GET_REVIEWS_BY_USER,
-        payload: response.data
-      })
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
 export const resetDetailReviewsUser = () => {
   return { type: RESET_DETAIL_REVIEWS_USER, payload: [] };
 };
