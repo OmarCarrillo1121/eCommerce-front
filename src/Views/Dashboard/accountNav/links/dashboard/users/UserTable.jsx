@@ -161,7 +161,7 @@ const UserTable = () => {
     return (<>
     <div className={style.tabletUsers}>
         <div className={style.searchbar}>
-            <input  type="text" value={name} onChange={lookAtName} placeholder="Search for a user"/>
+            <input  type="text" value={name} onChange={lookAtName} placeholder="Busca un nombre"/>
             <button onClick={searchToUser}>🔍︎</button>
         </div>
         <Select
@@ -173,10 +173,10 @@ const UserTable = () => {
                 <tr className={style.row}>
                     <th></th>
                     <th>Rol</th>
-                    <th>Name</th>
+                    <th>Nombre</th>
                     <th>Email</th>
-                    <th>Address</th>
-                    <th>Status</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
                     <th>Info</th>
                 </tr>
             </thead>
@@ -192,7 +192,7 @@ const UserTable = () => {
                                     <button onClick={() => openEditRol(user)}>✎</button>
                                 </td>
                                 <td>
-                                    {user.rol}
+                                    {user.rol === 'user' ? 'Usuario': "Administrador"}
                                 </td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
@@ -200,8 +200,8 @@ const UserTable = () => {
                                 <td>
                                     {
                                         user.banned 
-                                        ? 'Banned'
-                                        : 'Active'
+                                        ? 'Baneado'
+                                        : 'Activo'
                                     }
                                 </td>
                                 <td><button onClick={() => openInfo(user)}>🛈</button></td>
@@ -218,12 +218,13 @@ const UserTable = () => {
             onPageChange={onPageChange}
         />
         <div className={style.containerMessage}>
-            <p><b>Didn't find what are looking for?</b> Some users may be hidden because of the filters you've selected.</p>
-            <button className={style.showUsers} onClick={showAllUsers}>Show all users</button>
+            <p><b>¿No encontraste lo que buscabas?</b> Es posible que algunos usuarios
+          estén ocultas debido a los filtros que has seleccionado.</p>
+            <button className={style.showUsers} onClick={showAllUsers}>Mostrar todos los usuarios</button>
             {
                 users.length !== 1 
-                ? <small>{users.length} users found</small>
-                : <small>{users.length} user found</small>
+                ? <small>{users.length} usuarios encontrados</small>
+                : <small>{users.length} usuario encontrado</small>
             }
         </div>
     </div>

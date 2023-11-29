@@ -36,10 +36,10 @@ export const DashBoardCloseLogout = () => {
     return (
       <div onClick={() => console.log('logout')}>
         <div style={{position: 'absolute', bottom: 0, left: 0}}>
-            <Links img={logoutIcon} name={'Logout'}/>
+            <Links img={logoutIcon} name={'Cerrar sesión'}/>
         </div>
         <div style={{position: 'absolute', bottom: 0, right: 10 + 'px'}} onClick={() => navigate('/')}>
-            <Links img={closeIcon} name={'Close'}/>
+            <Links img={closeIcon} name={'Cerrar'}/>
         </div>
       </div>
     )

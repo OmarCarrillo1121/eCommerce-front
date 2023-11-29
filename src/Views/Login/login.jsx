@@ -12,7 +12,7 @@ import Middle from "./middle/middle";
 import Services from "./services/services";
 import { auth } from "../../config/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { authUser, saveStateToLocalStorage } from "../../redux/actions.js";
+import { authUserData, saveStateToLocalStorage } from "../../redux/actions.js";
 import { useDispatch } from "react-redux";
 import { useLocalStorage } from "../../util/hook/localStorage/localStorage";
 
@@ -26,13 +26,13 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
-  //const URL_GAMES = "https://ecomercestorebacken.vercel.app";
-  const URL_GAMES = "http://localhost:3001";
+  const URL_GAMES = "https://ecomercestorebacken.vercel.app";
+  // const URL_GAMES = "http://localhost:3001";
 
-  const [storedAuthUserInfo, setStoredAuthUserInfo] = useLocalStorage(
-    "authUserInfo",
-    null
-  );
+  // const [storedAuthUserInfo, setStoredAuthUserInfo] = useLocalStorage(
+  //   "authUserInfo",
+  //   null
+  // );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,11 +49,13 @@ export default function Login() {
           `${URL_GAMES}/users/search/email?email=${userEmail}`
         );
         const userInfo = userData.data;
-        dispatch(authUser(userInfo));
-        dispatch(saveStateToLocalStorage(userInfo));
-        setStoredAuthUserInfo(userInfo);
+        dispatch(authUserData(userInfo[0]));
+        // dispatch(saveStateToLocalStorage(userInfo));
+        // setStoredAuthUserInfo(userInfo);
+        //localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
         alert("¡Logueado con éxito!");
         navigate("/");
+        navigate(0);
       }
     } catch (error) {
       setError(error.message);
@@ -79,7 +81,9 @@ export default function Login() {
             <Button onClick={handleSubmit} children={"Login"} />
           </article>
           <NavLink to={"/resetPassword"}>
-            <p>Olvidaste la contraseña?</p>
+            <p className={Style.form_p} style={{ textDecoration: "none" }}>
+              Olvidaste la contraseña?
+            </p>
           </NavLink>
         </section>
       ) : (

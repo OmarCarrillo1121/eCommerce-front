@@ -63,7 +63,7 @@ export const validation = (videogame) => {
     if(videogame.genre && !genreRegex.test(videogame.genre)) {
       error.genre = "Genre contains invalid characters"   
     }
-    if(videogame.genre && videogame.genre.length === 0) {
+    if(videogame.genre.length === 0) {
         error.genre = "Genre field can't be empty."
     }
     if(videogame.genre && videogame.genre.length > 20) {
@@ -99,7 +99,7 @@ export const validation = (videogame) => {
     if(videogame.stock && videogame.stock > 500) {
         error.stock = "There can't be more than 500 products for sale"
     }
-    if(videogame.stock && videogame.stock.length === 0) {
+    if(videogame.stock.length === 0) {
         error.stock = "Stock field can't be empty."
     }
 

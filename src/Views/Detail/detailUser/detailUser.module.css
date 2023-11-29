@@ -5,7 +5,7 @@
 }
 .aside {
     position: relative;
-    width: 15%;
+    width: 10%;
     background-color: rgba(17, 25, 40);
     height: 100%;
     display: flex;
@@ -44,7 +44,7 @@
 }
 .main {
     position: relative;
-    width: 85%;
+    width: 90%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -309,14 +309,14 @@
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    position: relative;
 }
 .orders {
     border: 1px solid #e4e0e0;
     border-radius: 5px;
     width: 98.5%;
-    padding: 10px;
     font-size: 17px;
-    height: 200px;
+    height: 205px;
 }
 .noOrders {
     width: 100%;
@@ -444,7 +444,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 30px;
+    gap: 50px;
     /* align-items: center; */
     color: rgba(17, 25, 40);
 }
@@ -489,4 +489,289 @@
 .updateUser:hover {
     background-color: rgba(17, 25, 40);
     color: white;
+}
+.password {
+    font-size: 10px;
+}
+.containerLabel {
+    position: relative;
+}
+.error {
+    position: absolute;
+    font-size: 10px;
+    bottom: -30%;
+    color: red;
+}
+.errorImg {
+    position: absolute;
+    color: black;
+    font-size: 10px;
+    bottom: 11%;
+    left: 23%;
+    color: red;
+}
+.partLeftSecond p {
+    color: black;
+    font-size: 12px;
+    text-align: start;
+}
+.noOrders p {
+    font-size: 15px;
+    color: black;
+}
+.subtitles p {
+    font-size: 30px;
+    text-align: start;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+}
+.containerOrders {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    position: relative;
+}
+.containerOrders table {
+    position: relative;
+    border-collapse: collapse;
+    width: 100%;
+}
+.containerOrders table thead {
+    width: 100%;
+}
+.containerOrders table thead tr {
+    height: 25px;
+    /* display: flex;
+    justify-content: space-around;
+    align-items: center; */
+}
+.orderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #eee;
+}
+.product {
+    height: 45px;
+    border-bottom: 1px solid #eee;
+}
+.product td {
+    text-align: center;
+}
+.rowHead {
+    background-color: rgba(17, 25, 40);
+    color: white;
+    width: 100%;
+}
+.product td button {
+    background: transparent;
+    cursor: pointer;
+    border: none;
+}
+.containerOrder {
+    height: 700px;
+    width: 1100px;
+    background-color: rgba(17, 25, 40);
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+    position: relative;
+} 
+.closeInfoOrder {
+    position: absolute;
+    background: transparent;
+    color: #fff;
+    border: none;
+    transition: all .3s ease-in-out;
+    font-size: 15px;
+    left: 2%;
+    top: 2%;
+    cursor: pointer;
+} 
+.closeInfoOrder:hover {
+    transform: scale(1.1);
+}
+.containerText {
+    height: 17%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+}
+.containerText h2 {
+    color: #fff;
+    font-size: 30px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.containerText b {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 100;
+}
+.productsContainer {
+    position: relative;
+    height: 83%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.dateOrder {
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    font-size: 13px;
+    color: #fff;
+}
+.amountOrder {
+    position: absolute;
+    bottom: 3%;
+    right: 2%;
+    font-size: 13px;
+    color: #fff;
+}
+.containerProductMax {
+    height: 90%;
+    /* background-color: blue; */
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.cardProduct {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+    height: 320px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.cardProduct img{
+    height: 70%;
+    width: 95%;
+    padding: 5px;
+}
+.cardProduct .containerproductxxx {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding-left: 8px;
+}
+.cardProduct .productName {
+    font-weight: bold;
+}
+.cardProduct .productDiscount {
+    color: #fff;
+    background-color: rgb(255, 60, 0);
+    width: 40px;
+    font-size: 13px;
+    text-align: center;
+    padding: 1px;
+    border-radius: 2px;
+    position: absolute;
+    top: 3%;
+    right: 7%;
+}
+.precio {
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.precio p {
+    color: black;
+    margin: 0;
+    text-align: start;
+    font-size: 15px;
+    font-weight: bold;
+}
+.productPrice {
+    font-size: 11px;
+    color: gray;
+    text-decoration: line-through;
+    /* padding: 5px 0; */
+    /* padding-left: 4px; */
+}
+.priceAmount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    padding-top: 20px;
+}
+.productAmount {
+    font-size: 16px;
+    color: green;
+}
+.verMas {
+    position: absolute;
+    width: 300px;
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    height: 23px;
+    cursor: pointer;
+    bottom: -5%;
+    border-radius: 2px;
+    right: 2%;
+}
+.containerBigTable {
+    height: 90%;
+    width: 90%;
+    background-color: #fff;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerBigTable button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    top: 3%;
+    left: 3%;
+}
+.containerMegaTable {
+    height: 98%;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+}
+.containerBigTable table {
+    position: relative;
+    border-collapse: collapse;
+    /* height: 100%; */
+    width: 100%;
+}
+.megatableProduct {
+    position: relative;
+    height: 45px;
+    border-bottom: 1px solid #eee;
+}
+.megatableProduct td {
+    text-align: center;
+}
+.rowHead2 {
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    height: 30px;
+}
+.tdLast {
+    cursor: pointer;
 }

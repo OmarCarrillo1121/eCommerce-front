@@ -144,6 +144,7 @@
     position: absolute;
     /* display: none; */
     bottom: 0;
+    margin: 0;
 }
 .thirdSecondPrice, 
 .thirdSecondStock,
@@ -218,6 +219,7 @@
 .nameContainer p {
     position: absolute;
     bottom: 15%;
+    margin: 0;
 }
 .developerContainer,
 .genreContainer {
@@ -227,6 +229,7 @@
 .genreContainer p {
     position: absolute;
     bottom: 15%;
+    margin: 0;
 }
 .imgContainer input[type="file"]{
     display: none;
@@ -254,6 +257,7 @@
     right: 0;
     color: red;
     font-size: 13px;
+    margin: 0;
 }
 .btnSubmit {
     text-align: center;
@@ -277,4 +281,10 @@
 }
 .btnBack:hover {
     font-size: 80px;
+}
+.btnSubmit:active {
+    background-color: black;
+}
+.btnSubmit:disabled {
+    background-color: transparent;
 }

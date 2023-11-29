@@ -6,9 +6,9 @@ import loginIcon from "../../../Assets/img/icon/nav/logout.png";
 import shopIcon from "../../../Assets/img/icon/nav/shop.png";
 import categoryIcon from "../../../Assets/img/icon/menu/categoria.png";
 import { useScroll } from "../../../util/hook/landing/useScroll";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../config/firebase-config";
-import { authUser } from "../../../redux/actions.js";
+import { authUserData } from "../../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import useLocalStorageCleaner from "../../../util/hook/clearLocalstorage/useLocalStorageClear.js";
@@ -18,31 +18,24 @@ const NavBar = () => {
   const { scrollY } = useScroll();
   const dispatch = useDispatch();
   const clearLocalStorage = useLocalStorageCleaner("authUserInfo");
-  const [userRol, setUserRol] = useState("");
-
-  const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
-
-  // const userRol = () => {
-  //   if (userInfo) {
-  //     const usrRol = userInfo[0].rol;
-  //     return usrRol;
-  //   }
-  // };
+  const [userData, setUserData] = useState("");
+  const { user } = useSelector((state) => state);
 
   const logout = async () => {
     await signOut(auth);
-    dispatch(authUser(null));
+    dispatch(authUserData(null));
     clearLocalStorage();
     navigate("/");
+    navigate(0);
   };
 
   useEffect(() => {
-    if (userInfo) {
-      setUserRol(userInfo[0].rol);
+    if (user) {
+      setUserData(user);
     }
-  }, [userRol]);
+  }, [user]);
 
-  console.log(userRol);
+  console.log(userData);
 
   return (
     <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
@@ -56,20 +49,67 @@ const NavBar = () => {
           alt="category"
           onClick={() => navigate("/catalogo")}
         />
-        <img src={shopIcon} alt="shop" onClick={() => navigate("/login")} />
-        {userInfo ? (
-          <div>
-            <img
-              src={loginIcon}
-              alt="login"
-              onClick={() => navigate("/login")}
-            />
-            <p>{userInfo[0].name}</p>
+        <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
+        {/* //!EDWARD */}
+        {userData.rol === "user" ? (
+          <div className={Style.nav_icon}>
+            <p className={Style.nav_name}>{userData.name}</p>
+            {userData.rol === "admin" ? (
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate("/dashboard/dashboard")}
+              >
+                Dashboard
+              </button>
+            ) : (
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate(`/user/`)}
+              >
+                Mi Perfil
+              </button>
+            )}
+
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => logout()}
+            >
+              Cerrar sesión
+            </button>
           </div>
         ) : (
-          <p onClick={() => navigate("/login")}> Login </p>
+          <div>
+            <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => navigate("/login")}
+            >
+              {" "}
+              Iniciar sesión{" "}
+            </button>
+            {/* <button
+              className={Style.form_button}
+              style={{
+                width: `100px`,
+              }}
+              onClick={() => navigate("/register")}
+            >
+              {" "}
+              Registrarse{" "}
+            </button> */}
+          </div>
         )}
-        <button onClick={() => logout()}>Cerrar sesión</button>
       </div>
     </header>
   );

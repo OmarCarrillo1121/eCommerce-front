@@ -1,22 +1,33 @@
 import axios from "axios";
 import {
-  GET_ALL_GAMES,
   LOADING,
+  //VIDEOGAMES
   URL_GAMES,
+  GET_ALL_GAMES,
   GET_BY_NAME_GAMES,
   GET_BY_ID_GAMES,
   RESET_DETAIL_GAMES,
   POST_VIDEOGAME,
   EDIT_VIDEOGAME,
-  ORDER,
   FILTER_PLATFORM,
   FILTER_DEVELOPER,
   FILTER_GENRE,
+  GET_ACTIVE_VIDEOGAMES,
+  DELETED_VIDEOGAMES,
+  DELETE_VIDEOGAME,
+  RESTORE_VIDEOGAME,
+
+  //USERS
   GET_ALL_USERS,
   GET_USERS_BANNED,
   GET_USERS_NOT_BANNED,
   BAN_USER,
   UNBAN_USER,
+  UPDATE_USER,
+  GET_USER_BY_EMAIL,
+
+  //ORDERS
+  ORDER,
   GET_ORDERS,
   GET_BY_ID_ORDERS,
   RESET_DETAIL_ORDERS,
@@ -25,11 +36,28 @@ import {
   GET_ORDER_CANCELLED,
   RESTORE_ORDER,
   GET_ORDER_ACTIVE,
-  UPDATE_USER,
+
+  //REVIEWS
+  GET_ALL_REVIEWS,
+  GET_DELETED_REVIEWS,
+  GET_ENABLED_REVIEWS,
+  GET_REVIEWS_OF_GAME,
+  // GET_REVIEWS_OF_USER,
+  DELETE_REVIEW,
+  RESTORE_REVIEW,
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE,
+
+  //BANNERS
+  GET_ALL_BANNERS,
+  DELETE_BANNER,
+  RESTORE_BANNER,
+  GET_DELETED_BANNERS,
+  GET_ENABLED_BANNERS,
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
-  AUTH_USER,
   SET_CURRENT_PAGE,
   POST_USER,
   GET_ALL_BANNED_USERS,
@@ -41,6 +69,19 @@ import {
   GET_ORDERS_BY_USER,
   GET_REVIEWS_BY_USER,
   RESET_DETAIL_REVIEWS_USER,
+  POST_BANNER_REQUEST,
+  POST_BANNER_SUCCESS,
+  POST_BANNER_FAILURE,
+  SET_SHOPPING_CART,
+  ADD_REJECTED_PURCHASE,
+  ADD_SUCCESSFUL_PURCHASE,
+  GET_ORDERS_BY_ID_USER,
+  GET_REVIEWS_BY_USER,
+
+  //AUTH
+  IS_LOGGED,
+  IS_ADMIN,
+  AUTH_USER_DATA,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -324,6 +365,7 @@ export const updateUser = ({ id, user }) => {
     try {
       await axios.put(`${URL_GAMES}/users/${id}`, user);
 
+      alert("Usuario editado con éxito");
       dispatch({
         type: UPDATE_USER,
       });
@@ -334,7 +376,237 @@ export const updateUser = ({ id, user }) => {
   };
 };
 
-/* GET USER BY ID */
+/* GET ALL REVIEWS */
+export const getAllReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/all`);
+
+      return dispatch({
+        type: GET_ALL_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET DELETED REVIEWS */
+export const getDeletedReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/disabled`);
+
+      return dispatch({
+        type: GET_DELETED_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET ENABLED REVIEWS */
+export const getEnabledReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/enabled`);
+
+      return dispatch({
+        type: GET_ENABLED_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* DELETE REVIEWS */
+export const deleteReview = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${URL_GAMES}/reviews/ban/${id}`);
+
+      return dispatch({
+        type: DELETE_REVIEW,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* RESTORE REVIEW */
+export const restoreReview = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/reviews/unban/${id}`);
+
+      return dispatch({
+        type: RESTORE_REVIEW,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET GAME REVIEWS */
+export const getGameReviews = (videogameId) => {
+  return async function (dispatch) {
+    try {
+      dispatch(loading(true));
+      const response = await axios(`${URL_GAMES}/reviews/${videogameId}`);
+      return dispatch({
+        type: GET_REVIEWS_OF_GAME,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error" + error.message);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+};
+
+export const fetchReviewsRequest = () => ({
+  type: FETCH_REVIEWS_REQUEST,
+});
+
+export const fetchReviewsSuccess = (reviews) => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  payload: reviews,
+});
+
+export const fetchReviewsFailure = (error) => ({
+  type: FETCH_REVIEWS_FAILURE,
+  payload: error,
+});
+
+/* GET REVIEWS BY USER */
+export const getReviewsByUser = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/reviews/user/${id}`);
+
+      return dispatch({
+        type: GET_REVIEWS_BY_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+/* GET ALL BANNERS */
+export const getAllBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/all`);
+
+      return dispatch({
+        type: GET_ALL_BANNERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+/* POST BANNER */
+const postBannerRequest = () => ({
+  type: POST_BANNER_REQUEST,
+});
+
+const postBannerSuccess = (data) => ({
+  type: POST_BANNER_SUCCESS,
+  payload: data,
+});
+
+const postBannerFailure = (error) => ({
+  type: POST_BANNER_FAILURE,
+  payload: error,
+});
+
+export const postBanner = (bannerData) => {
+  return async (dispatch) => {
+    dispatch(postBannerRequest());
+
+    try {
+      const response = await axios.post(`${URL_GAMES}/banners`, bannerData);
+      dispatch(postBannerSuccess(response.data));
+    } catch (error) {
+      dispatch(postBannerFailure(error.message));
+    }
+  };
+};
+
+/* DELETE BANNER */
+export const deleteBanner = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${URL_GAMES}/banners/ban/${id}`);
+
+      return dispatch({
+        type: DELETE_BANNER,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* RESTORE BANNER */
+export const restoreBanner = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${URL_GAMES}/banners/unban/${id}`);
+
+      return dispatch({
+        type: RESTORE_BANNER,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET DELETED BANNERS */
+export const getDeletedBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/deleted`);
+
+      return dispatch({
+        type: GET_DELETED_BANNERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+/* GET ENABLED BANNERS */
+export const getEnabledBanners = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL_GAMES}/banners/enabled`);
+
+      return dispatch({
+        type: GET_ENABLED_BANNERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
 export const getUserById = (id) => {
   return async (dispatch) => {
     try {
@@ -485,7 +757,6 @@ export const getByIdOrders = (id) => {
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL_GAMES}/orders/${id}`);
-      console.log(response.data);
       return dispatch({
         type: GET_BY_ID_ORDERS,
         payload: response.data,
@@ -495,6 +766,23 @@ export const getByIdOrders = (id) => {
     }
   };
 };
+
+/* GET ORDERS OF USER BY ID */
+export const getOrderByIdUser = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL_GAMES}/orders/user/${id}`);
+
+      return dispatch({
+        type: GET_ORDERS_BY_ID_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
 export const resetDetailOrders = () => {
   return { type: RESET_DETAIL_ORDERS, payload: [] };
 };
@@ -535,9 +823,23 @@ export const resetDetailReviewsUser = () => {
 
 
 /* AUTH_USER */
-export const authUser = (user) => {
+export const isLogged = (user) => {
   return {
-    type: AUTH_USER,
+    type: AUTH_USER_DATA,
+    payload: user,
+  };
+};
+
+export const isAdmin = (user) => {
+  return {
+    type: AUTH_USER_DATA,
+    payload: user,
+  };
+};
+
+export const authUserData = (user) => {
+  return {
+    type: AUTH_USER_DATA,
     payload: user,
   };
 };
@@ -577,3 +879,18 @@ export const getUserByEmail = (userEmail) => {
     }
   };
 };
+//!Edward
+
+export const setShoppingCart = (games) => {
+  return { type: SET_SHOPPING_CART, payload: games };
+};
+export const addRejectedPurchase = (rejectedPurchase) => {
+  //console.log('actions',rejectedPurchase)
+  return { type: ADD_REJECTED_PURCHASE, payload: rejectedPurchase };
+};
+
+export const addSuccessfulPurchase = (successfulPurchase) => {
+  //console.log('actions', successfulPurchase);
+  return { type: ADD_SUCCESSFUL_PURCHASE, payload: successfulPurchase };
+};
+//!Edward

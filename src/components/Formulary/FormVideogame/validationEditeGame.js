@@ -20,7 +20,7 @@ export const validation = (videogame) => {
     if(videogame.name && videogame.name.length < 5) {
         error.name = "Name must be at least 5 characters."
     }
-    if(videogame.name && videogame.name.length <= 0) {
+    if(videogame.name && videogame.name.length === 0) {
         error.name = "Name field can't be empty."
     }
     
@@ -94,9 +94,6 @@ export const validation = (videogame) => {
     }
     if(videogame.stock && videogame.stock > 500) {
         error.stock = "There can't be more than 500 products for sale"
-    }
-    if(videogame.stock && videogame.stock.length === 0) {
-        error.stock = "Stock field can't be empty."
     }
 
 
