@@ -495,32 +495,17 @@ export const postReviewFailure = (error) => ({
 });
 
 // Función asincrónica para manejar la creación de la review
-export const postReview = (newReview) => async (dispatch) => {
-  try {
+export const postReview = (newReview) => {
+  return async (dispatch) => {
     dispatch(postReviewRequest());
 
-    // Realiza la llamada a la API para crear la review
-    const response = await fetch(
-      "https://ecomercestorebacken.vercel.app/reviews/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newReview),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("No se pudo crear la review");
+    try {
+      const response = await axios.post(`${URL_GAMES}/reviews/`, newReview);
+      dispatch(postReviewSuccess(response.data));
+    } catch (error) {
+      dispatch(postReviewFailure(error.message));
     }
-
-    const data = await response.json();
-
-    dispatch(postReviewSuccess(data));
-  } catch (error) {
-    dispatch(postReviewFailure(error));
-  }
+  };
 };
 
 /* GET REVIEWS BY USER */

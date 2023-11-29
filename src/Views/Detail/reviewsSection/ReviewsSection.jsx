@@ -12,13 +12,13 @@ import ReviewForm from "./reviewForm/ReviewForm";
 
 const ReviewsSection = ({
   gameId,
+  userId,
   reviews,
   loading,
   error,
   fetchReviewsRequest,
   fetchReviewsSuccess,
   fetchReviewsFailure,
-  postReview,
 }) => {
   useEffect(() => {
     fetchReviewsRequest();
@@ -36,30 +36,21 @@ const ReviewsSection = ({
     return <p>Error: {error.message}</p>;
   }
 
-  if (reviews.length === 0) {
-    return (
-      <div>
-        <p>No hay reviews disponibles.</p>
-      </div>
-    );
-  }
-
   return (
-      <div className={styles.reviewSection}>
-        <h2>Reseñas</h2>
-        <ReviewForm gameId={gameId} />
-        {reviews.map((review) => (
-          <div key={review.id} className={styles.review}>
-            <div className={styles.rating}>
-              {/* Render stars based on review.rating */}
-              {Array.from({ length: review.rating }, (_, index) => (
-                <FaStar key={index} className={styles.star} />
-              ))}
-            </div>
-            <div className={styles.content}>{review.content}</div>
+    <div className={styles.reviewSection}>
+      <h2>Reseñas</h2>
+      <ReviewForm gameId={gameId} userId={userId} />
+      {reviews.map((review) => (
+        <div key={review.id} className={styles.review}>
+          <div className={styles.rating}>
+            {Array.from({ length: review.rating }, (_, index) => (
+              <FaStar key={index} className={styles.star} />
+            ))}
           </div>
-        ))}
-      </div>
+          <div className={styles.content}>{review.content}</div>
+        </div>
+      ))}
+    </div>
   );
 };
 
