@@ -20,7 +20,7 @@ export const validation = (videogame) => {
     if(videogame.name && videogame.name.length < 5) {
         error.name = "Name must be at least 5 characters."
     }
-    if(videogame.name.length <= 0) {
+    if(videogame.name && videogame.name.length <= 0) {
         error.name = "Name field can't be empty."
     }
     
@@ -34,7 +34,7 @@ export const validation = (videogame) => {
     if(videogame.description && videogame.description.length < 50 && videogame.description.length > 0) {
         error.description = "The description field must be at least 50 characters long."
     }
-    if(videogame.description.length === 0) {
+    if(videogame.description && videogame.description.length === 0) {
         error.description = "The description field can't be empty."
     }
 
@@ -45,7 +45,7 @@ export const validation = (videogame) => {
     if(videogame.developer && videogame.developer.length > 20) {
         error.developer = "Developer's name must be less than 20 characters."
     }
-    if(videogame.developer.length === 0) {
+    if(videogame.developer && videogame.developer.length === 0) {
         error.developer = "Developer's name field can't be empty."
     }
     
@@ -54,7 +54,7 @@ export const validation = (videogame) => {
     if(videogame.image && videogame.image && !videogame.image.match(regexUrl)){
         error.image = "Invalid image URL."
     }
-    if(videogame.image.length === 0) {
+    if(videogame.image && videogame.image.length === 0) {
         error.image = "Image field can't be empty."
     }
     
@@ -71,7 +71,7 @@ export const validation = (videogame) => {
     }
     
     /* PLATFORM */
-    if(videogame.platform.length === 0) {
+    if(videogame.platform && videogame.platform.length === 0) {
         error.platform = "Must select one platform."
     }
     
@@ -85,7 +85,7 @@ export const validation = (videogame) => {
     if(videogame.price && videogame.price > 1000){
         error.price = "The value cannot be greater than 1000."
     }
-    if(videogame.price.length === 0) {
+    if(videogame.price && videogame.price.length === 0) {
         error.price = "Price must be a number."
     }
 

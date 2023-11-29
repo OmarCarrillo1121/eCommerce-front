@@ -12,7 +12,7 @@ function AsideUser({user}) {
             </div>
             <div>
                 <img src={homeIcon} alt="home" />
-                <NavLink className={style.catalogo} to={'/catalogo'}>Home</NavLink>
+                <NavLink className={style.catalogo} to={'/catalogo'}>Catalogo</NavLink>
             </div>
         </aside>
     </>);

@@ -15,17 +15,18 @@
     top: 3%;
     color: rgba(17, 25, 40);
     padding: 6px 7px;
-    border-bottom: 1px solid rgba(17, 25, 40);
     transition: all .3s ease-in-out;
     border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 .tabletGames .addGame:hover {
     background-color: rgba(17, 25, 40);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     color: #fff;
 }
 .tabletGames .searchbar {
     margin: 30px 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 5px;
     width: 350px;
     display: flex;
@@ -203,4 +204,9 @@
 .containerMessage p {
     color: black;
     font-size: 12px;
+}
+.editContainer p,
+.deleteContainer p {
+    margin: 0;
+    font-size: 15px;
 }

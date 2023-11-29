@@ -5,7 +5,7 @@ function NotUser() {
     return (  
         <div className={style.container}>
             <img src={img} alt="No Users Icon" class={style.dashboardIcon}/>
-            <p>No users match the selected criteria</p>
+            <p>Ningun usuario coincide con los criterios seleccionados</p>
         </div>
     );
 }

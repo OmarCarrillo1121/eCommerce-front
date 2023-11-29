@@ -15,7 +15,7 @@ export function Dashboard() {
         <ReviewsTable />,
         <Games/>,
     ]
-    const componentNames = ["Users","Banners", "Reviews", "Videogames"]
+    const componentNames = ["Usuarios","Banners", "Reseñas", "Videojuegos"]
 
   const handleComponentClick = (index) => {
     setComponentsIndex(index);
@@ -26,7 +26,7 @@ export function Dashboard() {
         <>
             <div className={style.tablet}>
                 <nav className={style.navbar}>
-                    <h1>Admin Dashboard</h1>
+                    <h1>Dashboard</h1>
                     <div>
                         {
                             components.map((component, index) => {
