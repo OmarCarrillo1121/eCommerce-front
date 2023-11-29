@@ -48,6 +48,9 @@ import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_REVIEW_REQUEST,
+  POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE,
 
   //BANNERS
   GET_ALL_BANNERS,
@@ -59,6 +62,11 @@ import {
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
   SET_CURRENT_PAGE,
+  POST_USER,
+  GET_ALL_BANNED_USERS,
+  GET_ORDERS_BY_USER,
+  GET_REVIEWS_BY_USER,
+  RESET_DETAIL_REVIEWS_USER,
   POST_BANNER_REQUEST,
   POST_BANNER_SUCCESS,
   POST_BANNER_FAILURE,
@@ -66,7 +74,6 @@ import {
   ADD_REJECTED_PURCHASE,
   ADD_SUCCESSFUL_PURCHASE,
   GET_ORDERS_BY_ID_USER,
-  GET_REVIEWS_BY_USER,
 
   //AUTH
   IS_LOGGED,
@@ -476,6 +483,35 @@ export const fetchReviewsFailure = (error) => ({
   payload: error,
 });
 
+// Acción para crear una nueva review
+export const postReviewRequest = () => ({
+  type: POST_REVIEW_REQUEST,
+});
+
+export const postReviewSuccess = (review) => ({
+  type: POST_REVIEW_SUCCESS,
+  payload: review,
+});
+
+export const postReviewFailure = (error) => ({
+  type: POST_REVIEW_FAILURE,
+  payload: error,
+});
+
+// Función asincrónica para manejar la creación de la review
+export const postReview = (newReview) => {
+  return async (dispatch) => {
+    dispatch(postReviewRequest());
+
+    try {
+      const response = await axios.post(`${URL_GAMES}/reviews/`, newReview);
+      dispatch(postReviewSuccess(response.data));
+    } catch (error) {
+      dispatch(postReviewFailure(error.message));
+    }
+  };
+};
+
 /* GET REVIEWS BY USER */
 export const getReviewsByUser = (id) => {
   return async (dispatch) => {
@@ -776,6 +812,27 @@ export const getOrderByIdUser = (id) => {
 export const resetDetailOrders = () => {
   return { type: RESET_DETAIL_ORDERS, payload: [] };
 };
+
+//👀👀👀
+export const getOrdersByUserId = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL_GAMES}/orders/user/${id}`);
+      console.log(response.data);
+      return dispatch({
+        type: GET_ORDERS_BY_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+};
+
+export const resetDetailReviewsUser = () => {
+  return { type: RESET_DETAIL_REVIEWS_USER, payload: [] };
+};
+
 
 /* AUTH_USER */
 export const isLogged = (user) => {

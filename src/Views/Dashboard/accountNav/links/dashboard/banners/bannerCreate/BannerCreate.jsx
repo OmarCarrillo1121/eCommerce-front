@@ -148,7 +148,7 @@ function BannerCreate() {
             ) : (
               <img src={template} className={style.img} />
             )}
-            <label htmlFor="imageInput">Seleccione una imagen</label>
+            <label htmlFor="imageInput">Logotype Image</label>
             <input
               type="file"
               id="logotypeInput"
@@ -166,7 +166,7 @@ function BannerCreate() {
             ) : (
               <img src={template} className={style.img} />
             )}
-            <label htmlFor="imageInput">Seleccione una imagen</label>
+            <label htmlFor="imageInput">Background Image</label>
             <input
               type="file"
               id="backgroundInput"
