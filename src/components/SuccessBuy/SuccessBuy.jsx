@@ -45,7 +45,7 @@
         //     "products": [2,1,2]
         //    }
         const orderData = {
-            products: [1],
+            products: idsJuegos,
             userId: user.id
         };
         
