@@ -22,7 +22,7 @@ export const Links = ({ url, img, name}) => {
 export const DashboardUserInfo = () => {
     return (
       <div className={Style.dashboard_nav_user}>
-        <p>Dashboard del admin</p>
+        <p>Dashboard Admin</p>
       </div>
     )   
 }
