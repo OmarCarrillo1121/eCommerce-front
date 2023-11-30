@@ -7,21 +7,21 @@ import { Links, DashBoardCloseLogout, DashboardUserInfo } from "./accountNavComp
 import { useLocation } from 'react-router-dom'
 import { Dashboard } from "./links/dashboard/Dashboard";
 import Insights from "./links/insights/Insights";
+import ActiveOrders from "./links/ActiveOrders/ActiveOrders";
+import CancelledOrders from './links/CancelledOrders/CancelledOrders'
 
 const AccountNav = () => {
   const locateDashboard = useLocation().pathname.includes(`/dashboard/dashboard`)
   const locateInsights = useLocation().pathname.includes('/dashboard/insights')
+  const locateOrdersAc = useLocation().pathname.includes('/dashboard/Orders/active')
+  const locateOrderCan = useLocation().pathname.includes('/dashboard/Orders/cancel')
 
   return (<>
     <nav className={Style.dashboard_nav}>
      <DashboardUserInfo/>
      <div className={Style.dashboard_nav_links}>
-       {/*<Links url={'account'} img={userIcon} name={'Account'}/>*/}
-       {/*<Links url={'dashboard'} img={dashIcon} name={'DashBoard'}/>*/}
-       {/*<Links url={'settings'} img={settingIcon} name={'Settings'}/>*/}
        <Links url={'dashboard'} img={userIcon} name={'DashBoard'}/>
        <Links url={'Orders/active'} img={shops} name={'Ordenes'}/>
-       {/*<Links url={'shops'} img={shops} name={'Shops'}/>*/}
        <Links url={'insights'} img={dashIcon} name={'Estadísticas'}/>
        <DashBoardCloseLogout/>
      </div>
@@ -29,6 +29,8 @@ const AccountNav = () => {
     <main className={Style.containerDashboard}>
       { locateDashboard ? <Dashboard/> : null}
       { locateInsights ? <Insights/> : null}
+      { locateOrdersAc ? <ActiveOrders/> : null} 
+      { locateOrderCan ? <CancelledOrders/> : null}
     </main>
     </>
    )

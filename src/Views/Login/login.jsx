@@ -67,7 +67,7 @@ export default function Login() {
 
   return (
     <form autoComplete="off" className={Style.form}>
-      <NavLink to={"/"}>
+      <NavLink to={"/"} className={Style.navlink}>
         <img src={logo} alt="logo" className={Style.form_logo} />
       </NavLink>
       {handle ? (
@@ -80,7 +80,7 @@ export default function Login() {
             <Button onClick={handleChange} children={"Register"} />
             <Button onClick={handleSubmit} children={"Login"} />
           </article>
-          <NavLink to={"/resetPassword"}>
+          <NavLink to={"/resetPassword"}className={Style.navlink}>
             <p className={Style.form_p} style={{ textDecoration: "none" }}>
               Olvidaste la contraseña?
             </p>

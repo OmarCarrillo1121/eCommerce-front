@@ -70,7 +70,7 @@ function EditVideogame() {
         const file = await res.json()
         setImage(file.secure_url)
         setErrors(validation({
-            ...editVideogame,
+            ...editedVideogame,
             image: file.secure_url,
             deleted: false
         }))
@@ -96,31 +96,26 @@ function EditVideogame() {
         }))
         setImage(detailGame.image)
         setEditedVideogame({...detailGame})
-        console.log("hola");
 
+        setErrors({})
         navigate('/dashboard/dashboard')
     }
-
-    useEffect(()=> {
-        console.log(errors);
-        console.log(editedVideogame);
-    })
 
     return (  
         <div className={style.container}>
             <form className={style.form} onSubmit={handleSubmit}>
                 <nav>
-                    <h1>Form to edit a Videogame</h1>
+                    <h1>Formulario para editar Videojuego</h1>
                 </nav>
                 <div className={style.containerLabelInput}>
                     <div className={style.first}>
                         <div className={style.nameContainer}>
-                            <label htmlFor="name">Name:</label>
+                            <label htmlFor="name">Nombre:</label>
                             <input 
                                 type="text" 
                                 name="name"
                                 value={editedVideogame.name}
-                                placeholder="Enter the name of the videogame..."
+                                placeholder="Ingresa el nombre del videojuego..."
                                 onChange={handleChange}
                             />
                             <br/>
@@ -129,12 +124,12 @@ function EditVideogame() {
                             </p>
                         </div>
                         <div className={style.developerContainer}>
-                            <label htmlFor="developer">Developer:</label>
+                            <label htmlFor="developer">Desarrollador:</label>
                             <input
                                 type="text"
                                 name="developer" 
                                 value={editedVideogame.developer}
-                                placeholder="Enter the developer of the videogame..."
+                                placeholder="Ingresa el nombre del desarrollador..."
                                 onChange={handleChange}
                             />
                             <br/>
@@ -145,12 +140,12 @@ function EditVideogame() {
                     </div>
                     <div className={style.second}>
                         <div className={style.genreContainer}>
-                            <label htmlFor="genre">Genre:</label>
+                            <label htmlFor="genre">Género:</label>
                             <input 
                                 type="text"
                                 name="genre"
                                 value={editedVideogame.genre}
-                                placeholder="Enter the genre of the videogame..."
+                                placeholder="Ingresa el género del Videojuego..."
                                 onChange={handleChange}
                             />
                             <br/>
@@ -159,7 +154,7 @@ function EditVideogame() {
                             </p>
                         </div>
                         <div>
-                            <label htmlFor="platform">Platform:</label>
+                            <label htmlFor="platform">Plataforma:</label>
                             <select name="platform" onChange={handleChange}>
                                 {
                                     platforms && platforms.length > 0 
@@ -178,11 +173,11 @@ function EditVideogame() {
                     </div> 
                     <div className={style.third}>
                         <div className={style.thirdFirst}>
-                            <label htmlFor="description">Description:</label>
+                            <label htmlFor="description">Descripción:</label>
                             <textarea 
                                 name="description"
                                 value={editedVideogame.description}
-                                placeholder="Enter a description for this game..."
+                                placeholder="Ingresa una descripción breve..."
                                 onChange={handleChange}
                             ></textarea>
                             <br/>
@@ -192,8 +187,9 @@ function EditVideogame() {
                         </div>
                         <div className={style.thirdSecond}>
                             <div className={style.thirdSecondPrice}>
-                                <label htmlFor="price">Price in USD:</label>
-                                <input 
+                                <label htmlFor="price">Precio en USD:</label>
+                                <input
+                                    min={1} 
                                     type="number"
                                     name="price"
                                     value={editedVideogame.price}
@@ -220,7 +216,7 @@ function EditVideogame() {
                                 </p>
                             </div>
                             <div className={style.thirdSecondDiscount}>
-                                <label htmlFor="discount">Discount:</label>
+                                <label htmlFor="discount">Descuento:</label>
                                 <select name="discount" onChange={handleChange} value={editedVideogame.discount}>
                                     {
                                         discount.length > 0 
@@ -240,7 +236,7 @@ function EditVideogame() {
                 <div className={style.divImage}>
                     <div className={style.imgContainer}>
                     <img src={image || editedVideogame.image} alt={editedVideogame.image} className={style.img} />
-                        <label htmlFor="imageInput">Choose an Image</label>
+                        <label htmlFor="imageInput">Elije una imagen</label>
                         <input type="file" name="image" id="imageInput" onChange={UploadImage}/>
                         <br/>
                         <p>
@@ -258,7 +254,7 @@ function EditVideogame() {
                         !editedVideogame.platform ||
                         !editedVideogame.price 
                         ? true : false}
-                >Submit</button>
+                >Editar</button>
                 <button className={style.btnBack} onClick={backDashboard} type="button">➯</button>
             </form>
         </div>

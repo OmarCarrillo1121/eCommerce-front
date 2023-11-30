@@ -112,6 +112,7 @@ function DetailUser() {
             user: newUser
         }))
         setInfoTime(false)
+        alert("Usuario editado con éxito")
     }
 
     const openInfoGame = (order) => {
@@ -184,7 +185,7 @@ function DetailUser() {
                     <div className={style.subtitles}>
                         <p>OVERVIEW</p>
                         <h2>
-                            Perfil del {user.rol === "user" ? "Usuaio" : "Administrador"}
+                            Perfil del {user.rol === "user" ? "Usuario" : "Administrador"}
                         </h2>
                     </div>
                     <div className={style.divsInfo}>

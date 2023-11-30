@@ -22,7 +22,7 @@ const Orders = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Estoy en orders!</h1>
+      {/* <h1>Estoy en orders!</h1>
 
 
       
@@ -45,7 +45,7 @@ const Orders = () => {
                         <p>Name: {product.name}</p>
                         <p>Price: {product.price}</p>
                         {/* Otras propiedades del producto */}
-                      </li>
+                      {/* </li>
                     ))}
                   </ul>
                   {!order.cancelled && (
@@ -57,8 +57,8 @@ const Orders = () => {
               </div>
             </Link>
           </div>
-        ))}
-      </ul>
+        ))} */}
+      {/* </ul> */}
     </div>
   );
 };
