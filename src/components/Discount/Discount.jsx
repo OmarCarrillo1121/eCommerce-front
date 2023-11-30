@@ -13,13 +13,12 @@ function Discount({ price, porcentaje }) {
     <div className={Style.discountContainer}>
     {porcentaje && (
       <span className={Style.descuento}>
-        -{porcentaje}% <span className={Style.ahorro}>Ahorra ${ahorro.toFixed(2)}</span>
       </span>
     )}
     {porcentaje && priceDiscount && (
       <p>
-          <span className={Style.originalPrice}>Antes: ${price}</span>{" "}
-          <span className={Style.discountedPrice}>Ahora: ${priceDiscount.toFixed(2)}</span>
+          <span className={Style.originalPrice}>${price}</span>{" "}
+          <span className={Style.discountedPrice}>${priceDiscount.toFixed(2)}</span>
         </p>
       )}
     </div>

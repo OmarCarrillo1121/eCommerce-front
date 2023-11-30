@@ -42,7 +42,7 @@ const ReviewForm = ({ gameId }) => {
 
     if (!userId) {
       // Si el usuario no está autenticado, puedes redirigirlo a la página de inicio de sesión u otra página.
-      navigate("/ruta-de-inicio-de-sesion"); // Reemplaza "/ruta-de-inicio-de-sesion" con tu ruta real.
+      navigate("/login"); // Reemplaza "/ruta-de-inicio-de-sesion" con tu ruta real.
       return;
     }
 
@@ -106,9 +106,18 @@ const ReviewForm = ({ gameId }) => {
           </div>
         </label>
         <br />
-        <button className={style.formButton} type="submit" disabled={!userId || loading}>
-          {loading ? 'Enviando...' : 'Enviar reseña'}
+        <button
+          className={style.formButton}
+          type="submit"
+          disabled={!userId || loading}
+        >
+          {loading ? "Enviando..." : "Enviar reseña"}
         </button>
+        {!userId && (
+          <p className={style.formMessage}>
+            Para enviar una reseña, <a href="/login">inicia sesión</a>.
+          </p>
+        )}
         {errors.content && <p className={style.formError}>{errors.content}</p>}
       </form>
       <br />

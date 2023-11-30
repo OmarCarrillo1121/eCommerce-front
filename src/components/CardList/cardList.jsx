@@ -2,8 +2,6 @@ import Style from './cardList.module.css'
 import Card from "../Card/Card";
 import { AnimatePresence } from 'framer-motion';
 
-//luisbarrios modificacion cardlist
-
 const CardList = ({ indexOfLastGame, indexOfFirstGame, currentGames }) => {
     return (
       <AnimatePresence>

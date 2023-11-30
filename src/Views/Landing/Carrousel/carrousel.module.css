@@ -26,6 +26,11 @@
     font-size: 1.2em;
     line-height: 1.5;
   }
+
+  .landing_text p a {
+    color: #fff; /* Cambia el color del enlace dentro del párrafo */
+    text-decoration: underline; /* Puedes ajustar esto según tus preferencias */
+  }
   
   .landing img {
     width: 250px;
