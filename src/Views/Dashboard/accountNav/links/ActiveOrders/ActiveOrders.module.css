@@ -79,6 +79,7 @@
     transition: all .3s ease-in-out;
     right: 2%;
     top: 3%;
+    text-decoration: none;
 }
 .containerTable .verOtras:hover {
     background-color: rgb(26, 38, 59);
@@ -133,4 +134,183 @@
     cursor: pointer;
     font-weight: bold;
     font-size: 10px;
+}
+.productTh {
+    text-align: center;
+}
+.openInfo {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;  
+    background-color: rgba(0, 0, 0, 0.5)
+}
+.containerOrder {
+    height: 700px;
+    width: 1100px;
+    background-color: rgba(17, 25, 40);
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+    position: relative;
+} 
+.closeInfoOrder {
+    position: absolute;
+    background: transparent;
+    color: #fff;
+    border: none;
+    transition: all .3s ease-in-out;
+    font-size: 15px;
+    left: 2%;
+    top: 2%;
+    cursor: pointer;
+} 
+.closeInfoOrder:hover {
+    transform: scale(1.1);
+}
+
+.containerText {
+    height: 17%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+}
+.containerText h2 {
+    color: #fff;
+    font-size: 30px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.containerText b {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 100;
+}
+.productsContainer {
+    position: relative;
+    height: 83%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.dateOrder {
+    position: absolute;
+    bottom: 2%;
+    left: 1%;
+    font-size: 13px;
+    color: #fff;
+}
+.amountOrder {
+    position: absolute;
+    bottom: 3%;
+    right: 2%;
+    font-size: 13px;
+    color: #fff;
+}
+
+.containerProductMax {
+    height: 90%;
+    /* background-color: blue; */
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.cardProduct {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px rgba(0 ,0, 0, 0.3);
+    height: 320px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.cardProduct img{
+    height: 70%;
+    width: 95%;
+    padding: 5px;
+}
+.cardProduct .containerproductxxx {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding-left: 8px;
+}
+
+.cardProduct .productName {
+    font-weight: bold;
+}
+.cardProduct .productDiscount {
+    color: #fff;
+    background-color: rgb(255, 60, 0);
+    width: 40px;
+    font-size: 13px;
+    text-align: center;
+    padding: 1px;
+    border-radius: 2px;
+    position: absolute;
+    top: 3%;
+    right: 7%;
+}
+.precio {
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.precio p {
+    color: black;
+    margin: 0;
+    text-align: start;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.productPrice {
+    font-size: 10px;
+    color: gray;
+    text-decoration: line-through;
+    /* padding: 5px 0; */
+    /* padding-left: 4px; */
+}
+.priceAmount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    padding-top: 20px;
+}
+.productAmount {
+    font-size: 13px;
+    color: green;
+}
+.verMas {
+    position: absolute;
+    width: 300px;
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    height: 23px;
+    cursor: pointer;
+    bottom: -5%;
+    border-radius: 2px;
+    right: 2%;
 }
