@@ -25,7 +25,8 @@ const ReviewsSection = ({
 
   useEffect(() => {
     fetchReviewsRequest();
-    fetch(`https://ecomercestorebacken.vercel.app/reviews/videogame/${gameId}`)
+    // fetch(`https://ecomercestorebacken.vercel.app/reviews/videogame/${gameId}`)
+    fetch(`http://localhost:3001/reviews/videogame/${gameId}`)
       .then((response) => response.json())
       .then((data) => fetchReviewsSuccess(data))
       .catch((err) => fetchReviewsFailure(err));

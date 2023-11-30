@@ -38,6 +38,7 @@ const DetailSection = ({ games }) => {
   };
 
   const { id, name, image, price, discount } = games;
+  const precioOriginal = price / (1 - discount / 100);
   return (
     <section className={Style.detail_main}>
       <img src={games?.image} alt="imagen" className={Style.detail_img} />
@@ -53,7 +54,7 @@ const DetailSection = ({ games }) => {
           <h3>{games?.developer}</h3>
         </div>
         <h2 className={Style.detail_main_price}>
-          <Discount price={price} porcentaje={discount} />
+          <Discount price={precioOriginal} porcentaje={discount} />
         </h2>
         <div className={Style.detail_buttons}>
           <Button  onClick={() => agregarAlCarrito(games)} children={<h1>Agregar 🛒</h1>} />

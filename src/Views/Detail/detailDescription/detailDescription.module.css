@@ -15,6 +15,10 @@
     width: 50%;
 }
 
+.detail_description_about p {
+    color: white;
+}
+
 .detail_description_info {
     display: flex;
     flex-direction: column;

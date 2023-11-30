@@ -31,7 +31,7 @@ export const Carrousel = ({ interval = 15000 }) => {
             className={`${Style.landing} ${Style.active}`}
           >
             <div className={Style.landing_text}>
-              <h2>Bienvenidos a Ancora Games</h2>
+              <h2>Ancora Games</h2>
               <p>En Ancora Games, tu destino para la mejor experiencia de compra de videojuegos,
                  explorarás un mundo lleno de emocionantes aventuras virtuales. 
                  Desde épicos juegos de acción hasta cautivadoras historias narrativas, 
