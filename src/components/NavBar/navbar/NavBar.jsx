@@ -38,23 +38,45 @@ const NavBar = () => {
   console.log(userData);
 
   return (
-    <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
-      <NavLink to={"/"}>
-        <img src={logo} alt="logo" className={Style.nav_logo} />
-      </NavLink>
-      <Menu />
-      <div className={Style.nav_icon}>
-        <img
-          src={categoryIcon}
-          alt="category"
-          onClick={() => navigate("/catalogo")}
-        />
-        <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
-        {/* //!EDWARD */}
-        {userData.rol === "user" ? (
-          <div className={Style.nav_icon}>
-            <p className={Style.nav_name}>{userData.name}</p>
-            {userData.rol === "admin" ? (
+    <>
+      <header className={`${scrollY > 200 ? Style.scrolled_nav : Style.nav}`}>
+        <NavLink to={"/"}>
+          <img src={logo} alt="logo" className={Style.nav_logo} />
+        </NavLink>
+        <Menu />
+        <div className={Style.nav_icon}>
+          <img
+            src={categoryIcon}
+            alt="category"
+            onClick={() => navigate("/catalogo")}
+          />
+          <img src={shopIcon} alt="shop" onClick={() => navigate("/carrito")} />
+
+          {userData.rol === "user" ? (
+            <div className={Style.nav_icon}>
+              <p className={Style.nav_name}>{userData.name}</p>
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate(`/myProfile/${userData.id}`)}
+              >
+                Mi Perfil
+              </button>
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => logout()}
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          ) : userData && userData.rol === "admin" ? (
+            <div className={Style.nav_icon}>
+              <p className={Style.nav_name}>{userData.name}</p>
               <button
                 className={Style.form_button}
                 style={{
@@ -64,54 +86,33 @@ const NavBar = () => {
               >
                 Dashboard
               </button>
-            ) : (
               <button
                 className={Style.form_button}
                 style={{
                   width: `100px`,
                 }}
-                onClick={() => navigate(`/user/`)}
+                onClick={() => logout()}
               >
-                Mi Perfil
+                Cerrar sesión
               </button>
-            )}
-
-            <button
-              className={Style.form_button}
-              style={{
-                width: `100px`,
-              }}
-              onClick={() => logout()}
-            >
-              Cerrar sesión
-            </button>
-          </div>
-        ) : (
-          <div>
-            <button
-              className={Style.form_button}
-              style={{
-                width: `100px`,
-              }}
-              onClick={() => navigate("/login")}
-            >
-              {" "}
-              Iniciar sesión{" "}
-            </button>
-            {/* <button
-              className={Style.form_button}
-              style={{
-                width: `100px`,
-              }}
-              onClick={() => navigate("/register")}
-            >
-              {" "}
-              Registrarse{" "}
-            </button> */}
-          </div>
-        )}
-      </div>
-    </header>
+            </div>
+          ) : (
+            <div className={Style.nav_icon}>
+              <button
+                className={Style.form_button}
+                style={{
+                  width: `100px`,
+                }}
+                onClick={() => navigate("/login")}
+              >
+                {" "}
+                Iniciar sesión{" "}
+              </button>
+            </div>
+          )}
+        </div>
+      </header>
+    </>
   );
 };
 

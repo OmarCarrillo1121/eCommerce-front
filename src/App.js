@@ -39,7 +39,6 @@ import SuccessBuy from "./components/SuccessBuy/SuccessBuy";
 import FailureBuy from "./components/FailureBuy/FailureBuy";
 import { useDispatch, useSelector } from "react-redux";
 
-
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -51,6 +50,12 @@ function App() {
   const [isLogged, setIsLogged] = useState(true);
   const [userSaved, setUserSaved] = useState("");
   const { user } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (user) {
+      setUserSaved(user);
+    }
+  }, [user]);
 
   // useEffect(() => {
   //   localStorage.setItem("items", JSON.stringify(items));
@@ -87,8 +92,6 @@ function App() {
   // }, []);
   //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
 
-  console.log(user);
-
   return (
     <div className="app">
       {(location.pathname === "/" ||
@@ -108,8 +111,7 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/register" element={<Register />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
-        <Route path="/myProfile/:id" element={<MyProfile/>}/>
-        
+        <Route path="/myProfile/:id" element={<MyProfile />} />
 
         <Route path="/user/:id" element={<DetailUser />} />
         <Route path="/checkout" element={<Checkout />} />
@@ -119,9 +121,9 @@ function App() {
         <Route path="/successes" element={<SuccessBuy />} />
         <Route path="/failures" element={<FailureBuy />} />
         {/* //!Edward */}
-        {isLogged ? <></> : <></>}
+        {userSaved ? <></> : <></>}
 
-        {isAdmin ? (
+        {userSaved && userSaved.rol === "admin" ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />
             <Route path="/formVideogame" element={<FormVideogame />} />
