@@ -1,6 +1,7 @@
 export const LOADING = "LOADING";
 export const URL_GAMES = "https://ecomercestorebacken.vercel.app";
 
+
 // VIDEOGAMES
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_BY_NAME_GAMES = "GET_BY_NAME_GAMES";
