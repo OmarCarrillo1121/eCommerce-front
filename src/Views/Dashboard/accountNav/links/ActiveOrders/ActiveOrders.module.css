@@ -1,62 +1,136 @@
-
-
-.container{
+.container {
+    display:  flex;
+    min-height: 100vh;
+    height: 100%;
+}
+.container aside{
+    width: 15%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: rgba(17, 25, 40);
+    border: 1px solid rgba(255, 255, 255, 0.125);
     display: flex;
-    background-color: rgb(142, 179, 211);
-    background-image: url('https://wallpapercave.com/wp/wp8006435.jpg');
-   
-    
-   
+    flex-direction: column;
+    position: relative;
+}
+.containerLinks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+.containerMain {
+    width: 85%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+}
+/*NAVBAR*/
+.containerMain nav {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 30px;
+    justify-content: center;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.containerMain h1 {
+    font-size: 30px;
+    position: relative;
+    height: 60%;
+    display: flex;
+    align-items: end;
+    color: black;
+    word-spacing: 3px;
+    font-weight: 100;
+    padding-top: 75px;
 }
 
-.cardContainer{
-    display: grid;
-  grid-template-columns: repeat(3, 1fr);  /* Crea 3 columnas de igual tamaño */
-  gap: 30px;  
-  /* Espacio entre las tarjetas */
-  margin-left: 5rem;
-
+/* TABLE TITLE */
+.containerTable {
+    padding: 0;
+    margin: 0;
+    margin-top: 60px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 650px;
 }
-.cards{ 
- 
-    /* Estilos para las tarjetas */
-  border: 7px solid rgb(250, 250, 250);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  margin-top: 1rem;
-  backdrop-filter: blur(15px);
-  color: beige;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    
-    
-}
-
-
-
-.button{
-    height: 2.5rem;
-    background-color: rgba(249, 4, 4, 0.761);
-    border-radius: 5px;
-    width: 8rem;
+.containerTable .verOtras {
+    position: absolute;
+    font-size: 18px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    border: 1px solid rgba(17, 25, 40);;
     cursor: pointer;
-    color: azure;
-    font-size: medium;
+    transition: all .3s ease-in-out;
+    right: 2%;
+    top: 3%;
 }
-
-.button2{
-    height: 2.5rem;
-    background-color: rgba(249, 4, 4, 0.761);
-    border-radius: 5px;
-    width: 9rem;
+.containerTable .verOtras:hover {
+    background-color: rgb(26, 38, 59);
+    color: #fff;
+    border: 1px solid rgb(26, 38, 59);
+}
+.containerTable h2 {
+    font-family:'Times New Roman', Times, serif;
+    font-size: 25px;
+    padding: 25px;
+    padding-left: 20px;
+}
+/* TABLE HEAD */
+.containerTable table {
+    position: relative;
+    border-collapse: collapse;
+}
+.containerTable table thead {
+    background-color: rgba(17, 25, 40);
+    color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+.containerTable table thead tr{
+    text-align: left;
+}
+.containerTable table thead tr th {
+    padding: 7px 5px;
+}
+.containerTable table thead tr th:last-child {
+    text-align: center;
+}
+/* TABLE BODY */
+.rowEven {
+    background-color: #e9e8e8;
+}
+.rowOdd {
+    background-color: #fff;
+}
+.row td {
+    padding: 10px 5px;
+}
+.rowChange {
+    border-radius: 5px ;
+    width: 130px;
+}
+.row td:last-child {
+    text-align: center;
+}
+.row td:last-child button {
+    background: transparent;
+    border: none;
     cursor: pointer;
-    margin-top: 1rem;
-    margin-left: 3rem;
-    margin-right:  2rem;
-    font-size: medium;
-    
-}
-.link{
-    color: azure;
+    font-weight: bold;
+    font-size: 10px;
 }

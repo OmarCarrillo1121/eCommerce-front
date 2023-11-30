@@ -125,7 +125,7 @@ function Games() {
             />
             <div className={style.containerMessage}>
                 <p><b>¿No encontraste lo que buscabas?</b> Es posible que algunos videojuegos
-          estén ocultas debido a los filtros que has seleccionado.</p>
+          estén ocultas debido a la búsqueda por nombre que se realizó.</p>
                 <button className={style.showGames} onClick={showAllGames}>Mostrar todos los videojuegos</button>
                 {
                     activeGames.length !== 1 
