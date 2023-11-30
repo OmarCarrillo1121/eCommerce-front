@@ -31,7 +31,7 @@
                 console.log(orderData, 'Antes del post');
         
                 // Agregado el string 'http://localhost:3001' antes de '/orders'
-                const response = await axios.post('http://localhost:3001/orders', orderData);//! Envío
+                const response = await axios.post('https://ecomercestorebacken.vercel.app/orders', orderData);//! Envío
                 console.log('Respuesta del servidor:', response.data);
         
             } catch (error) {
@@ -45,7 +45,7 @@
         //     "products": [2,1,2]
         //    }
         const orderData = {
-            products: idsJuegos,
+            products: [1],
             userId: user.id
         };
         
