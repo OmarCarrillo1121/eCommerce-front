@@ -7,30 +7,43 @@ import { useDispatch, useSelector } from "react-redux"; //useDispatch
 import { Link } from "react-router-dom";
 import { setShoppingCart } from "../../redux/actions";
 import  Discount  from "../Discount/Discount"
-const Carrito = () => {
-    //!Este carrito lo voy a llamar desde el reducer
-    const shoppingCart = useSelector(state => state.shoppingCart)
-    const compras = useSelector(state => state.shopping)
-    console.log(shoppingCart)
-    console.log('COMPRAS',compras)
-    const dispatch = useDispatch();//setCart
-    
+import { useNavigate } from "react-router-dom";
 
+const Carrito = () => {
+  //!Este carrito lo voy a llamar desde el reducer
+  const shoppingCart = useSelector((state) => state.shoppingCart);
+  const compras = useSelector((state) => state.shopping);
+  console.log(shoppingCart);
+  console.log("COMPRAS", compras);
+  const dispatch = useDispatch(); //setCart
   const [carrito, setCarrito] = useState([...shoppingCart]);
+  const { user } = useSelector((state) => state);
+  const [userSaved, setUserSaved] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      setUserSaved(user);
+    }
+  }, [user]);
 
   //!Para enviar al back el pedido:
   //!!!!Pasar esto a las ACTIONS
 
   const buyGames = async (productos) => {
     try {
-      console.log(productos);
-      const response = await axios.post(
-        "https://ecomercestorebacken.vercel.app/MercadoPago",
-        productos
-      );
-
-      // Realiza la redirección al enlace de pago
-      window.location.href = response.data;
+      if (!userSaved) {
+        alert("Inicia sesión para completar tu compra!");
+        navigate("/login");
+      } else {
+        console.log(productos);
+        const response = await axios.post(
+          "https://ecomercestorebacken.vercel.app/MercadoPago",
+          productos
+        );
+        // Realiza la redirección al enlace de pago
+        window.location.href = response.data;
+      }
     } catch (error) {
       console.error("Error al procesar el pago:", error.message);
       // Puedes manejar el error según tus necesidades
@@ -122,7 +135,7 @@ const Carrito = () => {
     // Actualiza el carrito directamente en el estado de Redux
     dispatch(setShoppingCart(carrito));
     console.log("Carrito actualizado:", carrito);
-}, [dispatch, carrito]);
+  }, [dispatch, carrito]);
 
   return (
     <div>
