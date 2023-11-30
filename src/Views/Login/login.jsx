@@ -49,13 +49,20 @@ export default function Login() {
           `${URL_GAMES}/users/search/email?email=${userEmail}`
         );
         const userInfo = userData.data;
-        dispatch(authUserData(userInfo[0]));
-        // dispatch(saveStateToLocalStorage(userInfo));
-        // setStoredAuthUserInfo(userInfo);
-        //localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
-        alert("¡Logueado con éxito!");
-        navigate("/");
-        navigate(0);
+        console.log(userInfo);
+        if (userInfo[0].banned == true) {
+          alert("Usuario baneado, contacta con el administrador");
+          navigate("/");
+          navigate(0);
+        } else {
+          dispatch(authUserData(userInfo[0]));
+          // dispatch(saveStateToLocalStorage(userInfo));
+          // setStoredAuthUserInfo(userInfo);
+          //localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
+          alert("¡Logueado con éxito!");
+          navigate("/");
+          navigate(0);
+        }
       }
     } catch (error) {
       setError(error.message);
