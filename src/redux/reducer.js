@@ -44,6 +44,9 @@ import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_REVIEW_REQUEST,
+  POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE,
   POST_USER,
   GET_ACTIVE_VIDEOGAMES,
   DELETED_VIDEOGAMES,
@@ -56,12 +59,12 @@ import {
   ADD_REJECTED_PURCHASE,
   SET_SHOPPING_CART,
   GET_ORDERS_BY_ID_USER,
-  GET_REVIEWS_BY_USER,
   GET_REVIEWS_OF_GAME,
   //AUTH
   IS_LOGGED,
   IS_ADMIN,
   AUTH_USER_DATA,
+  CLEAN_SHOPPING_CART,
 } from "./action-types";
 
 const initialState = {
@@ -391,6 +394,27 @@ const reducer = (state = initialState, action) => {
     case RESTORE_REVIEW: {
       return { ...state };
     }
+
+    case POST_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case POST_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reviews: [...state.reviews, action.payload],
+      };
+
+    case POST_REVIEW_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
     /* GET ALL BANNERS */
     case GET_ALL_BANNERS: {
@@ -902,6 +926,12 @@ const reducer = (state = initialState, action) => {
         );
         return state;
       }
+      case CLEAN_SHOPPING_CART:
+        console.log("Limpia carro en reducer");
+        return {
+          ...state,
+          shoppingCart: [],
+        };
     //!Edward
 
     default:

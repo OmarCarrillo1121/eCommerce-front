@@ -100,7 +100,7 @@ function App() {
       ) : null}
       {viewportWidth <= 800 && <ResponsiveNav />}
       <Routes>
-        <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
+        <Route path="/" element={[<Landing key={1} />]} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/catalogo" element={<Catalogo />} />

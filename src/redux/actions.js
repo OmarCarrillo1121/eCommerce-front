@@ -48,6 +48,9 @@ import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_REVIEW_REQUEST,
+  POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE,
 
   //BANNERS
   GET_ALL_BANNERS,
@@ -61,11 +64,6 @@ import {
   SET_CURRENT_PAGE,
   POST_USER,
   GET_ALL_BANNED_USERS,
-  GET_ACTIVE_VIDEOGAMES,
-  DELETED_VIDEOGAMES,
-  DELETE_VIDEOGAME,
-  RESTORE_VIDEOGAME,
-  GET_USER_BY_EMAIL,
   GET_ORDERS_BY_USER,
   GET_REVIEWS_BY_USER,
   RESET_DETAIL_REVIEWS_USER,
@@ -76,12 +74,12 @@ import {
   ADD_REJECTED_PURCHASE,
   ADD_SUCCESSFUL_PURCHASE,
   GET_ORDERS_BY_ID_USER,
-  GET_REVIEWS_BY_USER,
 
   //AUTH
   IS_LOGGED,
   IS_ADMIN,
   AUTH_USER_DATA,
+  CLEAN_SHOPPING_CART,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -486,6 +484,35 @@ export const fetchReviewsFailure = (error) => ({
   payload: error,
 });
 
+// Acción para crear una nueva review
+export const postReviewRequest = () => ({
+  type: POST_REVIEW_REQUEST,
+});
+
+export const postReviewSuccess = (review) => ({
+  type: POST_REVIEW_SUCCESS,
+  payload: review,
+});
+
+export const postReviewFailure = (error) => ({
+  type: POST_REVIEW_FAILURE,
+  payload: error,
+});
+
+// Función asincrónica para manejar la creación de la review
+export const postReview = (newReview) => {
+  return async (dispatch) => {
+    dispatch(postReviewRequest());
+
+    try {
+      const response = await axios.post(`${URL_GAMES}/reviews/`, newReview);
+      dispatch(postReviewSuccess(response.data));
+    } catch (error) {
+      dispatch(postReviewFailure(error.message));
+    }
+  };
+};
+
 /* GET REVIEWS BY USER */
 export const getReviewsByUser = (id) => {
   return async (dispatch) => {
@@ -803,20 +830,6 @@ export const getOrdersByUserId = (id) => {
   };
 };
 
-/*❤GET REVIEWS BY USER */
-export const getReviewsByUser = (id) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`${URL_GAMES}/reviews/user/${id}`)
-      return dispatch({
-        type: GET_REVIEWS_BY_USER,
-        payload: response.data
-      })
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
 export const resetDetailReviewsUser = () => {
   return { type: RESET_DETAIL_REVIEWS_USER, payload: [] };
 };
@@ -892,5 +905,8 @@ export const addRejectedPurchase = (rejectedPurchase) => {
 export const addSuccessfulPurchase = (successfulPurchase) => {
   //console.log('actions', successfulPurchase);
   return { type: ADD_SUCCESSFUL_PURCHASE, payload: successfulPurchase };
+};
+export const cleanShoppingCart = () => {
+  return { type: CLEAN_SHOPPING_CART };
 };
 //!Edward

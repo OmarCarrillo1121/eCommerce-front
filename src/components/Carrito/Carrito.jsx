@@ -6,14 +6,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; //useDispatch
 import { Link } from "react-router-dom";
 import { setShoppingCart } from "../../redux/actions";
-
+import  Discount  from "../Discount/Discount"
 const Carrito = () => {
-  //!Este carrito lo voy a llamar desde el reducer
-  const shoppingCart = useSelector((state) => state.shoppingCart);
-  const compras = useSelector((state) => state.shopping);
-  console.log(shoppingCart);
-  console.log("COMPRAS", compras);
-  const dispatch = useDispatch(); //setCart
+    //!Este carrito lo voy a llamar desde el reducer
+    const shoppingCart = useSelector(state => state.shoppingCart)
+    const compras = useSelector(state => state.shopping)
+    console.log(shoppingCart)
+    console.log('COMPRAS',compras)
+    const dispatch = useDispatch();//setCart
+    
 
   const [carrito, setCarrito] = useState([...shoppingCart]);
 
@@ -24,7 +25,7 @@ const Carrito = () => {
     try {
       console.log(productos);
       const response = await axios.post(
-        "http://localhost:3001/MercadoPago",
+        "https://ecomercestorebacken.vercel.app/MercadoPago",
         productos
       );
 
@@ -49,7 +50,7 @@ const Carrito = () => {
         <p>{producto.quantity}</p>
         <button onClick={() => reduceQuantity(producto.id)}>[-]</button>
         <button onClick={() => addQuantity(producto)}>[+]</button>
-        <p>Precio: ${producto.price}</p>
+        <p>Precio: <Discount price={producto.price} porcentaje={producto.descuento} /></p>
         <button onClick={() => deleteGame(producto.id)}>Delete</button>
       </div>
     ));
@@ -118,9 +119,10 @@ const Carrito = () => {
   };
   //!ACTUALIZA ESTADO DEL CARRITO
   useEffect(() => {
+    // Actualiza el carrito directamente en el estado de Redux
     dispatch(setShoppingCart(carrito));
     console.log("Carrito actualizado:", carrito);
-  }, [dispatch, carrito]);
+}, [dispatch, carrito]);
 
   return (
     <div>
