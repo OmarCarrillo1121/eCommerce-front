@@ -1,94 +1,92 @@
     import { useEffect } from 'react';
-    import { Link, useLocation } from 'react-router-dom';
+    import { Link } from 'react-router-dom';
     import { useDispatch, useSelector } from 'react-redux';
-    import { addSuccessfulPurchase } from '../../redux/actions';
+    import {  cleanShoppingCart, } from '../../redux/actions';
+    import axios from 'axios';
 
     const SuccessBuy = () => {
+
+
+
     const dispatch = useDispatch();
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
+
 
     // Obtén la información del carrito desde el estado global
+    const { user } = useSelector((state) => state);
     const shoppingCart = useSelector(state => state.shoppingCart);
-        // Obtén los valores directamente de searchParams
-        const collectionStatus = searchParams.get('collection_status');
-        const paymentId = searchParams.get('payment_id');
-        const status = searchParams.get('status');
-        const merchantOrderId = searchParams.get('merchant_order_id');
-        const preferenceId = searchParams.get('preference_id');
+    const totalShoppingCart = shoppingCart.map(game => game.price * game.quantity).reduce((acc, subtotal) => acc + subtotal, 0) 
+    const idsJuegos = [];
+
+    shoppingCart.forEach(game => {
+        for (let i = 0; i < game.quantity; i++) {
+            idsJuegos.push(game.id);
+        }
+    });
+    
+    console.log("idessss",idsJuegos);
+    console.log('user',user.id)
+
+        const createOrder = async (orderData) => {
+            try {
+                console.log(orderData, 'Antes del post');
+        
+                // Agregado el string 'http://localhost:3001' antes de '/orders'
+                const response = await axios.post('http://localhost:3001/orders', orderData);//! Envío
+                console.log('Respuesta del servidor:', response.data);
+        
+            } catch (error) {
+                console.error("Error al crear la orden:", error.message);
+                
+                alert("Error al procesar la orden. Por favor, inténtelo de nuevo.");
+            }
+        };
+        // {
+        //     "userId": "7b421428-631f-488f-aaea-1faae149c928",
+        //     "products": [2,1,2]
+        //    }
+        const orderData = {
+            products: idsJuegos,
+            userId: user.id
+        };
+        
+
+    
+
     useEffect(() => {
-
-
-        // Imprimir datos en la consola
-        console.log('Datos de la consulta:', {
-        collectionStatus,
-        paymentId,
-        status,
-        merchantOrderId,
-        preferenceId,
-        shoppingCart,
-        });
-
-        // Si la compra es exitosa, realiza el dispatch
-        dispatch(
-            addSuccessfulPurchase({
-            collectionStatus,
-            paymentId,
-            status,
-            merchantOrderId,
-            preferenceId,
-            shoppingCart,
-            })
-            //!Despachar  una petición donde se envíe el carrito y el ID del usuario
-            
-            // const ROUTEPOSTORDERS =['http://localhost:3001/orders',"https://ecomercestorebacken.vercel.app/orders"];
-            // const postOrders = async (shopping) => {//!Shopping debe tener id y el carrito, el carrito debe traer solo los IDs de los productos
-            
-            //     try {
-            //         console.log(shopping)
-            //         const response = await axios.post(
-            //             ROUTEBACKMP[0],
-            //             shopping
-            //         );
-            
-            //         // Realiza la redirección al enlace de pago
-            //         window.location.href = response.data;
-            //     } catch (error) {
-            //         console.error("Error al procesar el pago:", error.message);
-            //         // Puedes manejar el error según tus necesidades
-            //     }
-            // };
         
+        console.log('Esta es la orden',orderData)
 
-        );
+        createOrder(orderData)
+
+
+        return () => {
+            
+            console.log('DESMONTA EL COMPONENTE y lIMPIA EL CARRITO')
+            dispatch(cleanShoppingCart());
+        };
         
-    }, [dispatch, collectionStatus, merchantOrderId, paymentId, preferenceId, searchParams, shoppingCart, status]);
-
+    }, [dispatch]);
+    const renderPurchasedGames = () => {
+        return shoppingCart.map(({ name, quantity, id }) => (
+            <p key={id}>
+                * Nombre: {name} Cantidad: {quantity}
+            </p>
+        ));
+    };
     return (
         <div>
-        <button>
-            <Link to='/carrito'>Carrito</Link>
-        </button>
-        <button>
-            <Link to='/'>Catálogo</Link>
-        </button>
-        <p>Compra Exitosa</p>
-        <p>Otra Cosa</p>
-        <p>
-            <span>collectionStatus: </span>
-            {searchParams.get('collection_status')} <br />
-            <span>paymentId: </span>
-            {searchParams.get('payment_id')} <br />
-            <span>status: </span>
-            {searchParams.get('status')} <br />
-            <span>merchantOrderId: </span>
-            {searchParams.get('merchant_order_id')} <br />
-            <span>preferenceId: </span>
-            {searchParams.get('preference_id')}<br />
-            <span>shoppingCart: </span>
-            {shoppingCart}<br />
-            
-        </p>
+            <button>
+                <Link to='/'>Home</Link>
+            </button>
+            <p>Compra Exitosa</p>
+            <p>Detalles de la compra:</p>
+            <p>ID Usuario: {user.id} </p>
+
+            <p>Juegos Comprados: </p>
+            <div>{renderPurchasedGames()}</div>
+            <div key={totalShoppingCart}>
+                Total: {typeof totalShoppingCart === 'number' ? `${totalShoppingCart} $ USD` : 'Error en el total'}
+            </div>
         </div>
     );
     };

@@ -16,6 +16,7 @@ const Carrito = () => {
     const dispatch = useDispatch();//setCart
     
     const [carrito, setCarrito] = useState([...shoppingCart]);
+    console.log('traigo el carrito', carrito)
         
     
     //!Para enviar al back el pedido:
@@ -120,9 +121,10 @@ const Carrito = () => {
   };
   //!ACTUALIZA ESTADO DEL CARRITO
   useEffect(() => {
+    // Actualiza el carrito directamente en el estado de Redux
     dispatch(setShoppingCart(carrito));
     console.log("Carrito actualizado:", carrito);
-  }, [dispatch, carrito]);
+}, [dispatch, carrito]);
 
   return (
     <div>

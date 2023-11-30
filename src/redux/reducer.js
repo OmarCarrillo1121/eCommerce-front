@@ -59,6 +59,7 @@ import {
   IS_LOGGED,
   IS_ADMIN,
   AUTH_USER_DATA,
+  CLEAN_SHOPPING_CART,
 } from "./action-types";
 
 const initialState = {
@@ -873,6 +874,12 @@ const reducer = (state = initialState, action) => {
         );
         return state;
       }
+      case CLEAN_SHOPPING_CART:
+        console.log("Limpia carro en reducer");
+        return {
+          ...state,
+          shoppingCart: [],
+        };
     //!Edward
 
     default:

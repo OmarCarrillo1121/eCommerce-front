@@ -72,6 +72,7 @@ import {
   IS_LOGGED,
   IS_ADMIN,
   AUTH_USER_DATA,
+  CLEAN_SHOPPING_CART,
 } from "./action-types";
 
 export const saveStateToLocalStorage = () => {
@@ -847,5 +848,8 @@ export const addRejectedPurchase = (rejectedPurchase) => {
 export const addSuccessfulPurchase = (successfulPurchase) => {
   //console.log('actions', successfulPurchase);
   return { type: ADD_SUCCESSFUL_PURCHASE, payload: successfulPurchase };
+};
+export const cleanShoppingCart = () => {
+  return { type: CLEAN_SHOPPING_CART };
 };
 //!Edward
