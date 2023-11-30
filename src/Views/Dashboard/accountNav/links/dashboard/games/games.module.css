@@ -18,6 +18,7 @@
     transition: all .3s ease-in-out;
     border-radius: 5px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
 }
 .tabletGames .addGame:hover {
     background-color: rgba(17, 25, 40);
@@ -196,6 +197,7 @@
     cursor: pointer;
     transition: all .3s ease-in-out;
     text-align: center;
+    text-decoration: none;
 }
 .btnEdit:hover {
     background-color: #fff;

@@ -9,7 +9,7 @@ export const Links = ({ url, img, name}) => {
     const locate = useLocation().pathname.includes(`/dashboard/${url}`)
 
     return (<>
-        <NavLink to={`/dashboard/${url}`}>
+        <NavLink to={`/dashboard/${url}`} className={Style.navlink}>
           <div className={`${locate ? Style.dashboard_link_not : Style.dashboard_link}`}>
               <img src={img} alt="icon"/>
               <h2>{name}</h2>
@@ -22,11 +22,7 @@ export const Links = ({ url, img, name}) => {
 export const DashboardUserInfo = () => {
     return (
       <div className={Style.dashboard_nav_user}>
-        <img src={userFirsIcon} alt="user" width={70}/>
-        <div className={Style.dashboard_nav_user_info}>
-         <h2>UserName</h2>
-         <h2>email@gmail.com</h2>
-        </div>
+        <p>Dashboard Admin</p>
       </div>
     )   
 }

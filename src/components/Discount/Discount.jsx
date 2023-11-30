@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./Discount.module.css"; // Asegúrate de tener un archivo CSS para los estilos
+import Style from "./Discount.module.css";
 
 function Discount({ price, porcentaje }) {
   const priceDiscount = porcentaje ? price - (price * porcentaje) / 100 : null;
@@ -30,3 +30,4 @@ function Discount({ price, porcentaje }) {
 }
 
 export default Discount;
+

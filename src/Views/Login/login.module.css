@@ -74,3 +74,6 @@
     display: none;
   }
 }
+.navlink {
+  text-decoration: none;
+}

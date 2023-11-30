@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; //useDispatch
 import { Link } from "react-router-dom";
 import { setShoppingCart } from "../../redux/actions";
+import  Discount  from "../Discount/Discount"
 import { useNavigate } from "react-router-dom";
 
 const Carrito = () => {
@@ -62,7 +63,7 @@ const Carrito = () => {
         <p>{producto.quantity}</p>
         <button onClick={() => reduceQuantity(producto.id)}>[-]</button>
         <button onClick={() => addQuantity(producto)}>[+]</button>
-        <p>Precio: ${producto.price}</p>
+        <p>Precio: <Discount price={producto.price} porcentaje={producto.descuento} /></p>
         <button onClick={() => deleteGame(producto.id)}>Delete</button>
       </div>
     ));

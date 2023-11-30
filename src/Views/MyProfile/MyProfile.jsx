@@ -184,10 +184,13 @@ function MyProfile() {
                                     <div className={style.containerPassword}>
                                         <h4>Password</h4>
                                         <div className={style.containerData}>
-                                            <b>{user.password}</b>
+                                {/* Mostrar la contraseña solo cuando se está editando */}
+        {infoTime ? <b>{newUser.password}</b> : "********"}
+
+                                           {/* <b>{user.password}</b>*/}
                                         </div>
                                     </div>
-                                </div>
+                            </div>
                                 <div className={style.containerEmail}>
                                     <h4>Email</h4>
                                     <div className={style.containerData2}>
@@ -264,6 +267,14 @@ function MyProfile() {
                             <input type="text" name="address" placeholder="Change your address" value={newUser.address} onChange={handleChangeInfo}/>
                             {validationErrors.address && <p className={style.error}>{validationErrors.address}</p>}
                         </div>
+
+
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <input type="text" name="password" placeholder="Change your password" value={newUser.password} onChange={handleChangeInfo}/>
+                            
+                        </div>
+
                         <button className={style.updateUser} onClick={submitChangeInfo}>Update User</button>
                        
                     </div>

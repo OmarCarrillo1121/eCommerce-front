@@ -93,10 +93,10 @@ function FormVideogame() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // console.log(newVideogame);
         dispatch(postVideogame({
             videogame: newVideogame
         }))
+        console.log(newVideogame);
         setNewVideogame({
             name: "",
             description: "",
@@ -121,17 +121,17 @@ function FormVideogame() {
         <div className={style.container}>
             <form className={style.form} onSubmit={handleSubmit}>
                 <nav>
-                    <h1>Form to create a Videogame</h1>
+                    <h1>Formulario para crear un Videojuego</h1>
                 </nav>
                 <div className={style.containerLabelInput}>
                     <div className={style.first}>
                         <div className={style.nameContainer}>
-                            <label htmlFor="name">Name:</label>
+                            <label htmlFor="name">Nombre:</label>
                             <input 
                                 type="text" 
                                 name="name"
                                 value={newVideogame.name}
-                                placeholder="Enter the name of the videogame..."
+                                placeholder="Ingresa el nombre del videojuego..."
                                 onChange={handleChange}
                             />
                             <br/>
@@ -140,12 +140,12 @@ function FormVideogame() {
                             </p>
                         </div>
                         <div className={style.developerContainer}>
-                            <label htmlFor="developer">Developer:</label>
+                            <label htmlFor="developer">Desarrollador:</label>
                             <input
                                 type="text"
                                 name="developer" 
                                 value={newVideogame.developer}
-                                placeholder="Enter the developer of the videogame..."
+                                placeholder="Ingresa el nombre del desarrollador..."
                                 onChange={handleChange}
                             />
                             <br/>
@@ -156,12 +156,12 @@ function FormVideogame() {
                     </div>
                     <div className={style.second}>
                         <div className={style.genreContainer}>
-                            <label htmlFor="genre">Genre:</label>
+                            <label htmlFor="genre">Género:</label>
                             <input 
                                 type="text"
                                 name="genre"
                                 value={newVideogame.genre}
-                                placeholder="Enter the genre of the videogame..."
+                                placeholder="Ingresa el género del Videojuego..."
                                 onChange={handleChange}
                             />
                             <br/>
@@ -170,7 +170,7 @@ function FormVideogame() {
                             </p>
                         </div>
                         <div>
-                            <label htmlFor="platform">Platform:</label>
+                            <label htmlFor="platform">Plataforma:</label>
                             <select name="platform" onChange={handleChange}>
                                 {
                                     platforms && platforms.length > 0 
@@ -189,11 +189,11 @@ function FormVideogame() {
                     </div> 
                     <div className={style.third}>
                         <div className={style.thirdFirst}>
-                            <label htmlFor="description">Description:</label>
+                            <label htmlFor="description">Descripción:</label>
                             <textarea 
                                 name="description"
                                 value={newVideogame.description}
-                                placeholder="Enter a description for this game..."
+                                placeholder="Ingresa una descripción breve..."
                                 onChange={handleChange}
                             ></textarea>
                             <br/>
@@ -203,8 +203,9 @@ function FormVideogame() {
                         </div>
                         <div className={style.thirdSecond}>
                             <div className={style.thirdSecondPrice}>
-                                <label htmlFor="price">Price in USD:</label>
+                                <label htmlFor="price">Precio en USD:</label>
                                 <input 
+                                min={1}
                                     type="number"
                                     name="price"
                                     value={newVideogame.price}
@@ -231,7 +232,7 @@ function FormVideogame() {
                                 </p>
                             </div>
                             <div className={style.thirdSecondDiscount}>
-                                <label htmlFor="discount">Discount:</label>
+                                <label htmlFor="discount">Descuento:</label>
                                 <select name="discount" onChange={handleChange} value={newVideogame.discount}>
                                     {
                                         discount.length > 0 
@@ -257,7 +258,7 @@ function FormVideogame() {
                                 <img src={template}  className={style.img} alt="" />
                             )
                         }
-                        <label htmlFor="imageInput">Choose an Image</label>
+                        <label htmlFor="imageInput">Elije una imagen</label>
                         <input type="file" id="imageInput" name="image" onChange={UploadImage}/>
                         <br/>
                         <p>
@@ -276,7 +277,7 @@ function FormVideogame() {
                         !newVideogame.price || 
                         !newVideogame.stock  
                         ? true : false}
-                >Submit</button>
+                >Crear</button>
                 <button className={style.btnBack} onClick={backDashboard}>➯</button>
             </form>
         </div>

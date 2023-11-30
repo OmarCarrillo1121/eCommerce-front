@@ -213,12 +213,11 @@ export const filterGenre = (parameter) => {
 };
 
 /* POST VIDEOGAMES */
-export const postVideogame = (videogame) => {
+export const postVideogame = ({videogame}) => {
   return async (dispatch) => {
     try {
-      console.log(videogame);
       await axios.post(`${URL_GAMES}/videogames`, videogame);
-      alert("Videogame created succesfully!");
+      alert("Videojuego creado exitosamente!");
 
       dispatch(saveStateToLocalStorage());
 
@@ -783,6 +782,9 @@ export const editOrders = ({ id, orders }) => {
 export const getByIdOrders = (id) => {
   return async function (dispatch) {
     try {
+      console.log('====================================');
+      console.log(id);
+      console.log('====================================');
       const response = await axios.get(`${URL_GAMES}/orders/${id}`);
       return dispatch({
         type: GET_BY_ID_ORDERS,

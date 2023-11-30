@@ -625,7 +625,7 @@
 .dateOrder {
     position: absolute;
     bottom: 2%;
-    left: 0;
+    left: 1%;
     font-size: 13px;
     color: #fff;
 }
@@ -699,7 +699,7 @@
     font-weight: bold;
 }
 .productPrice {
-    font-size: 11px;
+    font-size: 10px;
     color: gray;
     text-decoration: line-through;
     /* padding: 5px 0; */
@@ -713,7 +713,7 @@
     padding-top: 20px;
 }
 .productAmount {
-    font-size: 16px;
+    font-size: 13px;
     color: green;
 }
 .verMas {
@@ -774,4 +774,7 @@
 }
 .tdLast {
     cursor: pointer;
+}
+.catalogo {
+    text-decoration: none;
 }

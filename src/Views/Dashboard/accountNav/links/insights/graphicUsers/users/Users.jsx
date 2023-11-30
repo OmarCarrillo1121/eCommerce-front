@@ -59,7 +59,7 @@ function Users({ users }) {
   return (
     <div className={style.containerBar}>
       <Bar
-        style={({ width: "1000px" }, { height: "600px" })}
+        style={({ width: "800px" }, { height: "500px" })}
         data={data}
         options={options}
       />

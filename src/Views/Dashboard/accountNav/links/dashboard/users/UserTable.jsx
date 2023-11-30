@@ -104,10 +104,19 @@ const UserTable = () => {
         const { name, value } = e.target
 
         if (name === 'rol') {
-            setUser({
-                ...user,
-                rol: value
-            })
+            if (value === 'admin') {
+                setUser({
+                    ...user,
+                    rol: value,
+                    isAdmin: true
+                })
+            } else {
+                setUser({
+                    ...user,
+                    rol: value,
+                    isAdmin: false
+                })
+            }
         }
     }
 

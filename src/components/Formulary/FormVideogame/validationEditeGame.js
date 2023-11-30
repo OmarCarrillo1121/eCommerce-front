@@ -12,58 +12,58 @@ export const validation = (videogame) => {
 
     /* NAME */
     if(videogame.name && !nameRegex.test(videogame.name)) {
-        error.name = "Name contains invalid characters."
+        error.name = "Contiene caracteres inválidos."
     }
     if(videogame.name && videogame.name.length > 30) {
-        error.name = "Name must be less than 30 characters."
+        error.name = "Debe contener menos de 30 caracteres."
     }
     if(videogame.name && videogame.name.length < 5) {
-        error.name = "Name must be at least 5 characters."
+        error.name = "Debe contener al menos 5 caracteres."
     }
-    if(videogame.name && videogame.name.length === 0) {
-        error.name = "Name field can't be empty."
+    if(videogame.name.length === 0) {
+        error.name = "El campo no puede estar vacio."
     }
     
     /* DESCRIPTION */
     if(videogame.description && !descriptionRegex.test(videogame.description)) {
-        error.description = "The description contains invalid characters"
+        error.description = "Contiene caracteres inválidos."
     }
     if(videogame.description && videogame.description.length > 400) {
-        error.description = "The description must be less than 400 characters"
+        error.description = "Debe contener menos de 400 caracteres."
     }
     if(videogame.description && videogame.description.length < 50 && videogame.description.length > 0) {
-        error.description = "The description field must be at least 50 characters long."
+        error.description = "Debe contener al menos 50 caracteres."
     }
-    if(videogame.description && videogame.description.length === 0) {
-        error.description = "The description field can't be empty."
+    if(videogame.description.length === 0) {
+        error.description = "El campo no puede estar vacio."
     }
 
     /* DEVELOPER */
     if(videogame.developer && developerRegex.test(videogame.developer)) {
-        error.developer = "Developer's name contains invalid characters."
+        error.developer = "Contiene caracteres inválidos."
     }
-    if(videogame.developer && videogame.developer.length > 20) {
-        error.developer = "Developer's name must be less than 20 characters."
+    if(videogame.developer && videogame.developer.length > 30) {
+        error.developer = "Debe contener menos de 30 caracteres."
     }
-    if(videogame.developer && videogame.developer.length === 0) {
-        error.developer = "Developer's name field can't be empty."
+    if(videogame.developer.length === 0) {
+        error.developer = "El campo no puede estar vacio."
     }
     
     
     /* IMAGE */
     if(videogame.image && !videogame.image.match(regexUrl)){
-        error.image = "Invalid image URL."
+        error.image = "URL inválido."
     }
     
     /* GENRE */
     if(videogame.genre && !genreRegex.test(videogame.genre)) {
-        error.genre = "Genre contains invalid characters."   
+        error.genre = "Contiene caracteres inválidos."   
     }
-    if(videogame.genre && videogame.genre.length === 0) {
-        error.genre = "Genre field can't be empty."
+    if(videogame.genre.length === 0) {
+        error.genre = "El campo no puede estar vacio."
     }
     if(videogame.genre && videogame.genre.length > 20) {
-        error.genre = "The genre can't be more than 20 characters"
+        error.genre = "Máximo de caracteres superados."
     }
     
     /* PLATFORM */
@@ -73,24 +73,18 @@ export const validation = (videogame) => {
     
     /* PRICE */
     if(videogame.price && numberRegex.test(videogame.price)){
-        error.price = "The price must contain just numbers."
+        error.price = "El precio debe contener solo números."
     }
     if(videogame.price && videogame.price < 10){
-        error.price = "The price must be greater than $10."
+        error.price = "El precio debe ser mayor a $10."
     }
     if(videogame.price && videogame.price > 1000){
         error.price = "The value cannot be greater than 1000."
     }
-    if(videogame.price && videogame.price.length === 0) {
-        error.price = "Price must be a number."
-    }
 
     /* STOCK */
     if(videogame.stock && numberRegex.test(videogame.stock)) {
-        error.stock = "The stock must contain just numbers."
-    }
-    if(videogame.stock && videogame.stock < 10) {
-        error.stock = "The product's stock must be at least 10 for sell."
+        error.stock = "El stock contiene caracteres inválidos."
     }
     if(videogame.stock && videogame.stock > 500) {
         error.stock = "There can't be more than 500 products for sale"
@@ -101,8 +95,8 @@ export const validation = (videogame) => {
     if(videogame.discount && numberRegex.test(videogame.discount)) {
         error.discount = "The discount must contain just numbers."
     }
-    if(videogame.discount && videogame.discount > 60) {
-        error.discount = "The discount must be less than 60 porcent"
+    if(videogame.discount > 60) {
+        error.discount = "Maximo de descuento alcanzado."
     }
 
     return error
