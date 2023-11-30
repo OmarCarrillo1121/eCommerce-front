@@ -8,12 +8,13 @@ import { Link } from "react-router-dom";
 import { setShoppingCart } from "../../redux/actions";
 
 const Carrito = () => {
-  //!Este carrito lo voy a llamar desde el reducer
-  const shoppingCart = useSelector((state) => state.shoppingCart);
-  const compras = useSelector((state) => state.shopping);
-  console.log(shoppingCart);
-  console.log("COMPRAS", compras);
-  const dispatch = useDispatch(); //setCart
+    //!Este carrito lo voy a llamar desde el reducer
+    const shoppingCart = useSelector(state => state.shoppingCart)
+    const compras = useSelector(state => state.shopping)
+    console.log(shoppingCart)
+    console.log('COMPRAS',compras)
+    const dispatch = useDispatch();//setCart
+    
 
   const [carrito, setCarrito] = useState([...shoppingCart]);
 
@@ -118,9 +119,10 @@ const Carrito = () => {
   };
   //!ACTUALIZA ESTADO DEL CARRITO
   useEffect(() => {
+    // Actualiza el carrito directamente en el estado de Redux
     dispatch(setShoppingCart(carrito));
     console.log("Carrito actualizado:", carrito);
-  }, [dispatch, carrito]);
+}, [dispatch, carrito]);
 
   return (
     <div>
