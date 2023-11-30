@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { postReview } from "../../../../redux/actions";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import style from "./reviewForm.module.css";
 import Star from "./Star";
 
 const ReviewForm = ({ gameId }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const { user } = useSelector((state) => state);
@@ -40,14 +38,7 @@ const ReviewForm = ({ gameId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userId) {
-      // Si el usuario no está autenticado, puedes redirigirlo a la página de inicio de sesión u otra página.
-      navigate("/ruta-de-inicio-de-sesion"); // Reemplaza "/ruta-de-inicio-de-sesion" con tu ruta real.
-      return;
-    }
-
     if (Object.keys(errors).some((key) => errors[key])) {
-      // Si hay errores, no enviamos la solicitud
       return;
     }
 
@@ -68,7 +59,6 @@ const ReviewForm = ({ gameId }) => {
       setLoading(false);
     } catch (error) {
       console.error("Error al enviar la revisión:", error);
-      // Puedes manejar el error de alguna manera aquí
       setLoading(false);
     }
   };
@@ -92,6 +82,7 @@ const ReviewForm = ({ gameId }) => {
             placeholder="Escribe tu reseña"
           />
         </label>
+        {errors.content && <p className={style.formError}>{errors.content}</p>}
         <br />
         <label className={style.formLabel}>
           Puntuación:
@@ -106,10 +97,18 @@ const ReviewForm = ({ gameId }) => {
           </div>
         </label>
         <br />
-        <button className={style.formButton} type="submit" disabled={!userId || loading}>
-          {loading ? 'Enviando...' : 'Enviar reseña'}
+        <button
+          className={style.formButton}
+          type="submit"
+          disabled={!userId || loading}
+        >
+          {loading ? "Enviando..." : "Enviar reseña"}
         </button>
-        {errors.content && <p className={style.formError}>{errors.content}</p>}
+        {!userId && (
+          <p className={style.formMessage}>
+            Para enviar una reseña, <a href="/login">inicia sesión</a>.
+          </p>
+        )}
       </form>
       <br />
     </div>

@@ -19,6 +19,13 @@
 .footer_ul_li li {
     margin-top: 20px;
     list-style-type: none;
+    color: #fff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.footer_ul_li li:hover {
+    color: #ffd700;
 }
 
 .footer_icons {

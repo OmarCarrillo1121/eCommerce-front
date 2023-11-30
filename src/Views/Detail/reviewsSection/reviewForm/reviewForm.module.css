@@ -45,3 +45,18 @@
   margin-top: 5px;
   font-size: 12px;
 }
+
+.formMessage {
+  margin-top: 10px;
+  color: #ff0000;
+}
+
+.formMessage a {
+  text-decoration: underline;
+  color: rgb(230,84,27);
+  transition: color 0.3s ease;
+}
+
+.formMessage a:hover {
+  color: #ffd700;
+}

@@ -1,25 +1,28 @@
 import React from "react";
 import Style from "./Discount.module.css";
 
-function calcPriceDiscount(price, discount) {
-  return price - (price * discount) / 100;
-}
-
 function Discount({ price, porcentaje }) {
-  const priceDiscount = porcentaje ? calcPriceDiscount(price, porcentaje) : null;
-  const ahorro = porcentaje ? price - priceDiscount : null;
+  const priceDiscount = porcentaje ? price - (price * porcentaje) / 100 : null;
 
+  // Verifica si hay descuento y renderiza según la condición
   return (
     <div className={Style.discountContainer}>
-      {porcentaje && (
-        <span className={Style.descuento}>
-          -{porcentaje}% <span className={Style.ahorro}>Ahorra ${ahorro.toFixed(2)}</span>
-        </span>
-      )}
-      {porcentaje && priceDiscount && (
+      {porcentaje !== 0 &&
+        priceDiscount !== null && ( // Asegúrate de que priceDiscount no sea null ni undefined
+          <p>
+            <span className={Style.originalPrice}>{`$${price.toFixed(
+              2
+            )}`}</span>{" "}
+            <span className={Style.discountedPrice}>{`$${priceDiscount.toFixed(
+              2
+            )}`}</span>
+          </p>
+        )}
+      {porcentaje === 0 && ( // Mostrar solo el precio sin descuento
         <p>
-          <span className={Style.originalPrice}>Antes: ${price.toFixed(2)}</span>{" "}
-          <span className={Style.discountedPrice}>Ahora: ${priceDiscount.toFixed(2)}</span>
+          <span className={Style.originalPriceNoDiscount}>{`$${price.toFixed(
+            2
+          )}`}</span>
         </p>
       )}
     </div>

@@ -1,16 +1,7 @@
 .detail {
     background-color: #333;
-    background-size: cover;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-}
-
-@media only screen and (max-width: 800px) {
-    .detail {
-        background-color: #333;
-        background-size: cover;
-        height: 100%;
-    }
+    justify-content: space-evenly;
 }

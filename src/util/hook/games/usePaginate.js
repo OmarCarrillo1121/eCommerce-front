@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 export const usePaginate = (totalCountries) => {
     const [currentPage, setCurrentPage] = useState(1)
-    const countriesPerPage = 6
-    const totalPages = Math.ceil(totalCountries?.length / 6)
+    const countriesPerPage = 8  
+    const totalPages = Math.ceil(totalCountries?.length / 8)
     const lastIndex = currentPage * countriesPerPage
     const firstIndex = lastIndex - countriesPerPage
     return { firstIndex, lastIndex, currentPage, totalPages, setCurrentPage }
