@@ -11,7 +11,7 @@ const CancelledOrders = () => {
   const dispatch = useDispatch();
   const cancelledOrders = useSelector((state) => state.canceledOrder);
 
-  console.log("⭐⭐⭐", cancelledOrders);
+  //console.log("⭐⭐⭐", cancelledOrders);
 
    useEffect(() => {
      const fetchData = async () => {

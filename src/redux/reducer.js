@@ -44,16 +44,21 @@ import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_REVIEW_REQUEST,
+  POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE,
   POST_USER,
   GET_ACTIVE_VIDEOGAMES,
   DELETED_VIDEOGAMES,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  GET_ORDERS_BY_USER,
+  GET_REVIEWS_BY_USER,
+  RESET_DETAIL_REVIEWS_USER,
   ADD_SUCCESSFUL_PURCHASE,
   ADD_REJECTED_PURCHASE,
   SET_SHOPPING_CART,
   GET_ORDERS_BY_ID_USER,
-  GET_REVIEWS_BY_USER,
   GET_REVIEWS_OF_GAME,
   //AUTH
   IS_LOGGED,
@@ -81,6 +86,7 @@ const initialState = {
   user: null,
   statusFilter: "all",
   rolFilter: "All roles",
+  reviewsByUser: [],
   authUser: null,
   currentPage: 1,
 
@@ -107,8 +113,8 @@ const initialState = {
   detailOrders: {},
   canceledOrder: [],
   activeOrder: [],
+  orderUser: [],
   ordersUser: [],
-
   //! Carrito-Edward
   shoppingCart: [], //Acá traigo todos los productos que voy a comprar
   //! Historial de Compras:
@@ -389,6 +395,27 @@ const reducer = (state = initialState, action) => {
       return { ...state };
     }
 
+    case POST_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case POST_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reviews: [...state.reviews, action.payload],
+      };
+
+    case POST_REVIEW_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     /* GET ALL BANNERS */
     case GET_ALL_BANNERS: {
       return {
@@ -559,6 +586,19 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case GET_REVIEWS_BY_USER: {
+      return {
+        ...state,
+        reviewsByUser: action.payload
+      }
+    }
+    case RESET_DETAIL_REVIEWS_USER:{
+      return {
+        ...state,
+        reviewsByUser:[...action.payload],
+      }
+    }
+      
     /* GET ALL REVIEWS */
     case GET_ALL_REVIEWS: {
       return {
@@ -670,6 +710,18 @@ const reducer = (state = initialState, action) => {
         allOrders: [...action.payload],
       };
     }
+
+    case GET_ORDERS_BY_USER: {
+      return {
+        ...state,
+        orderUser: [...action.payload],
+      }
+     }
+        case RESET_DETAIL_ORDERS:
+            return {
+              ...state,
+              orderUser: [...action.payload],
+            };
 
     /*GET ORDERS BY ID❤ */
     case GET_BY_ID_ORDERS:

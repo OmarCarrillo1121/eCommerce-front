@@ -15,29 +15,27 @@ const Carrito = () => {
     console.log('COMPRAS',compras)
     const dispatch = useDispatch();//setCart
     
-    const [carrito, setCarrito] = useState([...shoppingCart]);
-    console.log('traigo el carrito', carrito)
-        
-    
-    //!Para enviar al back el pedido:
-    //!!!!Pasar esto a las ACTIONS
-    const ROUTEBACKMP =['http://localhost:3001/MercadoPago',"https://ecomercestorebacken.vercel.app/MercadoPago"];
-    const buyGames = async (productos) => {
-        try {
-            console.log(productos)
-            const response = await axios.post(
-                ROUTEBACKMP[0],
-                productos
-            );
-    
-            // Realiza la redirección al enlace de pago
-            window.location.href = response.data;
-        } catch (error) {
-            console.error("Error al procesar el pago:", error.message);
-            // Puedes manejar el error según tus necesidades
-        }
-    };
 
+  const [carrito, setCarrito] = useState([...shoppingCart]);
+
+  //!Para enviar al back el pedido:
+  //!!!!Pasar esto a las ACTIONS
+
+  const buyGames = async (productos) => {
+    try {
+      console.log(productos);
+      const response = await axios.post(
+        "https://ecomercestorebacken.vercel.app/MercadoPago",
+        productos
+      );
+
+      // Realiza la redirección al enlace de pago
+      window.location.href = response.data;
+    } catch (error) {
+      console.error("Error al procesar el pago:", error.message);
+      // Puedes manejar el error según tus necesidades
+    }
+  };
 
   const renderizarProductos = () => {
     return carrito.map((producto) => (
