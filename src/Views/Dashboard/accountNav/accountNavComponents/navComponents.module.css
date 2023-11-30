@@ -1,4 +1,6 @@
-
+.navlink {
+    text-decoration: none;
+}
 .dashboard_nav_user {
     display: flex;
     border-bottom: 2px solid #eee;
@@ -6,6 +8,13 @@
     padding-left: 5px;
     align-items: center;
     gap: 15px;
+    text-decoration: none;
+}
+.dashboard_nav_user p {
+    font-size: 25px;
+    padding: 10px 0;
+    padding-left: 10px;
+    color: #fff;
 }
 
 .dashboard_nav_user img {
