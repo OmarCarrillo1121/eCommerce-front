@@ -22,6 +22,8 @@ import DetailOrders from "./Views/Dashboard/accountNav/links/dashboard/DetailOrd
 import CancelledOrders from "./Views/Dashboard/accountNav/links/CancelledOrders/CancelledOrders";
 import ActiveOrders from "./Views/Dashboard/accountNav/links/ActiveOrders/ActiveOrders";
 
+import MyProfile from "./Views/MyProfile/MyProfile";
+
 import "./App.css";
 import DetailUser from "./Views/Detail/detailUser/DetailUser";
 import Checkout from "./Views/Checkout/checkout";
@@ -31,24 +33,24 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase-config";
 import Contact from "./Views/Contact/Contact";
 import AboutUs from "./Views/AboutUs/AboutUs";
-import { authUser } from "./redux/actions";
+import { authUserData } from "./redux/actions";
 import Carrito from "./components/Carrito/Carrito";
 import SuccessBuy from "./components/SuccessBuy/SuccessBuy";
 import FailureBuy from "./components/FailureBuy/FailureBuy";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { viewportWidth } = useWindow();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
-    });
-  }, []);
-
-  const [items, setItems] = useState([1, 2, 3]);
+  const userInfo = JSON.parse(localStorage.getItem("authUserInfo"));
 
   const [isAdmin, setIsAdmin] = useState(true);
+  const [isLogged, setIsLogged] = useState(true);
+  const [userSaved, setUserSaved] = useState("");
+  const { user } = useSelector((state) => state);
 
   // useEffect(() => {
   //   localStorage.setItem("items", JSON.stringify(items));
@@ -61,12 +63,31 @@ function App() {
   //   }
   // }, []);
 
+  // useEffect(() => {
+  //   const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
+  //   if (authUserFromLS) {
+  //     dispatch(authUserData(authUserFromLS[0]));
+  //   }
+  // }, []);
+
   useEffect(() => {
-    const authUserFromLS = JSON.parse(localStorage.getItem("authUserInfo"));
-    authUser(authUserFromLS);
+    onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
+    });
   }, []);
 
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     if (userInfo.rol === "admin") {
+  //       localStorage.setItem("isAdmin", JSON.stringify(true));
+  //     } else {
+  //       localStorage.setItem("isAdmin", JSON.stringify(false));
+  //     }
+  //   }
+  // }, []);
   //console.log(JSON.parse(localStorage.getItem("authUserInfo")));
+
+  console.log(user);
 
   return (
     <div className="app">
@@ -79,7 +100,7 @@ function App() {
       ) : null}
       {viewportWidth <= 800 && <ResponsiveNav />}
       <Routes>
-        <Route path="/" element={[<Landing key={1} />, <Section key={2} />]} />
+        <Route path="/" element={[<Landing key={1} />]} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/catalogo" element={<Catalogo />} />
@@ -87,6 +108,9 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/register" element={<Register />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/myProfile/:id" element={<MyProfile/>}/>
+        
+
         <Route path="/user/:id" element={<DetailUser />} />
         <Route path="/checkout" element={<Checkout />} />
         {/* //!Edward */}
@@ -95,6 +119,8 @@ function App() {
         <Route path="/successes" element={<SuccessBuy />} />
         <Route path="/failures" element={<FailureBuy />} />
         {/* //!Edward */}
+        {isLogged ? <></> : <></>}
+
         {isAdmin ? (
           <>
             <Route path="/dashboard/:id" element={<Account />} />

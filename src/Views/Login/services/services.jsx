@@ -11,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../../util/hook/localStorage/localStorage.js";
+import { authUserData } from "../../../redux/actions.js";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -43,15 +44,36 @@ const Services = () => {
     const userEmail = userCredentials.user.email;
     const response = await searchUserByMail(userEmail);
     if (response === "failure") {
-      console.log("Todo mal");
+      const postedUserInfo = {
+        name: userCredentials.user.displayName,
+        email: userCredentials.user.email,
+        password: userCredentials.user.uid,
+        image: userCredentials.user.photoURL,
+        google: true,
+      };
+      await axios.post(`${URL_GAMES}/users`, postedUserInfo).then(
+        (res) => dispatch(authUserData(res.data))
+        //localStorage.setItem("authUserInfo", JSON.stringify(res.data))
+      );
+      alert("¡Inicio de sesión exitoso!");
+      navigate("/");
+      navigate(0);
     } else {
-      const userInfo = response.data;
+      // const userInfo = response.data;
       // dispatch(authUser(userInfo));
       // dispatch(saveStateToLocalStorage(userInfo));
       // setStoredAuthUserInfo(userInfo);
-      localStorage.setItem("authUserInfo", JSON.stringify(userInfo));
+      // alert("¡Logueado con éxito!");
+      // console.log("Secret");
+      // navigate("/");
+      const userInfo = response.data;
+      dispatch(authUserData(userInfo[0]));
+      // dispatch(authUser(userInfo));
+      // dispatch(saveStateToLocalStorage(userInfo));
+      // setStoredAuthUserInfo(userInfo);
       alert("¡Logueado con éxito!");
       navigate("/");
+      navigate(0);
     }
     return response;
   };
@@ -123,6 +145,7 @@ const Services = () => {
     //   setError(error.message);
     //   alert(error.message);
     // }
+    return "success";
   };
 
   return (

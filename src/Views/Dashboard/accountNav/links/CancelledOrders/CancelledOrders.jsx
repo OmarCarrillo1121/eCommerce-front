@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderCancelled, restoreOrder, setCurrentPage } from "../../../../../redux/actions";
+import { getByIdOrders, getOrderCancelled, restoreOrder, setCurrentPage } from "../../../../../redux/actions";
 import styles from "./CancelledOrders.module.css";
 import { Link, NavLink } from "react-router-dom";
 import AccountNav from "../../accountNav";
@@ -14,7 +14,7 @@ import Pagination from "../dashboard/pagination/Pagination";
 //⭐ORDENES QUE ESTAN CANCELADAS Y QUIERO RESTAURAR:
 const CancelledOrders = () => {
   const dispatch = useDispatch();
-  const {canceledOrder, currentPage} = useSelector((state) => state.canceledOrder);
+  const {canceledOrder, currentPage, detailOrders} = useSelector((state) => state);
 
   const ordersPerPage = 10;
   const totalOrders = canceledOrder.length
@@ -24,6 +24,8 @@ const CancelledOrders = () => {
 
   let currentPageData = canceledOrder.slice(firstIndex, lastIndex)
 
+  const [info, setInfo] = useState(false)
+  const [changeOrder, setChangeOrder] = useState({})
 
   const onPageChange  = (pageNum) => {
       dispatch(setCurrentPage(pageNum))
@@ -66,15 +68,51 @@ const CancelledOrders = () => {
     const fechaFormateada = `${día}/${mes}/${año}`;
     return fechaFormateada
   }
+  const changedDate = (date) => {
+    let fecha = new Date(date);
 
-  return (
+    // Restar 3 horas a la fecha
+    fecha.setUTCHours(fecha.getUTCHours() - 3);
+
+    // Obtener los componentes de la fecha después de restar 3 horas
+    let dia = fecha.getUTCDate();
+    let mes = fecha.getUTCMonth() + 1; // Los meses van de 0 a 11
+    let anio = fecha.getUTCFullYear();
+    let horas = fecha.getUTCHours();
+    let minutos = fecha.getUTCMinutes();
+    let segundos = fecha.getUTCSeconds();
+
+    // Agregar ceros a la izquierda si es necesario
+    dia = dia < 10 ? "0" + dia : dia;
+    mes = mes < 10 ? "0" + mes : mes;
+    horas = horas < 10 ? "0" + horas : horas;
+    minutos = minutos < 10 ? "0" + minutos : minutos;
+    segundos = segundos < 10 ? "0" + segundos : segundos;
+
+    // Formatear la fecha como desees
+    let fechaFormateada = " " + dia + "-" + mes + "-" + anio + " a las " + horas + ":" + minutos + ":" + segundos;
+    return fechaFormateada
+}
+
+  const openInfo = (order) => {
+    // dispatch(getByIdOrders(order.id))
+    setChangeOrder(order)
+    setInfo(true)
+  }
+
+  const closeInfo = () => {
+    setInfo(false)
+    setChangeOrder({})
+  }
+
+  return (<>
     <div className={styles.container}>
       {/* ASIDE */}
       <aside>
         <DashboardUserInfo/>
         <div className={styles.containerLinks}>
           <Links url={'dashboard'} img={userIcon} name={'DashBoard'}/>
-          <Links url={'Orders/active'} img={shops} name={'Ordenes'}/>
+          <Links url={'Orders/cancel'} img={shops} name={'Ordenes'}/>
           <Links url={'insights'} img={dashIcon} name={'Estadísticas'}/>
         </div>
         <DashBoardCloseLogout/>
@@ -93,7 +131,7 @@ const CancelledOrders = () => {
                 <th></th>
                 <th>Id</th>
                 <th>Id del Usuario</th>
-                <th>Productos</th>
+                <th className={styles.productTh}>Productos</th>
                 <th>Fecha</th>
                 <th>Monto total</th>
                 <th>Activar Orden</th>
@@ -102,23 +140,15 @@ const CancelledOrders = () => {
             <tbody>
               {currentPageData?.map((order, index) => {
                 const rowClass = index % 2 === 0 ? styles['rowEven'] : styles['rowOdd']
-                const rowClassChange = index % 2 === 0 ? styles['rowOdd'] : styles['rowEven']
+                
                 return(
                 <tr className={`${styles.row} ${rowClass}`} key={order.id}>
-                  <th>⁝</th>
+                  <th><button onClick={() => openInfo(order)} className={styles.openInfo}>⁝</button></th>
                   <td>{order.id}</td>
                   <td>{order.userId}</td>
-                  <td>
-                    <select className={`${styles.rowChange} ${rowClassChange}`}>
-                      {
-                        order.products.map((product, index)=> {
-                          return index === 0 ? <option selected>{product.name}</option> : <option>{product.name}</option>
-                        })
-                      }
-                    </select>
-                  </td>
+                  <td className={styles.productTh}>{order.products.length}</td>
                   <td>{ChangeDate(order.date)}</td>
-                  <td>{order.amount}$</td>
+                  <td>$ {order.amount}</td>
                   <td><button onClick={() => handleRestoreOrder(order.id)}>X</button></td>
                 </tr>
               )})}
@@ -132,8 +162,50 @@ const CancelledOrders = () => {
           />
         </div>
       </div>
+      {
+        info && <div className={styles.overlay}>
+        <div className={styles.containerOrder}>
+            <button className={styles.closeInfoOrder} onClick={closeInfo}>X</button>
+            <div className={styles.containerText}>
+                <h2>{changeOrder.products.length > 1 ? 'Compras realizadas': 'Compra realizada'}</h2>
+                <b>Id: {changeOrder.id}</b>
+            </div>
+            <div className={styles.productsContainer}>
+                <div className={styles.containerProductMax}>
+                    {
+                        changeOrder.products.map((product) => {
+                            let amount = (product.discount/100) * product.price
+                            let totalAmount = product.price - amount
+
+                            return (<div className={styles.cardProduct}>
+                                <img src={product.image} alt={product.name} />
+                                <span className={styles.productDiscount}>-{product.discount}%</span>
+                                <div className={styles.containerproductxxx}>
+                                    <span className={styles.productName}>{product.name}</span>
+                                    <div className={styles.precio}>
+                                        <p>Precio $:</p>
+                                        <div className={styles.priceAmount}>
+                                            <span className={styles.productPrice}>Antes: ${product.price}</span>
+                                            <span className={styles.productAmount}>Ahora: ${totalAmount}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>)
+                        })
+                    }
+                </div>
+                <p className={styles.dateOrder}> La compra se realizó el 
+                    {
+                        changedDate(changeOrder.date)
+                    }
+                </p>
+                <small className={styles.amountOrder}>Monto total de la compra: <b>{changeOrder.amount}</b></small>
+            </div>
+            </div>
+        </div>
+      }
     </div>
-  );
+  </>);
 };
 
 export default CancelledOrders;

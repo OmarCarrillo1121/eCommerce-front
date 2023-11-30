@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Style from "./register.module.css";
 import Input from "../../components/input/input";
 import Button from "../../components/button/button";
@@ -15,6 +16,8 @@ export default function Register({ handleChange }) {
   const email = useField({ type: "email" });
   const password = useField({ type: "password" });
   //const adress = useField({ type: "adress" });
+  const URL_GAMES = "https://ecomercestorebacken.vercel.app";
+  // const URL_GAMES = "http://localhost:3001";
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -25,13 +28,12 @@ export default function Register({ handleChange }) {
     setError("");
     try {
       await createUserWithEmailAndPassword(auth, email.value, password.value);
-      dispatch(
-        postUser({
-          name: userName.value,
-          email: email.value,
-          password: password.value,
-        })
-      );
+      const user = {
+        name: userName.value,
+        email: email.value,
+        password: password.value,
+      };
+      await axios.post(`${URL_GAMES}/users`, user);
       alert("¡Usuario creado con exito, ahora podés iniciar sesión!");
       navigate("/login");
     } catch (error) {

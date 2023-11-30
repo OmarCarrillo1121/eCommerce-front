@@ -40,22 +40,31 @@ import {
   GET_USER_BY_ID,
   FILTER_BY_ROL,
   GET_USER_BY_NAME,
-  AUTH_USER,
   SET_CURRENT_PAGE,
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  POST_REVIEW_REQUEST,
+  POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE,
   POST_USER,
   GET_ACTIVE_VIDEOGAMES,
   DELETED_VIDEOGAMES,
   RESTORE_VIDEOGAME,
   GET_USER_BY_EMAIL,
+  GET_ORDERS_BY_USER,
+  GET_REVIEWS_BY_USER,
+  RESET_DETAIL_REVIEWS_USER,
   ADD_SUCCESSFUL_PURCHASE,
   ADD_REJECTED_PURCHASE,
   SET_SHOPPING_CART,
   GET_ORDERS_BY_ID_USER,
-  GET_REVIEWS_BY_USER,
   GET_REVIEWS_OF_GAME,
+  //AUTH
+  IS_LOGGED,
+  IS_ADMIN,
+  AUTH_USER_DATA,
+  CLEAN_SHOPPING_CART,
 } from "./action-types";
 
 const initialState = {
@@ -74,10 +83,11 @@ const initialState = {
   bannedUsersOfi: [],
   adminsFiltered: [],
   usersFilteredO: [],
-  user: {},
+  user: null,
   statusFilter: "all",
   rolFilter: "All roles",
-  authUser: {},
+  reviewsByUser: [],
+  authUser: null,
   currentPage: 1,
 
   allReviews: [],
@@ -103,15 +113,15 @@ const initialState = {
   detailOrders: {},
   canceledOrder: [],
   activeOrder: [],
+  orderUser: [],
   ordersUser: [],
-
-    //! Carrito-Edward
-    shoppingCart: [], //Acá traigo todos los productos que voy a comprar
-    //! Historial de Compras:
-    shopping: {
-        approved: [],
-        rejected: [],
-    },
+  //! Carrito-Edward
+  shoppingCart: [], //Acá traigo todos los productos que voy a comprar
+  //! Historial de Compras:
+  shopping: {
+    approved: [],
+    rejected: [],
+  },
 
   loading: true,
 
@@ -132,7 +142,6 @@ const saveStateToLocalStorage = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-
     case FETCH_REVIEWS_REQUEST:
       return {
         ...state,
@@ -386,6 +395,27 @@ const reducer = (state = initialState, action) => {
       return { ...state };
     }
 
+    case POST_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case POST_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reviews: [...state.reviews, action.payload],
+      };
+
+    case POST_REVIEW_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     /* GET ALL BANNERS */
     case GET_ALL_BANNERS: {
       return {
@@ -556,6 +586,19 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case GET_REVIEWS_BY_USER: {
+      return {
+        ...state,
+        reviewsByUser: action.payload
+      }
+    }
+    case RESET_DETAIL_REVIEWS_USER:{
+      return {
+        ...state,
+        reviewsByUser:[...action.payload],
+      }
+    }
+      
     /* GET ALL REVIEWS */
     case GET_ALL_REVIEWS: {
       return {
@@ -668,6 +711,18 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case GET_ORDERS_BY_USER: {
+      return {
+        ...state,
+        orderUser: [...action.payload],
+      }
+     }
+        case RESET_DETAIL_ORDERS:
+            return {
+              ...state,
+              orderUser: [...action.payload],
+            };
+
     /*GET ORDERS BY ID❤ */
     case GET_BY_ID_ORDERS:
       let payloadObject =
@@ -735,15 +790,15 @@ const reducer = (state = initialState, action) => {
     case GET_ORDERS_BY_ID_USER: {
       return {
         ...state,
-        ordersUser: action.payload
-      }
+        ordersUser: action.payload,
+      };
     }
 
     case GET_REVIEWS_BY_USER: {
       return {
         ...state,
-        reviewsByUser: action.payload
-      }
+        reviewsByUser: action.payload,
+      };
     }
     //////////////////////////////////////////////////////////////////
 
@@ -797,12 +852,13 @@ const reducer = (state = initialState, action) => {
 
     //!FIN EDWARD
 
-    case AUTH_USER: {
+    //AUTH_USER
+    case AUTH_USER_DATA:
       return {
         ...state,
-        authUser: { ...action.payload },
+        authUser: action.payload,
+        user: action.payload,
       };
-    }
 
     case POST_USER: {
       const newState = {
@@ -870,6 +926,12 @@ const reducer = (state = initialState, action) => {
         );
         return state;
       }
+      case CLEAN_SHOPPING_CART:
+        console.log("Limpia carro en reducer");
+        return {
+          ...state,
+          shoppingCart: [],
+        };
     //!Edward
 
     default:
